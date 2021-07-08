@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">OnlineStore</string>
+    <string name="feed">Feed</string>
+    <string name="find">Find</string>
+    <string name="post">Post</string>
+    <string name="bookmarks">Bookmarks</string>
+    <string name="profile">Profile</string>
 </resources>
