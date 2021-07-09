@@ -35,14 +35,10 @@ public class MainActivity extends AppCompatActivity {
         navController = navHostFragment.getNavController();
         NavigationUI.setupWithNavController(bottomNavigationView,navController);
 
+        //custom toast feature functionality
         customToastInflater = getLayoutInflater();
         customToastLayout = customToastInflater.inflate(R.layout.custom_toast, (ViewGroup) findViewById(R.id.custom_toast_layout));
         CustomToast toast = new CustomToast(this, customToastLayout);
-
-        toast.show(CustomToastMode.INFO, "This is an info message.\nthis is second line.", 1);
-        toast.show(CustomToastMode.WARNING, "This is a warning message.", 0);
-        toast.show(CustomToastMode.ERROR, "This is an error message.", 0);
-        toast.show(CustomToastMode.APPROVE, "This is an approval message.", 0);
 
 
     }
