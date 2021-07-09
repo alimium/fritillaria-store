@@ -10,17 +10,21 @@
             android:supportsRtl="true"
             android:theme="@style/Theme.OnlineStore">
         <activity
-                android:name=".splash.SplashActivity"
-                android:exported="true">
+                android:name=".contents.splash.SplashActivity"
+                android:exported="true"
+                android:theme="@style/SplashScreenLight">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
                 android:name=".MainActivity"
-                android:exported="true"/>
+                android:exported="true">
+        </activity>
+
+
     </application>
 
 </manifest>
