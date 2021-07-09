@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:id="@+id/item_home" android:title="@string/feed" android:icon="@drawable/ic_home"/>
-    <item android:id="@+id/item_search" android:title="@string/find" android:icon="@drawable/ic_search"/>
-    <item android:id="@+id/item_add" android:title="@string/post" android:icon="@drawable/ic_add"/>
-    <item android:id="@+id/item_bookmark" android:title="@string/bookmarks" android:icon="@drawable/ic_bookmark"/>
-    <item android:id="@+id/item_profile" android:title="@string/profile" android:icon="@drawable/ic_person"/>
+    <item android:id="@+id/feed_page" android:title="@string/feed" android:icon="@drawable/ic_home"/>
+    <item android:id="@+id/find_page" android:title="@string/find" android:icon="@drawable/ic_search"/>
+    <item android:id="@+id/post_page" android:title="@string/post" android:icon="@drawable/ic_add"/>
+    <item android:id="@+id/bookmarks_page" android:title="@string/bookmarks" android:icon="@drawable/ic_bookmark"/>
+    <item android:id="@+id/profile_page" android:title="@string/profile" android:icon="@drawable/ic_person"/>
 
 </menu>

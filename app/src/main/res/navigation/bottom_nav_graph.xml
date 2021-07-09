@@ -1,6 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/bottom_nav_graph">
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/bottom_nav_graph"
+        app:startDestination="@id/feed_page">
 
+    <fragment
+            android:id="@+id/profile_page"
+            android:name="com.example.onlinestore.contents.pages.profilepage.ProfileFragment"
+            android:label="fragment_user_profile"
+            tools:layout="@layout/fragment_profile" />
+    <fragment
+            android:id="@+id/feed_page"
+            android:name="com.example.onlinestore.contents.pages.feedpage.FeedFragment"
+            android:label="fragment_feed"
+            tools:layout="@layout/fragment_feed" />
+    <fragment
+            android:id="@+id/find_page"
+            android:name="com.example.onlinestore.contents.pages.findpage.FindFragment"
+            android:label="fragment_find"
+            tools:layout="@layout/fragment_find" />
+    <fragment
+            android:id="@+id/post_page"
+            android:name="com.example.onlinestore.contents.pages.postpage.PostFragment"
+            android:label="fragment_post"
+            tools:layout="@layout/fragment_post" />
+    <fragment
+            android:id="@+id/bookmarks_page"
+            android:name="com.example.onlinestore.contents.pages.bookmarkspage.BookmarksFragment"
+            android:label="fragment_bookmarks"
+            tools:layout="@layout/fragment_bookmarks" />
 </navigation>
