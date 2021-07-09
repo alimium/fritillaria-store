@@ -10,6 +10,7 @@
         <entry key="app/src/main/res/drawable/ic_shopping_basket.xml" value="0.3405982905982906" />
         <entry key="app/src/main/res/drawable/ic_splash.xml" value="0.3405982905982906" />
         <entry key="app/src/main/res/drawable/splash_screen.xml" value="0.3405982905982906" />
+        <entry key="app/src/main/res/drawable/text_view_background.xml" value="0.3362869198312236" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.28290385710865273" />
         <entry key="app/src/main/res/layout/activity_splash.xml" value="0.3158119658119658" />
         <entry key="app/src/main/res/layout/custom_toast.xml" value="0.32735042735042735" />
@@ -17,6 +18,7 @@
         <entry key="app/src/main/res/layout/fragment_feed.xml" value="0.15998329156223892" />
         <entry key="app/src/main/res/layout/fragment_find.xml" value="0.32735042735042735" />
         <entry key="app/src/main/res/layout/fragment_post.xml" value="0.32735042735042735" />
+        <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.335" />
         <entry key="app/src/main/res/layout/fragment_user_profile.xml" value="0.32735042735042735" />
         <entry key="app/src/main/res/menu/bottom_menu.xml" value="0.3627906976744186" />
       </map>
