@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
         customToastInflater = getLayoutInflater();
         customToastLayout = customToastInflater.inflate(R.layout.custom_toast, (ViewGroup) findViewById(R.id.custom_toast_layout));
         CustomToast toast = new CustomToast(this, customToastLayout);
+        toast.show(CustomToastMode.APPROVE,"Email changed successfully",1);
 
 
     }
