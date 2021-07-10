@@ -28,7 +28,7 @@
                 app:layout_constraintTop_toBottomOf="@id/top_bar"
                 android:layout_marginTop="20dp"
                 android:src="@drawable/default_profile_picture"
-                android:padding="2dp"/>
+                android:padding="2dp" />
 
         <com.google.android.material.button.MaterialButton
                 android:id="@+id/change_profile_picture_button"
@@ -41,7 +41,7 @@
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 app:strokeWidth="2sp"
                 app:cornerRadius="20dp"
-                android:textAllCaps="false"/>
+                android:textAllCaps="false" />
 
         <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/name_text_view"
@@ -51,15 +51,64 @@
                 android:text="First Name Last Name"
                 android:textAlignment="center"
                 android:textSize="30dp"
-                android:paddingHorizontal="10dp"/>
+                android:paddingHorizontal="10dp" />
 
         <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/email_text_view"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/name_text_view"
                 android:text="ٍEmailAddress@Domain.com"
                 android:textAlignment="center"
-                android:textSize="15dp"/>
+                android:textSize="15sp"
+                android:drawableStart="@drawable/ic_email"
+                android:drawablePadding="6dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+        <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/phone_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/email_text_view"
+                android:text="+989991234567"
+                android:textAlignment="center"
+                android:textSize="13sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:drawableStart="@drawable/ic_phone"
+                android:drawablePadding="6dp"/>
+
+        <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/optional_phone_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/phone_text_view"
+                android:text="+989981234534"
+                android:textAlignment="center"
+                android:textSize="13sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:drawableStart="@drawable/ic_phone"
+                android:drawablePadding="6dp"/>
+
+        <com.google.android.material.button.MaterialButton
+                android:id="@+id/edit_profile_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:paddingHorizontal="2dp"
+                android:layout_marginHorizontal="10dp"
+                app:cornerRadius="20dp"
+                style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+                android:text="Edit Profile"
+                android:textAllCaps="false"
+                android:layout_marginBottom="60dp"/>
+
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
