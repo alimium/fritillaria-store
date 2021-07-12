@@ -9,9 +9,13 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 
 import com.example.onlinestore.R;
 import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.textfield.MaterialAutoCompleteTextView;
+
+import java.util.ArrayList;
 
 public class PostFragment extends Fragment {
 
@@ -41,6 +45,28 @@ public class PostFragment extends Fragment {
                 getActivity().onBackPressed();
             }
         });
+
+        ArrayList<String> categoryDropdownArrayList = new ArrayList<>();
+        ArrayList<String> genderDropdownArrayList = new ArrayList<>();
+
+        categoryDropdownArrayList.add("Accessories");
+        categoryDropdownArrayList.add("Clothing");
+        categoryDropdownArrayList.add("Shoes");
+        categoryDropdownArrayList.add("Underwear");
+
+        genderDropdownArrayList.add("Men");
+        genderDropdownArrayList.add("Women");
+        genderDropdownArrayList.add("Kids");
+
+        ArrayAdapter<String> categoryDropdownListAdapter = new ArrayAdapter<String>(requireContext()
+                , R.layout.list_item_layout,categoryDropdownArrayList);
+        MaterialAutoCompleteTextView categoryDropDown = view.findViewById(R.id.post_category_autocomplete);
+        categoryDropDown.setAdapter(categoryDropdownListAdapter);
+
+        ArrayAdapter<String> genderDropdownListAdapter = new ArrayAdapter<String>(requireContext()
+                , R.layout.list_item_layout, genderDropdownArrayList);
+        MaterialAutoCompleteTextView genderDropdown = view.findViewById(R.id.post_gender_autocomplete);
+        genderDropdown.setAdapter(genderDropdownListAdapter);
 
 
 
