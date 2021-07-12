@@ -194,6 +194,25 @@
             </com.google.android.material.textfield.TextInputLayout>
 
 
+            <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/post_size"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    app:layout_constraintTop_toBottomOf="@id/post_category"
+                    app:boxCornerRadiusBottomEnd="20dp"
+                    app:boxCornerRadiusBottomStart="20dp"
+                    app:boxCornerRadiusTopEnd="20dp"
+                    app:boxCornerRadiusTopStart="20dp"
+                    android:hint="Size">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/post_size_text_view"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
             <!--            TODO: put in the right place-->
             <!--            <com.google.android.material.button.MaterialButton-->
             <!--                    android:id="@+id/post_next_button"-->

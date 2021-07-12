@@ -6,14 +6,19 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 
 import com.example.onlinestore.R;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.textfield.MaterialAutoCompleteTextView;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
+import com.google.android.material.textview.MaterialTextView;
 
 import java.util.ArrayList;
 
@@ -68,6 +73,8 @@ public class PostFragment extends Fragment {
         MaterialAutoCompleteTextView genderDropdown = view.findViewById(R.id.post_gender_autocomplete);
         genderDropdown.setAdapter(genderDropdownListAdapter);
 
+        TextInputLayout sizeTextInputLayout = view.findViewById(R.id.post_size);
+        TextInputEditText sizeTextView = view.findViewById(R.id.post_size_text_view);
 
 
 
