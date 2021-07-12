@@ -100,6 +100,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:singleLine="true" />
+
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -124,29 +125,56 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/post_price"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/post_description"
-                    android:hint="Price"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    app:boxCornerRadiusBottomEnd="20dp"
-                    app:boxCornerRadiusBottomStart="20dp"
-                    app:boxCornerRadiusTopEnd="20dp"
-                    app:boxCornerRadiusTopStart="20dp"
-                    android:layout_margin="0.5dp"
-                    app:suffixText="$  ">
+                android:id="@+id/post_price"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="155dp"
+
+                android:layout_height="wrap_content"
+
+                android:layout_margin="0.5dp"
+                android:hint="Price"
+                app:boxCornerRadiusBottomEnd="20dp"
+                app:boxCornerRadiusBottomStart="20dp"
+                app:boxCornerRadiusTopEnd="20dp"
+                app:boxCornerRadiusTopStart="20dp"
+                app:layout_constraintStart_toStartOf="@+id/post_description"
+                app:layout_constraintTop_toBottomOf="@id/post_description"
+                app:suffixText="$  ">
 
                 <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="numberDecimal" />
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal" />
             </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/post_percent"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="155dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="0.5dp"
+                android:layout_marginStart="20dp"
+                android:hint="Percent"
+                app:boxCornerRadiusBottomEnd="20dp"
+                app:boxCornerRadiusBottomStart="20dp"
+                app:boxCornerRadiusTopEnd="20dp"
+                app:boxCornerRadiusTopStart="20dp"
+                app:layout_constraintEnd_toEndOf="@+id/post_description"
+                app:layout_constraintStart_toEndOf="@+id/post_price"
+                app:layout_constraintTop_toBottomOf="@id/post_description"
+                app:suffixText="$  ">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal" />
+            </com.google.android.material.textfield.TextInputLayout>
+
 
 
             <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/post_category"
-                    android:layout_width="200dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                     app:layout_constraintTop_toBottomOf="@id/post_price"
@@ -157,61 +185,126 @@
                     android:hint="Pick a category"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintEnd_toStartOf="@+id/post_gender">
+                    >
 
 
                 <com.google.android.material.textfield.MaterialAutoCompleteTextView
                         android:id="@+id/post_category_autocomplete"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                    android:maxLength="200"
                         android:inputType="none" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/post_gender"
-                    android:layout_width="0dp"
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chipGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toTopOf="@+id/post_size"
+                app:layout_constraintEnd_toEndOf="@+id/post_category"
+                app:layout_constraintStart_toStartOf="@+id/post_category"
+                app:layout_constraintTop_toBottomOf="@+id/post_category">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_kids"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                    app:layout_constraintStart_toEndOf="@+id/post_category"
-                    app:layout_constraintTop_toBottomOf="@id/post_price"
-                    app:boxCornerRadiusBottomEnd="20dp"
-                    app:boxCornerRadiusBottomStart="20dp"
-                    app:boxCornerRadiusTopEnd="20dp"
-                    app:boxCornerRadiusTopStart="20dp"
-                    android:hint="Gender"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    android:layout_marginStart="4dp">
+                    android:checked="true"
+                    android:text="kid" />
 
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_men"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="Male" />
 
-                <com.google.android.material.textfield.MaterialAutoCompleteTextView
-                        android:id="@+id/post_gender_autocomplete"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="none" />
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_women"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="Female" />
+
+            </com.google.android.material.chip.ChipGroup>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/post_size"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Size"
+                app:boxCornerRadiusBottomEnd="20dp"
+                app:boxCornerRadiusBottomStart="20dp"
+                app:boxCornerRadiusTopEnd="20dp"
+                app:boxCornerRadiusTopStart="20dp"
+                app:layout_constraintBottom_toTopOf="@+id/post_city"
+                tools:layout_editor_absoluteX="20dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/post_size_text_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
 
             <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/post_size"
+                android:id="@+id/post_city"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="City"
+                app:boxCornerRadiusBottomEnd="20dp"
+                app:boxCornerRadiusBottomStart="20dp"
+                app:boxCornerRadiusTopEnd="20dp"
+                app:boxCornerRadiusTopStart="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                tools:layout_editor_absoluteX="20dp"
+                app:counterEnabled="true"
+                app:counterMaxLength="200">
+
+                <com.google.android.material.textfield.TextInputEditText
+
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    app:layout_constraintTop_toBottomOf="@id/post_category"
-                    app:boxCornerRadiusBottomEnd="20dp"
-                    app:boxCornerRadiusBottomStart="20dp"
-                    app:boxCornerRadiusTopEnd="20dp"
-                    app:boxCornerRadiusTopStart="20dp"
-                    android:hint="Size">
+                    android:inputType="numberDecimal"
+                    android:maxLength="200"/>
 
-                    <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/post_size_text_view"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"/>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="fill"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/advbutton"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginBottom="0dp"
+                        android:text="registration" />
+
+
+                    <Button
+                        android:id="@+id/cancel_button"
+                        style="?attr/materialButtonOutlinedStyle"
+                        android:layout_width="95dp"
+                        android:layout_height="wrap_content"
+
+                        android:layout_marginStart="9dp"
+                        android:layout_toEndOf="@+id/advbutton"
+                        android:text="Cancel"
+                        app:layout_constraintBottom_toBottomOf="parent" />
+                </RelativeLayout>
 
             </com.google.android.material.textfield.TextInputLayout>
+
 
             <!--            TODO: put in the right place-->
             <!--            <com.google.android.material.button.MaterialButton-->
@@ -244,14 +337,14 @@
                 app:expandedTitleGravity="bottom|center_horizontal">
 
             <com.google.android.material.appbar.MaterialToolbar
-                    android:id="@+id/top_app_bar_post"
-                    android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"
-                    android:stateListAnimator="@null"
-                    app:title="Post New Item"
-                    style="@style/ThemeOverlay.MaterialComponents.BottomAppBar.Primary.MyApp"
-                    app:layout_collapseMode="pin"
-                    app:navigationIcon="@drawable/ic_arrow_back">
+                android:id="@+id/top_app_bar_post"
+                style="@style/ThemeOverlay.MaterialComponents.BottomAppBar.Primary.MyApp"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:stateListAnimator="@null"
+                app:layout_collapseMode="pin"
+                app:navigationIcon="@drawable/ic_arrow_back"
+                app:title="Post New Item">
 
             </com.google.android.material.appbar.MaterialToolbar>
 

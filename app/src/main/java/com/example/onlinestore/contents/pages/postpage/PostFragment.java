@@ -68,10 +68,7 @@ public class PostFragment extends Fragment {
         MaterialAutoCompleteTextView categoryDropDown = view.findViewById(R.id.post_category_autocomplete);
         categoryDropDown.setAdapter(categoryDropdownListAdapter);
 
-        ArrayAdapter<String> genderDropdownListAdapter = new ArrayAdapter<String>(requireContext()
-                , R.layout.list_item_layout, genderDropdownArrayList);
-        MaterialAutoCompleteTextView genderDropdown = view.findViewById(R.id.post_gender_autocomplete);
-        genderDropdown.setAdapter(genderDropdownListAdapter);
+
 
         TextInputLayout sizeTextInputLayout = view.findViewById(R.id.post_size);
         TextInputEditText sizeTextView = view.findViewById(R.id.post_size_text_view);
