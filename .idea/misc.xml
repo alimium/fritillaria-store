@@ -3,36 +3,18 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="app/src/main/res/drawable/custom_toast_background.xml" value="0.3362869198312236" />
-        <entry key="app/src/main/res/drawable/ic_arrow_back.xml" value="0.3405982905982906" />
-        <entry key="app/src/main/res/drawable/ic_bookmark_small.xml" value="0.3362869198312236" />
-        <entry key="app/src/main/res/drawable/ic_check.xml" value="0.3362869198312236" />
-        <entry key="app/src/main/res/drawable/ic_edit_pen.xml" value="0.3362869198312236" />
-        <entry key="app/src/main/res/drawable/ic_error.xml" value="0.3362869198312236" />
-        <entry key="app/src/main/res/drawable/ic_info.xml" value="0.3362869198312236" />
-        <entry key="app/src/main/res/drawable/ic_info_small.xml" value="0.3362869198312236" />
-        <entry key="app/src/main/res/drawable/ic_logout.xml" value="0.3362869198312236" />
-        <entry key="app/src/main/res/drawable/ic_phone.xml" value="0.3362869198312236" />
-        <entry key="app/src/main/res/drawable/ic_round_email_24.xml" value="0.3362869198312236" />
-        <entry key="app/src/main/res/drawable/ic_shopping_basket.xml" value="0.3405982905982906" />
-        <entry key="app/src/main/res/drawable/ic_splash.xml" value="0.3405982905982906" />
-        <entry key="app/src/main/res/drawable/ic_warning.xml" value="0.3362869198312236" />
-        <entry key="app/src/main/res/drawable/splash_screen.xml" value="0.3405982905982906" />
-        <entry key="app/src/main/res/drawable/splash_screen_light.xml" value="0.3362869198312236" />
-        <entry key="app/src/main/res/drawable/text_view_background.xml" value="0.3362869198312236" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.28290385710865273" />
-        <entry key="app/src/main/res/layout/activity_splash.xml" value="0.3158119658119658" />
-        <entry key="app/src/main/res/layout/custom_toast.xml" value="0.32735042735042735" />
-        <entry key="app/src/main/res/layout/fragment_bookmarks.xml" value="0.32735042735042735" />
-        <entry key="app/src/main/res/layout/fragment_feed.xml" value="0.15998329156223892" />
-        <entry key="app/src/main/res/layout/fragment_find.xml" value="0.32735042735042735" />
-        <entry key="app/src/main/res/layout/fragment_post.xml" value="0.36217948717948717" />
-        <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.45" />
-        <entry key="app/src/main/res/layout/fragment_user_profile.xml" value="0.32735042735042735" />
-        <entry key="app/src/main/res/layout/list_item_layout.xml" value="0.32735042735042735" />
-        <entry key="app/src/main/res/layout/post_category_list_item_layout.xml" value="0.32735042735042735" />
-        <entry key="app/src/main/res/menu/bottom_menu.xml" value="0.3627906976744186" />
-        <entry key="app/src/main/res/menu/top_app_bar_center.xml" value="0.32735042735042735" />
+        <entry key="..\:/Users/mohammadi/AndroidStudioProjects/ONLINE/app/src/main/res/drawable/ic_baseline_lock_open_24.xml" value="0.2515625" />
+        <entry key="..\:/Users/mohammadi/AndroidStudioProjects/ONLINE/app/src/main/res/drawable/ic_baseline_mail_outline_24.xml" value="0.3020833333333333" />
+        <entry key="..\:/Users/mohammadi/AndroidStudioProjects/ONLINE/app/src/main/res/drawable/ic_baseline_person_outline_24.xml" value="0.2515625" />
+        <entry key="..\:/Users/mohammadi/AndroidStudioProjects/ONLINE/app/src/main/res/layout/activity_login.xml" value="0.1" />
+        <entry key="..\:/Users/mohammadi/AndroidStudioProjects/ONLINE/app/src/main/res/layout/activity_main.xml" value="0.24270833333333333" />
+        <entry key="..\:/Users/mohammadi/AndroidStudioProjects/ONLINE/app/src/main/res/layout/activity_register.xml" value="0.264" />
+        <entry key="..\:/Users/mohammadi/AndroidStudioProjects/ONLINE/app/src/main/res/layout/custom_toast.xml" value="0.246875" />
+        <entry key="..\:/Users/mohammadi/AndroidStudioProjects/ONLINE/app/src/main/res/layout/fragment_bookmarks.xml" value="0.25833333333333336" />
+        <entry key="..\:/Users/mohammadi/AndroidStudioProjects/ONLINE/app/src/main/res/layout/fragment_post.xml" value="0.246875" />
+        <entry key="..\:/Users/mohammadi/AndroidStudioProjects/ONLINE/app/src/main/res/layout/fragment_profile.xml" value="0.6" />
+        <entry key="..\:/Users/mohammadi/AndroidStudioProjects/ONLINE/app/src/main/res/layout/list_item_layout.xml" value="0.25833333333333336" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.23596014492753623" />
       </map>
     </option>
   </component>
