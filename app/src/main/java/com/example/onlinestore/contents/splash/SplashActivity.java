@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.example.onlinestore.LoginActivity;
 import com.example.onlinestore.MainActivity;
 
 public class SplashActivity extends AppCompatActivity {
@@ -25,7 +26,7 @@ public class SplashActivity extends AppCompatActivity {
 //        }, 500);
 
 
-        startActivity(new Intent(com.example.onlinestore.contents.splash.SplashActivity.this, MainActivity.class));
+        startActivity(new Intent(com.example.onlinestore.contents.splash.SplashActivity.this, LoginActivity.class));
         finish();
 
 
