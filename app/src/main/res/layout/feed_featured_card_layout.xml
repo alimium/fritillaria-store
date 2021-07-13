@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="150dp"
+        android:layout_height="260dp"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="0dp"
+        app:strokeWidth="1dp"
+        app:strokeColor="@color/stroke_color"
+        android:layout_margin="4dp">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+        <com.google.android.material.imageview.ShapeableImageView
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:src="@drawable/default_profile_picture"
+                android:scaleType="fitXY"
+                android:adjustViewBounds="true"
+                app:layout_constraintTop_toTopOf="parent"
+                android:id="@+id/feed_featured_card_picture" />
+
+
+        <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/feed_featured_title_textview"
+                app:layout_constraintTop_toBottomOf="@id/feed_featured_card_picture"
+                app:layout_constraintBottom_toTopOf="@id/feed_card_featured_description_textview"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:text="Item Title"
+                android:textColor="?attr/colorPrimary"
+                android:textAlignment="center"
+                android:textSize="15sp" />
+
+        <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/feed_card_featured_description_textview"
+                app:layout_constraintTop_toBottomOf="@id/feed_featured_title_textview"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:text="Item Content Description long text long text"
+                android:textAlignment="center"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toTopOf="@+id/feed_card_featured_final_price_textview" />
+
+        <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/feed_card_featured_final_price_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="56.99"
+                android:textSize="20sp"
+                android:textColor="?attr/colorPrimary"
+                android:drawableStart="@drawable/ic_dollar"
+                app:layout_constraintBottom_toTopOf="@+id/feed_card_featured_raw_price_textview"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+        <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/feed_card_featured_raw_price_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="90.99"
+                android:textSize="15sp"
+                android:foreground="@drawable/strike_through"
+                android:paddingHorizontal="4dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+
+
+
+
+
+
+</com.google.android.material.card.MaterialCardView>

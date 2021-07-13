@@ -29,7 +29,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/login_logo"
-                app:cardElevation="10dp"
+                app:cardElevation="5dp"
                 app:cardUseCompatPadding="true"
                 app:cardCornerRadius="20dp">
 
