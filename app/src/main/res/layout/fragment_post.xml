@@ -116,12 +116,12 @@
                     app:boxCornerRadiusTopStart="20dp"
                     android:layout_margin="0.5dp"
                     app:counterEnabled="true"
-                    app:counterMaxLength="200">
+                    app:counterMaxLength="60">
 
                 <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:maxLength="200" />
+                        android:maxLength="60" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
