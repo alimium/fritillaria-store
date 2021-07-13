@@ -47,8 +47,7 @@
         <item name="closeIconTint">@color/ds_chip_close_icon</item>
     </style>
 
-
-
+    <style name="ToolbarColoredxBackArrow"></style>
 
 
 </resources>
