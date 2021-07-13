@@ -29,6 +29,7 @@
         <entry key="app/src/main/res/layout/custom_toast.xml" value="0.32735042735042735" />
         <entry key="app/src/main/res/layout/feed_card_layout.xml" value="0.32735042735042735" />
         <entry key="app/src/main/res/layout/feed_featured_card_layout.xml" value="1.0" />
+        <entry key="app/src/main/res/layout/feed_items_card_layout.xml" value="0.32735042735042735" />
         <entry key="app/src/main/res/layout/fragment_bookmarks.xml" value="0.32735042735042735" />
         <entry key="app/src/main/res/layout/fragment_feed.xml" value="0.335" />
         <entry key="app/src/main/res/layout/fragment_find.xml" value="0.32735042735042735" />

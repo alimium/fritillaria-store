@@ -19,9 +19,9 @@ import java.util.ArrayList;
 
 public class FeedFragment extends Fragment {
 
-    private RecyclerView featuredRecyclerView;
-    private RecyclerView.Adapter featuredRecyclerViewAdapter;
-    private RecyclerView.LayoutManager featuredRecyclerViewLayoutManager;
+    private RecyclerView featuredRecyclerView,itemsRecyclerView;
+    private RecyclerView.Adapter featuredRecyclerViewAdapter, itemsRecyclerViewAdapter;
+    private RecyclerView.LayoutManager featuredRecyclerViewLayoutManager, itemsRecyclerViewLayoutManager;
     ArrayList<FeaturedCardModel> featuredCardModelArrayList;
 
     public FeedFragment(){}
@@ -58,6 +58,9 @@ public class FeedFragment extends Fragment {
         featuredRecyclerView.setHasFixedSize(true);
         featuredRecyclerView.setLayoutManager(featuredRecyclerViewLayoutManager);
         featuredRecyclerView.setAdapter(featuredRecyclerViewAdapter);
+
+
+        itemsRecyclerView = view.findViewById(R.id.feed_item_list_recyclerview);
 
 
     }

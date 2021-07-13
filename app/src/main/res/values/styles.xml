@@ -37,4 +37,18 @@
         <item name="android:titleTextColor">@color/design_default_color_on_primary</item>
         <item name="android:backgroundTint">@color/design_default_color_primary</item>
     </style>
+
+
+
+    <style name="Widget.DesignSystem.Chip.OutlinedBox.Choice" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="chipBackgroundColor">@color/ds_chip_outlined_choice_background_color</item>
+        <item name="chipStrokeColor">@color/ds_chip_choice_stroke</item>
+        <item name="chipStrokeWidth">1dp</item>
+        <item name="closeIconTint">@color/ds_chip_close_icon</item>
+    </style>
+
+
+
+
+
 </resources>
