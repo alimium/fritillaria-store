@@ -220,7 +220,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="true"
-                    android:text="Male" />
+                    android:text="Men" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chip_women"
@@ -228,7 +228,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="true"
-                    android:text="Female" />
+                    android:text="Women" />
 
             </com.google.android.material.chip.ChipGroup>
 
@@ -265,15 +265,17 @@
                 app:boxCornerRadiusTopStart="20dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 tools:layout_editor_absoluteX="20dp"
-                app:counterEnabled="true"
-                app:counterMaxLength="200">
+                >
 
                 <com.google.android.material.textfield.TextInputEditText
 
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="numberDecimal"
-                    android:maxLength="200"/>
+                   />
+                <Space
+                    android:layout_width="1dp"
+                    android:layout_height="30dp"/>
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -283,24 +285,19 @@
 
                     <Button
                         android:id="@+id/advbutton"
-                        android:layout_width="150dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-
+                        style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+                        app:boxCornerRadiusBottomEnd="20dp"
+                        app:boxCornerRadiusBottomStart="20dp"
+                        app:boxCornerRadiusTopEnd="20dp"
+                        app:boxCornerRadiusTopStart="20dp"
                         android:layout_alignParentBottom="true"
                         android:layout_marginBottom="0dp"
-                        android:text="registration" />
+                        android:text="Post" />
 
 
-                    <Button
-                        android:id="@+id/cancel_button"
-                        style="?attr/materialButtonOutlinedStyle"
-                        android:layout_width="95dp"
-                        android:layout_height="wrap_content"
-
-                        android:layout_marginStart="9dp"
-                        android:layout_toEndOf="@+id/advbutton"
-                        android:text="Cancel"
-                        app:layout_constraintBottom_toBottomOf="parent" />
+                  />
                 </RelativeLayout>
 
             </com.google.android.material.textfield.TextInputLayout>
