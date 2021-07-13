@@ -64,6 +64,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:text="#203045"
+                android:textColor="?attr/colorPrimary"
                 android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                 app:layout_constraintStart_toEndOf="@+id/feed_card_profile_picture"
                 app:layout_constraintBottom_toBottomOf="@+id/feed_card_profile_picture"
@@ -390,7 +391,7 @@
                             android:text="Call Seller"
                             android:textSize="15sp"
                             android:layout_marginStart="15dp"
-                            android:textColor="?attr/colorPrimary"
+                            android:textColor="?attr/colorOnSecondary"
                             android:layout_gravity="center"/>
 
                     <ImageView

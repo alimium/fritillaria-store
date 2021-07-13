@@ -281,7 +281,7 @@
                                                 android:layout_gravity="center"
                                                 android:textAlignment="center"
                                                 android:textSize="15sp"
-                                                android:textColor="#FF0000"
+                                                android:textColor="?attr/colorPrimary"
                                                 android:layout_marginStart="8dp" />
 
 
@@ -394,7 +394,8 @@
                         app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
                         app:contentScrim="?attr/colorPrimary"
                         app:statusBarScrim="?attr/colorPrimaryVariant"
-                        app:expandedTitleGravity="bottom|center_horizontal">
+                        app:expandedTitleGravity="bottom|center_horizontal"
+                        android:background="?attr/colorPrimary">
 
                         <com.google.android.material.appbar.MaterialToolbar
                                 android:id="@+id/top_app_bar_profile"

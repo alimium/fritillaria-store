@@ -34,8 +34,8 @@
 
 
     <style name="ThemeOverlay.MaterialComponents.BottomAppBar.Primary.MyApp" parent="Widget.MaterialComponents.AppBarLayout.Primary">
-        <item name="android:titleTextColor">@color/design_default_color_on_primary</item>
-        <item name="android:backgroundTint">@color/design_default_color_primary</item>
+        <item name="android:titleTextColor">?attr/colorOnPrimary</item>
+        <item name="android:backgroundTint">?attr/colorPrimary</item>
     </style>
 
 
