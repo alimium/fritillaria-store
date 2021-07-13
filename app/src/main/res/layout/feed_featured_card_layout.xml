@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="150dp"
+        android:layout_width="130dp"
         android:layout_height="260dp"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         app:cardCornerRadius="20dp"
@@ -19,7 +19,7 @@
 
         <com.google.android.material.imageview.ShapeableImageView
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
+                android:layout_height="130dp"
                 android:src="@drawable/default_profile_picture"
                 android:scaleType="fitXY"
                 android:adjustViewBounds="true"
@@ -41,16 +41,17 @@
                 android:textSize="15sp" />
 
         <com.google.android.material.textview.MaterialTextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/feed_card_featured_description_textview"
                 app:layout_constraintTop_toBottomOf="@id/feed_featured_title_textview"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                android:text="Item Content Description long text long text"
+                android:layout_marginHorizontal="8dp"
+                android:text="item description. item description. item description. item ."
                 android:textAlignment="center"
                 android:textSize="12sp"
-                app:layout_constraintBottom_toTopOf="@+id/feed_card_featured_final_price_textview" />
+                app:layout_constraintBottom_toTopOf="@+id/feed_card_featured_raw_price_textview" />
 
         <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/feed_card_featured_final_price_textview"
@@ -60,9 +61,9 @@
                 android:textSize="20sp"
                 android:textColor="?attr/colorPrimary"
                 android:drawableStart="@drawable/ic_dollar"
-                app:layout_constraintBottom_toTopOf="@+id/feed_card_featured_raw_price_textview"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
 
         <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/feed_card_featured_raw_price_textview"
@@ -72,9 +73,10 @@
                 android:textSize="15sp"
                 android:foreground="@drawable/strike_through"
                 android:paddingHorizontal="4dp"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.504"
+                app:layout_constraintBottom_toTopOf="@+id/feed_card_featured_final_price_textview"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

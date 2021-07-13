@@ -42,8 +42,4 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
-    //real time blur
-    implementation 'com.github.mmin18:realtimeblurview:1.2.1'
-
-
 }
