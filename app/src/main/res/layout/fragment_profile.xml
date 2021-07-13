@@ -136,13 +136,7 @@
                                         android:paddingBottom="6dp">
 
 
-                                        <com.google.android.material.textview.MaterialTextView
-                                                android:id="@+id/phone_text_view"
-                                                android:layout_width="wrap_content"
-                                                android:layout_height="wrap_content"
-                                                android:text="+989991234567"
-                                                android:textAlignment="center"
-                                                android:textSize="15sp" />
+                                         />
 
                                         <com.google.android.material.textview.MaterialTextView
                                                 android:id="@+id/optional_phone_text_view"
