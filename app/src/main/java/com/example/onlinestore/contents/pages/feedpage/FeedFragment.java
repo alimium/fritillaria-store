@@ -23,6 +23,7 @@ public class FeedFragment extends Fragment {
     private RecyclerView.Adapter featuredRecyclerViewAdapter, itemsRecyclerViewAdapter;
     private RecyclerView.LayoutManager featuredRecyclerViewLayoutManager, itemsRecyclerViewLayoutManager;
     ArrayList<FeaturedCardModel> featuredCardModelArrayList;
+    ArrayList<ItemCardModel> itemCardModelArrayList;
 
     public FeedFragment(){}
 
@@ -60,8 +61,20 @@ public class FeedFragment extends Fragment {
         featuredRecyclerView.setAdapter(featuredRecyclerViewAdapter);
 
 
+        itemCardModelArrayList = new ArrayList<>();
+        itemCardModelArrayList.add(new ItemCardModel(R.drawable.default_profile_picture, R.drawable.default_item_image, "#24586", "Item Title", "Item Description. Long Text Long Text. Long Text.", "XXL", "Men", "Clothing", "Paris, France", "139.99", "99.99"));
+        itemCardModelArrayList.add(new ItemCardModel(R.drawable.default_profile_picture, R.drawable.default_item_image, "#24586", "Item Title", "Item Description. Long Text Long Text. Long Text.", "XXL", "Men", "Clothing", "Paris, France", "139.99", "99.99"));
+        itemCardModelArrayList.add(new ItemCardModel(R.drawable.default_profile_picture, R.drawable.default_item_image, "#24586", "Item Title", "Item Description. Long Text Long Text. Long Text.", "XXL", "Men", "Clothing", "Paris, France", "139.99", "99.99"));
+        itemCardModelArrayList.add(new ItemCardModel(R.drawable.default_profile_picture, R.drawable.default_item_image, "#24586", "Item Title", "Item Description. Long Text Long Text. Long Text.", "XXL", "Men", "Clothing", "Paris, France", "139.99", "99.99"));
+        itemCardModelArrayList.add(new ItemCardModel(R.drawable.default_profile_picture, R.drawable.default_item_image, "#24586", "Item Title", "Item Description. Long Text Long Text. Long Text.", "XXL", "Men", "Clothing", "Paris, France", "139.99", "99.99"));
+        itemCardModelArrayList.add(new ItemCardModel(R.drawable.default_profile_picture, R.drawable.default_item_image, "#24586", "Item Title", "Item Description. Long Text Long Text. Long Text.", "XXL", "Men", "Clothing", "Paris, France", "139.99", "99.99"));
+        itemCardModelArrayList.add(new ItemCardModel(R.drawable.default_profile_picture, R.drawable.default_item_image, "#24586", "Item Title", "Item Description. Long Text Long Text. Long Text.", "XXL", "Men", "Clothing", "Paris, France", "139.99", "99.99"));
+
         itemsRecyclerView = view.findViewById(R.id.feed_item_list_recyclerview);
-
-
+        itemsRecyclerViewLayoutManager = new LinearLayoutManager(getContext());
+        itemsRecyclerViewAdapter = new ItemRecyclerViewAdapter(itemCardModelArrayList);
+        itemsRecyclerView.setHasFixedSize(true);
+        itemsRecyclerView.setLayoutManager(itemsRecyclerViewLayoutManager);
+        itemsRecyclerView.setAdapter(itemsRecyclerViewAdapter);
     }
 }

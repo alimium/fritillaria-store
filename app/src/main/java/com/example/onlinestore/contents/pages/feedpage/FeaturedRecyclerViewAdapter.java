@@ -48,13 +48,13 @@ public class FeaturedRecyclerViewAdapter extends RecyclerView.Adapter<FeaturedRe
 
     @Override
     public void onBindViewHolder(@NonNull FeaturedViewHolder holder, int position) {
-        FeaturedCardModel instanceItemCard = featuredCardModelArrayList.get(position);
+        FeaturedCardModel instanceFeaturedItemCard = featuredCardModelArrayList.get(position);
 
-        holder.itemPicture.setImageResource(instanceItemCard.getItemPicture());
-        holder.itemTitle.setText(instanceItemCard.getItemTitle());
-        holder.itemDescription.setText(instanceItemCard.getItemDescription());
-        holder.itemRawPrice.setText(instanceItemCard.getItemRawPrice());
-        holder.itemFinalPrice.setText(instanceItemCard.getItemFinalPrice());
+        holder.itemPicture.setImageResource(instanceFeaturedItemCard.getItemPicture());
+        holder.itemTitle.setText(instanceFeaturedItemCard.getItemTitle());
+        holder.itemDescription.setText(instanceFeaturedItemCard.getItemDescription());
+        holder.itemRawPrice.setText(instanceFeaturedItemCard.getItemRawPrice());
+        holder.itemFinalPrice.setText(instanceFeaturedItemCard.getItemFinalPrice());
     }
 
     @Override
