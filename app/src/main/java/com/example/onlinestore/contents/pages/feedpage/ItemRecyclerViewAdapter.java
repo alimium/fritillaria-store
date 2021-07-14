@@ -7,9 +7,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.transition.AutoTransition;
+import androidx.transition.TransitionManager;
 
 import com.example.onlinestore.R;
+import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.imageview.ShapeableImageView;
 
 import java.util.ArrayList;
@@ -20,6 +24,8 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
 
     public static class ItemViewHolder extends RecyclerView.ViewHolder {
 
+        public ConstraintLayout expandableLayout;
+        public MaterialCardView itemCard;
         public ShapeableImageView itemProfileImage;
         public TextView itemTitleTop, itemId;
         public ImageView itemPicture;
@@ -42,6 +48,8 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
             itemCity = itemView.findViewById(R.id.feed_card_city_textview);
             itemRawPrice = itemView.findViewById(R.id.feed_card_price_raw_textview);
             itemFinalPrice = itemView.findViewById(R.id.feed_card_price_final_textview);
+            itemCard = itemView.findViewById(R.id.feed_main_item_card);
+            expandableLayout = itemView.findViewById(R.id.expandable_layout);
 
 
         }
@@ -76,6 +84,24 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
         holder.itemRawPrice.setText(instanceItemCard.getItemRawPrice());
         holder.itemFinalPrice.setText(instanceItemCard.getItemFinalPrice());
 
+
+        holder.itemCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                toggleExpandableCard(holder);
+            }
+        });
+
+    }
+
+    private void toggleExpandableCard(ItemViewHolder holder) {
+        if (holder.expandableLayout.getVisibility()==View.VISIBLE){
+//            TransitionManager.beginDelayedTransition(holder.itemCard);
+            holder.expandableLayout.setVisibility(View.GONE);
+        }else {
+            TransitionManager.beginDelayedTransition(holder.itemCard);
+            holder.expandableLayout.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override

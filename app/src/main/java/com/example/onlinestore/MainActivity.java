@@ -12,12 +12,16 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.RelativeLayout;
 
 import com.example.onlinestore.contents.pages.profilepage.ProfileFragment;
@@ -67,4 +71,5 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+
 }

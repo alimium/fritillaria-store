@@ -1,6 +1,30 @@
 package com.example.onlinestore;
 
 import android.app.Activity;
+import android.os.Bundle;
+import android.view.View;
 
-public class RegisterActivity extends Activity {
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.material.appbar.MaterialToolbar;
+
+public class RegisterActivity extends AppCompatActivity {
+
+    MaterialToolbar topAppBar;
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_register);
+
+        topAppBar = findViewById(R.id.top_app_bar_register);
+
+        topAppBar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
+    }
 }

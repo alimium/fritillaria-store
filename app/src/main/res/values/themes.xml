@@ -13,8 +13,8 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimary</item>
         <!-- Customize your theme here. -->
 
-        <item name="android:windowBackground">#FFFEFC</item>
-        <item name="colorSurface">#FFFCF7</item>
+        <item name="android:windowBackground">#FFFCF7</item>
+        <item name="colorSurface">#FFFEFC</item>
     </style>
 
 
