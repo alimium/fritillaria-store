@@ -35,7 +35,7 @@
                         app:drawableTopCompat="@drawable/ic_info_small" />
 
                 <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/feed_item_list_recyclerview"
+                        android:id="@+id/find_item_list_recyclerview"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="60dp">
@@ -52,7 +52,7 @@
                     app:liftOnScroll="true">
 
                 <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/feed_featured_list_recyclerview"
+                        android:id="@+id/find_featured_list_recyclerview"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="?attr/colorPrimary"
@@ -61,7 +61,7 @@
 
 
                 <com.google.android.material.button.MaterialButton
-                        android:id="@+id/feed_filter_button"
+                        android:id="@+id/find_filter_button"
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
                         android:paddingVertical="10dp"
@@ -70,7 +70,8 @@
                         android:text="Filters"
                         android:textSize="18dp"
                         android:layout_margin="0dp"
-                        android:background="?attr/colorPrimary"/>
+                        android:background="?attr/colorPrimary"
+                        android:drawableStart="@drawable/ic_arrow_back"/>
 
 
             </com.google.android.material.appbar.AppBarLayout>

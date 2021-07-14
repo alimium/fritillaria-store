@@ -25,7 +25,7 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
     public static class ItemViewHolder extends RecyclerView.ViewHolder {
 
         public ConstraintLayout expandableLayout;
-        public MaterialCardView itemCard;
+        public MaterialCardView itemTitleCard;
         public ShapeableImageView itemProfileImage;
         public TextView itemTitleTop, itemId;
         public ImageView itemPicture;
@@ -33,6 +33,7 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
         public TextView itemSize, itemGender, itemCategory;
         public TextView itemCity;
         public TextView itemRawPrice, itemFinalPrice;
+        public ImageView bookmarkButton;
 
         public ItemViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -48,9 +49,9 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
             itemCity = itemView.findViewById(R.id.feed_card_city_textview);
             itemRawPrice = itemView.findViewById(R.id.feed_card_price_raw_textview);
             itemFinalPrice = itemView.findViewById(R.id.feed_card_price_final_textview);
-            itemCard = itemView.findViewById(R.id.feed_main_item_card);
+            itemTitleCard = itemView.findViewById(R.id.feed_title_card);
             expandableLayout = itemView.findViewById(R.id.expandable_layout);
-
+            bookmarkButton = itemView.findViewById(R.id.feed_card_bookmark_icon);
 
         }
     }
@@ -85,10 +86,24 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
         holder.itemFinalPrice.setText(instanceItemCard.getItemFinalPrice());
 
 
-        holder.itemCard.setOnClickListener(new View.OnClickListener() {
+        holder.itemTitleCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 toggleExpandableCard(holder);
+            }
+        });
+
+
+        holder.bookmarkButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (holder.bookmarkButton.getTag().equals("unselected")){
+                    holder.bookmarkButton.setTag("selected");
+                    holder.bookmarkButton.setImageResource(R.drawable.ic_bookmark_selected);
+                }else{
+                    holder.bookmarkButton.setTag("unselected");
+                    holder.bookmarkButton.setImageResource(R.drawable.ic_bookmark);
+                }
             }
         });
 
@@ -96,10 +111,10 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
 
     private void toggleExpandableCard(ItemViewHolder holder) {
         if (holder.expandableLayout.getVisibility()==View.VISIBLE){
-//            TransitionManager.beginDelayedTransition(holder.itemCard);
+            TransitionManager.beginDelayedTransition(holder.itemTitleCard, new AutoTransition());
             holder.expandableLayout.setVisibility(View.GONE);
         }else {
-            TransitionManager.beginDelayedTransition(holder.itemCard);
+            TransitionManager.beginDelayedTransition(holder.itemTitleCard, new AutoTransition());
             holder.expandableLayout.setVisibility(View.VISIBLE);
         }
     }

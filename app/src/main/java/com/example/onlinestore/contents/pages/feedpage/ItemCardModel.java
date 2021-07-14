@@ -1,6 +1,7 @@
 package com.example.onlinestore.contents.pages.feedpage;
 
 public class ItemCardModel {
+    private boolean isBookmarked;
     private int profileImage, itemPicture;
     private String itemId;
     private String itemTitle;
@@ -12,7 +13,7 @@ public class ItemCardModel {
     public ItemCardModel(int profileImage, int itemPicture, String itemId, String itemTitle,
                          String itemDescription, String itemSize,
                          String itemGender, String itemCategory, String itemCity,
-                         String itemRawPrice, String itemFinalPrice) {
+                         String itemRawPrice, String itemFinalPrice, boolean isBookmarked) {
 
         this.profileImage = profileImage;
         this.itemPicture = itemPicture;
@@ -25,8 +26,16 @@ public class ItemCardModel {
         this.itemCity = itemCity;
         this.itemRawPrice = itemRawPrice;
         this.itemFinalPrice = itemFinalPrice;
+        this.isBookmarked = isBookmarked;
     }
 
+    public boolean isBookmarked() {
+        return isBookmarked;
+    }
+
+    public void setBookmarked(boolean bookmarked) {
+        isBookmarked = bookmarked;
+    }
 
     public int getProfileImage() {
         return profileImage;

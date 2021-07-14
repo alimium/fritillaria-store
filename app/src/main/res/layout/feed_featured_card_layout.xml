@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="130dp"
-        android:layout_height="260dp"
+        android:layout_width="160dp"
+        android:layout_height="300dp"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         app:cardCornerRadius="20dp"
-        app:cardElevation="0dp"
-        app:strokeWidth="1dp"
+        app:cardElevation="5dp"
+        app:strokeWidth="0dp"
         app:strokeColor="@color/stroke_color"
-        android:layout_margin="4dp">
+        app:cardUseCompatPadding="true"
+        android:id="@+id/feed_featured_main_card">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout

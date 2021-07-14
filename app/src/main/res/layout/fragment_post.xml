@@ -60,7 +60,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/default_profile_picture"
+                    app:srcCompat="@drawable/default_item_image"
                     android:scaleType="fitXY"
                     android:adjustViewBounds="true"
                     app:shapeAppearanceOverlay="@style/PostPageImageRoundedCorner"
