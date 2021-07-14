@@ -24,6 +24,8 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.RelativeLayout;
 
+import com.example.onlinestore.contents.pages.feedpage.FeedFragment;
+import com.example.onlinestore.contents.pages.findpage.FindResultFragment;
 import com.example.onlinestore.contents.pages.profilepage.ProfileFragment;
 import com.example.onlinestore.contents.splash.SplashActivity;
 import com.example.onlinestore.utility.toast.CustomToast;
@@ -72,4 +74,10 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        getSupportFragmentManager().beginTransaction().remove(new FindResultFragment("")).commit();
+    }
 }

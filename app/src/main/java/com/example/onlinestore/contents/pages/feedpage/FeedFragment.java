@@ -46,8 +46,7 @@ public class FeedFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_feed, container, false);
-        expandableLayout = view.findViewById(R.id.expandable_layout);
-        itemCard = view.findViewById(R.id.feed_main_item_card);
+
         return view;
     }
 
@@ -94,6 +93,7 @@ public class FeedFragment extends Fragment {
         itemsRecyclerView.setHasFixedSize(true);
         itemsRecyclerView.setLayoutManager(itemsRecyclerViewLayoutManager);
         itemsRecyclerView.setAdapter(itemsRecyclerViewAdapter);
+
 
     }
 }

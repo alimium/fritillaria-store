@@ -4,7 +4,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        tools:context=".contents.pages.feedpage.FeedFragment"
+        tools:context=".contents.pages.findpage.FindResultFragment"
         android:orientation="vertical"
         android:fitsSystemWindows="true">
 
@@ -20,7 +20,7 @@
                 <TextView
                         android:layout_width="match_parent"
                         android:layout_height="260dp"
-                        android:text="Newest Products\nOf Highest Qualities"
+                        android:text="These Are What We Found"
                         android:textAlignment="center"
                         android:textSize="40sp"
                         android:paddingTop="150dp"/>

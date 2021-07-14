@@ -23,10 +23,10 @@
                 android:textSize="15sp"
                 android:layout_marginTop="5dp"
                 android:id="@+id/tip_text_post"
-                app:layout_constraintTop_toBottomOf="@+id/find_search_textview" />
+                app:layout_constraintTop_toBottomOf="@+id/find_search_text_layout" />
 
         <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/find_search_textview"
+                android:id="@+id/find_search_text_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Search"
@@ -39,6 +39,7 @@
                 app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/find_search_textview"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:singleLine="true" />
@@ -96,6 +97,11 @@
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.fragment.app.FragmentContainerView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/fragmentContainerView" />
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

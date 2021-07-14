@@ -6,20 +6,30 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
+import androidx.navigation.ui.NavigationUI;
 
 import android.transition.TransitionManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.example.onlinestore.MainActivity;
 import com.example.onlinestore.R;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.android.material.textview.MaterialTextView;
 
 public class FindFragment extends Fragment {
 
     MaterialButton findButton;
-    MaterialTextView searchInputBox;
+    TextInputEditText searchInputBox;
+    String query;
 
     public FindFragment() {}
 
@@ -50,8 +60,12 @@ public class FindFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-
-
+                if (isAdded()) {
+                    assert getFragmentManager() != null;
+                    getFragmentManager().beginTransaction().replace(R.id.nav_controller,new FindResultFragment(query)).commit();
+                }else {
+                    throw new IllegalStateException();
+                }
             }
         });
 
