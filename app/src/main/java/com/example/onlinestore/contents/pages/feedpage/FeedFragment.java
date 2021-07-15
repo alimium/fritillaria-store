@@ -15,8 +15,10 @@ import androidx.transition.TransitionManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.example.onlinestore.R;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
 
 import java.util.ArrayList;
@@ -31,6 +33,8 @@ public class FeedFragment extends Fragment {
     ArrayList<ItemCardModel> itemCardModelArrayList;
     MaterialCardView itemCard;
     ConstraintLayout expandableLayout;
+    LinearLayout filterDetail;
+    MaterialButton filterButton;
 
     public FeedFragment() {
     }
@@ -53,6 +57,7 @@ public class FeedFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        this.filterDetail = view.findViewById(R.id.about_card_details);
 
         itemCardModelArrayList = new ArrayList<>();
         itemCardModelArrayList.add(new ItemCardModel(R.drawable.default_profile_picture, R.drawable.default_item_image, "#24586", "Item Title", "Item Description. Long Text Long Text. Long Text.", "XXL", "Men", "Clothing", "Paris, France", "139.99", "99.99",false));
@@ -93,6 +98,7 @@ public class FeedFragment extends Fragment {
         itemsRecyclerView.setHasFixedSize(true);
         itemsRecyclerView.setLayoutManager(itemsRecyclerViewLayoutManager);
         itemsRecyclerView.setAdapter(itemsRecyclerViewAdapter);
+
 
 
     }

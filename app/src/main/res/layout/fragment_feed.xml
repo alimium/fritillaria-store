@@ -49,7 +49,8 @@
             <com.google.android.material.appbar.AppBarLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:liftOnScroll="true">
+                    app:liftOnScroll="true"
+                    android:background="@drawable/filter_section_background">
 
                 <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/feed_featured_list_recyclerview"
@@ -71,6 +72,18 @@
                         android:textSize="18dp"
                         android:layout_margin="0dp"
                         android:background="?attr/colorPrimary"/>
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"
+                        android:visibility="visible">
+
+
+
+
+
+
+                </LinearLayout>
 
 
             </com.google.android.material.appbar.AppBarLayout>
