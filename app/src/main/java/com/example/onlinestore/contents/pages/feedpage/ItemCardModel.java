@@ -1,6 +1,10 @@
 package com.example.onlinestore.contents.pages.feedpage;
 
-public class ItemCardModel {
+import android.os.Parcelable;
+
+import java.io.Serializable;
+
+public class ItemCardModel implements Serializable {
     private boolean isBookmarked;
     private int profileImage, itemPicture;
     private String itemId;

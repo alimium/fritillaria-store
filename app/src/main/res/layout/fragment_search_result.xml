@@ -20,7 +20,7 @@
                 <TextView
                         android:layout_width="match_parent"
                         android:layout_height="260dp"
-                        android:text="These Are What We Found"
+                        android:text="Newest Products\nOf Highest Qualities"
                         android:textAlignment="center"
                         android:textSize="40sp"
                         android:paddingTop="150dp"/>
