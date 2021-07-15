@@ -9,15 +9,17 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.transition.AutoTransition;
-import androidx.transition.TransitionManager;
 
+import android.transition.AutoTransition;
+import android.transition.ChangeBounds;
+import android.transition.TransitionManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.example.onlinestore.R;
+import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
 
@@ -35,6 +37,7 @@ public class FeedFragment extends Fragment {
     ConstraintLayout expandableLayout;
     LinearLayout filterDetail;
     MaterialButton filterButton;
+    AppBarLayout topBar;
 
     public FeedFragment() {
     }
@@ -57,7 +60,11 @@ public class FeedFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        this.filterDetail = view.findViewById(R.id.about_card_details);
+        filterDetail = view.findViewById(R.id.feed_filter_expandable_layout);
+        filterButton = view.findViewById(R.id.feed_filter_button);
+        topBar = view.findViewById(R.id.top_app_bar_feed);
+
+
 
         itemCardModelArrayList = new ArrayList<>();
         itemCardModelArrayList.add(new ItemCardModel(R.drawable.default_profile_picture, R.drawable.default_item_image, "#24586", "Item Title", "Item Description. Long Text Long Text. Long Text.", "XXL", "Men", "Clothing", "Paris, France", "139.99", "99.99",false));
@@ -100,6 +107,23 @@ public class FeedFragment extends Fragment {
         itemsRecyclerView.setAdapter(itemsRecyclerViewAdapter);
 
 
+        filterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                toggleExpandable();
+            }
+        });
+
+    }
+
+    private void toggleExpandable() {
+        if (filterDetail.getVisibility()==View.VISIBLE){
+            TransitionManager.beginDelayedTransition(topBar, new ChangeBounds());
+            filterDetail.setVisibility(View.GONE);
+        }else {
+            TransitionManager.beginDelayedTransition(topBar, new ChangeBounds());
+            filterDetail.setVisibility(View.VISIBLE);
+        }
 
     }
 }
