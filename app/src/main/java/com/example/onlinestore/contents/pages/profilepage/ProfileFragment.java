@@ -3,6 +3,7 @@ package com.example.onlinestore.contents.pages.profilepage;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.transition.AutoTransition;
 import android.transition.TransitionManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.ui.NavigationUI;
@@ -23,6 +25,7 @@ import com.google.android.material.card.MaterialCardView;
 
 public class ProfileFragment extends Fragment{
 
+    ConstraintLayout main_layout;
     private MaterialCardView bookmarksCard, itemsOnSaleCard, editProfileCard, logoutCard, aboutCard, aboutCardDetail;
     MaterialToolbar toolbar;
 
@@ -52,6 +55,7 @@ public class ProfileFragment extends Fragment{
         logoutCard = view.findViewById(R.id.logout_card);
         aboutCard = view.findViewById(R.id.about_card);
         aboutCardDetail = view.findViewById(R.id.about_card_details);
+        main_layout = view.findViewById(R.id.profile_main_layout);
         toolbar = view.findViewById(R.id.top_app_bar_profile);
 
         //TODO: set text to match data
@@ -110,10 +114,10 @@ public class ProfileFragment extends Fragment{
 
     private void toggleExpandedView() {
         if (aboutCardDetail.getVisibility()==View.VISIBLE){
-            TransitionManager.beginDelayedTransition(aboutCardDetail);
+            TransitionManager.beginDelayedTransition(main_layout, new AutoTransition());
             aboutCardDetail.setVisibility(View.GONE);
         }else {
-            TransitionManager.beginDelayedTransition(aboutCardDetail);
+            TransitionManager.beginDelayedTransition(main_layout, new AutoTransition());
             aboutCardDetail.setVisibility(View.VISIBLE);
         }
     }

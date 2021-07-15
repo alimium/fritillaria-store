@@ -46,7 +46,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:layout_anchorGravity="center"
-                android:id="@+id/constraintLayout"
+                android:id="@+id/profile_main_layout"
                 android:paddingHorizontal="8dp">
 
 
@@ -161,9 +161,6 @@
                                 android:paddingStart="12dp"
                                 android:paddingEnd="12dp"
                                 android:paddingBottom="6dp">
-
-
-                                />
 
                                 <com.google.android.material.textview.MaterialTextView
                                         android:id="@+id/optional_phone_text_view"

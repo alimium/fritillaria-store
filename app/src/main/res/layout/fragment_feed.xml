@@ -54,6 +54,18 @@
                     android:elevation="0dp"
                     android:background="@drawable/filter_section_background">
 
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Fritillaria"
+                        android:textColor="?attr/colorOnPrimary"
+                        android:textAlignment="center"
+                        android:textSize="20dp"
+                        android:textStyle="bold"
+                        android:textAllCaps="true"
+                        android:paddingTop="5dp"
+                        app:layout_scrollFlags="scroll"/>
+
                 <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/feed_featured_list_recyclerview"
                         android:layout_width="match_parent"
@@ -78,11 +90,77 @@
                 <LinearLayout
                         android:id="@+id/feed_filter_expandable_layout"
                         android:layout_width="match_parent"
-                        android:layout_height="300dp"
+                        android:layout_height="wrap_content"
                         android:visibility="gone"
                         android:orientation="vertical"
-                        android:background="@drawable/filter_section_background">
+                        android:background="@drawable/filter_section_background"
+                        android:paddingHorizontal="20dp"
+                        android:paddingBottom="20dp">
 
+                    <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/feed_filter_category"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            style="@style/filterBoxes"
+                            app:boxCornerRadiusBottomEnd="20dp"
+                            app:boxCornerRadiusBottomStart="20dp"
+                            app:boxCornerRadiusTopEnd="20dp"
+                            app:boxCornerRadiusTopStart="20dp"
+                            android:hint="Pick A Category"
+                            android:elevation="10dp">
+
+
+                        <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                                android:id="@+id/feed_filter_category_autocomplete"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="none" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/feed_filter_gender"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            style="@style/filterBoxes"
+                            app:boxCornerRadiusBottomEnd="20dp"
+                            app:boxCornerRadiusBottomStart="20dp"
+                            app:boxCornerRadiusTopEnd="20dp"
+                            app:boxCornerRadiusTopStart="20dp"
+                            android:hint="Who Is This For?"
+                            android:layout_marginTop="4dp"
+                            android:elevation="10dp">
+
+
+                        <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                                android:id="@+id/feed_filter_gender_autocomplete"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="none" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/feed_filter_sort"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            style="@style/filterBoxes"
+                            app:boxCornerRadiusBottomEnd="20dp"
+                            app:boxCornerRadiusBottomStart="20dp"
+                            app:boxCornerRadiusTopEnd="20dp"
+                            app:boxCornerRadiusTopStart="20dp"
+                            android:hint="Sort"
+                            android:layout_marginTop="4dp"
+                            android:elevation="10dp">
+
+
+                        <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                                android:id="@+id/feed_filter_sort_autocomplete"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="none"/>
+
+                    </com.google.android.material.textfield.TextInputLayout>
 
 
 

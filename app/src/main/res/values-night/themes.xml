@@ -4,7 +4,7 @@
         <!-- Primary brand color. -->
         <item name="colorPrimary">#661F57</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
-        <item name="colorOnPrimary">#FFFCF7</item>
+        <item name="colorOnPrimary">@color/floral_white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">#661F57</item>
         <item name="colorSecondaryVariant">@color/teal_200</item>
@@ -20,5 +20,9 @@
         <item name="android:windowBackground">
             @drawable/splash_screen_night
         </item>
+    </style>
+
+    <style name="filterBoxes" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu">
+        <item name="boxBackgroundColor">@color/eerie_black</item>
     </style>
 </resources>
