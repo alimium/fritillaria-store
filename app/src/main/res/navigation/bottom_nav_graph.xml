@@ -9,7 +9,17 @@
             android:id="@+id/profile_page"
             android:name="com.example.onlinestore.contents.pages.profilepage.ProfileFragment"
             android:label="fragment_user_profile"
-            tools:layout="@layout/fragment_profile" />
+            tools:layout="@layout/fragment_profile" >
+        <action
+                android:id="@+id/action_profile_page_to_bookmarks_page"
+                app:destination="@id/bookmarks_page" />
+        <action
+                android:id="@+id/action_profile_page_to_edit_profile_page"
+                app:destination="@id/edit_profile_page" />
+        <action
+                android:id="@+id/action_profile_page_to_library_page"
+                app:destination="@id/library_page" />
+    </fragment>
     <fragment
             android:id="@+id/feed_page"
             android:name="com.example.onlinestore.contents.pages.feedpage.FeedFragment"
@@ -19,7 +29,11 @@
             android:id="@+id/find_page"
             android:name="com.example.onlinestore.contents.pages.findpage.FindFragment"
             android:label="fragment_find"
-            tools:layout="@layout/fragment_find" />
+            tools:layout="@layout/fragment_find" >
+        <action
+                android:id="@+id/action_find_page_to_find_result_page"
+                app:destination="@id/find_result_page" />
+    </fragment>
     <fragment
             android:id="@+id/post_page"
             android:name="com.example.onlinestore.contents.pages.postpage.PostFragment"
@@ -30,4 +44,34 @@
             android:name="com.example.onlinestore.contents.pages.bookmarkspage.BookmarksFragment"
             android:label="fragment_bookmarks"
             tools:layout="@layout/fragment_bookmarks" />
+    <fragment
+            android:id="@+id/find_result_page"
+            android:name="com.example.onlinestore.contents.pages.findpage.FindResultFragment"
+            android:label="fragment_search_result"
+            tools:layout="@layout/fragment_search_result" />
+    <fragment
+            android:id="@+id/edit_profile_page"
+            android:name="com.example.onlinestore.contents.pages.profilepage.EditProfileFragment"
+            android:label="fragment_edit_profile"
+            tools:layout="@layout/fragment_edit_profile" />
+    <fragment
+            android:id="@+id/library_page"
+            android:name="com.example.onlinestore.contents.pages.profilepage.LibraryFragment"
+            android:label="fragment_library"
+            tools:layout="@layout/fragment_library" >
+        <action
+                android:id="@+id/action_library_page_to_edit_card_page"
+                app:destination="@id/edit_card_page" />
+    </fragment>
+    <fragment
+            android:id="@+id/edit_card_page"
+            android:name="com.example.onlinestore.contents.pages.profilepage.EditCardFragment"
+            android:label="EditCardFragment" >
+        <action
+                android:id="@+id/action_edit_card_page_to_library_page"
+                app:destination="@id/library_page" />
+        <argument
+                android:name="cardToEdit"
+                app:argType="com.example.onlinestore.contents.pages.feedpage.ItemCardModel" />
+    </fragment>
 </navigation>

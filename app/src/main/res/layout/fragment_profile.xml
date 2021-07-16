@@ -27,8 +27,7 @@
                                 android:layout_height="?attr/actionBarSize"
                                 android:stateListAnimator="@null"
                                 app:title="Profile Overview"
-                                style="@style/ThemeOverlay.MaterialComponents.BottomAppBar.Primary.MyApp"
-                                app:navigationIcon="@drawable/ic_arrow_back">
+                                style="@style/ThemeOverlay.MaterialComponents.BottomAppBar.Primary.MyApp">
 
                         </com.google.android.material.appbar.MaterialToolbar>
 
@@ -47,7 +46,8 @@
                 android:layout_height="match_parent"
                 app:layout_anchorGravity="center"
                 android:id="@+id/profile_main_layout"
-                android:paddingHorizontal="8dp">
+                android:paddingHorizontal="8dp"
+                android:layout_marginBottom="60dp">
 
 
                 <com.google.android.material.textview.MaterialTextView

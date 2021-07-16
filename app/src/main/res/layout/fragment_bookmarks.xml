@@ -1,22 +1,163 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        tools:context=".contents.pages.bookmarkspage.BookmarksFragment">
+        tools:context=".contents.pages.bookmarkspage.BookmarksFragment"
+        android:orientation="vertical"
+        android:fitsSystemWindows="true">
 
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="Bookmarks"
-            android:textSize="50sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            <androidx.core.widget.NestedScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="260dp"
+                        android:text="Products\nThat You Love"
+                        android:textAlignment="center"
+                        android:textSize="40sp"
+                        android:paddingTop="150dp"/>
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:text="Tip: Tap on each card's title area to reveal more about the product."
+                        android:textAlignment="center"
+                        android:textSize="20sp"
+                        android:paddingHorizontal="40dp"
+                        app:drawableTopCompat="@drawable/ic_info_small" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/bookmarks_item_list_recyclerview"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="60dp">
+                </androidx.recyclerview.widget.RecyclerView>
+
+            </LinearLayout>
+            </androidx.core.widget.NestedScrollView>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+            <com.google.android.material.appbar.AppBarLayout
+                    android:id="@+id/top_app_bar_bookmarks"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:liftOnScroll="false"
+                    android:elevation="0dp"
+                    android:background="@drawable/filter_section_background">
+
+                <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/bookmarks_featured_list_recyclerview"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="?attr/colorPrimary"
+                        app:layout_scrollFlags="scroll|exitUntilCollapsed">
+                </androidx.recyclerview.widget.RecyclerView>
+
+
+                <com.google.android.material.button.MaterialButton
+                        android:id="@+id/bookmarks_filter_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:paddingVertical="10dp"
+                        app:cornerRadius="0dp"
+                        style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+                        android:text="Filters"
+                        android:textSize="18dp"
+                        android:layout_margin="0dp"
+                        android:background="?attr/colorPrimary"/>
+
+                <LinearLayout
+                        android:id="@+id/bookmarks_filter_expandable_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        android:orientation="vertical"
+                        android:background="@drawable/filter_section_background"
+                        android:paddingHorizontal="20dp"
+                        android:paddingBottom="20dp">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/bookmarks_filter_category"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            style="@style/filterBoxes"
+                            app:boxCornerRadiusBottomEnd="20dp"
+                            app:boxCornerRadiusBottomStart="20dp"
+                            app:boxCornerRadiusTopEnd="20dp"
+                            app:boxCornerRadiusTopStart="20dp"
+                            android:hint="Pick A Category"
+                            android:elevation="10dp">
+
+
+                        <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                                android:id="@+id/bookmarks_filter_category_autocomplete"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="none" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/bookmarks_filter_gender"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            style="@style/filterBoxes"
+                            app:boxCornerRadiusBottomEnd="20dp"
+                            app:boxCornerRadiusBottomStart="20dp"
+                            app:boxCornerRadiusTopEnd="20dp"
+                            app:boxCornerRadiusTopStart="20dp"
+                            android:hint="Who Is This For?"
+                            android:layout_marginTop="4dp"
+                            android:elevation="10dp">
+
+
+                        <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                                android:id="@+id/bookmarks_filter_gender_autocomplete"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="none" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/bookmarks_filter_sort"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            style="@style/filterBoxes"
+                            app:boxCornerRadiusBottomEnd="20dp"
+                            app:boxCornerRadiusBottomStart="20dp"
+                            app:boxCornerRadiusTopEnd="20dp"
+                            app:boxCornerRadiusTopStart="20dp"
+                            android:hint="Sort"
+                            android:layout_marginTop="4dp"
+                            android:elevation="10dp">
+
+
+                        <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                                android:id="@+id/bookmarks_filter_sort_autocomplete"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="none"/>
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+
+                </LinearLayout>
+
+
+            </com.google.android.material.appbar.AppBarLayout>
+
+
+
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+

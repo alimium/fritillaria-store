@@ -8,9 +8,8 @@
         android:orientation="vertical"
         android:fitsSystemWindows="true">
 
-            <androidx.core.widget.NestedScrollView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+
+
 
             <LinearLayout
                     android:layout_width="match_parent"
@@ -23,7 +22,8 @@
                         android:text="Newest Products\nOf Highest Qualities"
                         android:textAlignment="center"
                         android:textSize="40sp"
-                        android:paddingTop="150dp"/>
+                        android:paddingTop="150dp"
+                        android:visibility="gone"/>
 
                 <TextView
                         android:layout_width="match_parent"
@@ -32,17 +32,18 @@
                         android:textAlignment="center"
                         android:textSize="20sp"
                         android:paddingHorizontal="40dp"
-                        app:drawableTopCompat="@drawable/ic_info_small" />
+                        app:drawableTopCompat="@drawable/ic_info_small"
+                        android:visibility="gone"/>
 
                 <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/feed_item_list_recyclerview"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="60dp">
+                        android:layout_marginBottom="60dp"
+                        android:layout_marginTop="60dp">
                 </androidx.recyclerview.widget.RecyclerView>
 
             </LinearLayout>
-            </androidx.core.widget.NestedScrollView>
 
 
 
@@ -52,6 +53,7 @@
                     android:layout_height="wrap_content"
                     app:liftOnScroll="false"
                     android:elevation="0dp"
+                    android:visibility="visible"
                     android:background="@drawable/filter_section_background">
 
                 <TextView

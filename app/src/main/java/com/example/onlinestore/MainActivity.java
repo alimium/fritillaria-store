@@ -45,7 +45,9 @@ public class MainActivity extends AppCompatActivity {
         navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
             @Override
             public void onDestinationChanged(@NonNull NavController controller, @NonNull NavDestination destination, @Nullable Bundle arguments) {
-                if(destination.getId()==R.id.post_page || destination.getId()==R.id.profile_page){
+                if(destination.getId()==R.id.post_page || destination.getId()==R.id.edit_profile_page
+                        || destination.getId()==R.id.library_page
+                        || destination.getId()==R.id.edit_card_page){
                     bottomNavigationView.clearAnimation();
                     bottomNavigationView.animate().translationY(bottomNavigationView.getHeight()).setDuration(200);
                 }else {

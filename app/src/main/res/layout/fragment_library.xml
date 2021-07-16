@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        tools:context=".contents.pages.profilepage.LibraryFragment"
+        android:orientation="vertical"
+        android:fitsSystemWindows="true">
+
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                <com.google.android.material.appbar.AppBarLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="180dp"
+                        app:liftOnScroll="true"
+                        android:id="@+id/app_bar_layout_library">
+
+                    <com.google.android.material.appbar.CollapsingToolbarLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            app:expandedTitleTextAppearance="@style/TextAppearance.App.CollapsingToolbar.Expanded"
+                            app:contentScrim="?attr/colorPrimary"
+                            app:statusBarScrim="?attr/colorPrimaryVariant"
+                            app:expandedTitleGravity="bottom|center_horizontal"
+                            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                            android:background="?attr/colorPrimary">
+
+                        <com.google.android.material.appbar.MaterialToolbar
+                                android:id="@+id/top_app_bar_library"
+                                android:layout_width="match_parent"
+                                android:layout_height="?attr/actionBarSize"
+                                android:stateListAnimator="@null"
+                                app:title="Library"
+                                app:layout_collapseMode="pin"
+                                style="@style/ThemeOverlay.MaterialComponents.BottomAppBar.Primary.MyApp"
+                                app:navigationIcon="@drawable/ic_arrow_back">
+
+                        </com.google.android.material.appbar.MaterialToolbar>
+
+
+                    </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+                </com.google.android.material.appbar.AppBarLayout>
+
+
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Your\nPosted Products"
+                        android:textAlignment="center"
+                        android:textSize="40sp"
+                        android:paddingTop="70dp"
+                        android:visibility="gone"/>
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:text="Tip: Swipe each card to the left to remove the product, or to the right to edit the card."
+                        android:textAlignment="center"
+                        android:textSize="20sp"
+                        android:paddingHorizontal="40dp"
+                        android:layout_marginTop="20dp"
+                        app:drawableTopCompat="@drawable/ic_info_small"
+                        android:visibility="gone"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/library_item_list_recyclerview"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                </androidx.recyclerview.widget.RecyclerView>
+
+            </LinearLayout>
+
+
+
+
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+

@@ -16,6 +16,7 @@ import com.example.onlinestore.R;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.imageview.ShapeableImageView;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerViewAdapter.ItemViewHolder> {
@@ -72,6 +73,12 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
     @Override
     public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
         ItemCardModel instanceItemCard = itemCardModelArrayList.get(position);
+        double discount = Double.parseDouble(instanceItemCard.getItemDiscount());
+        double rawPrice = Double.parseDouble(instanceItemCard.getItemRawPrice());
+        double finalPrice = (rawPrice*discount)/100;
+        DecimalFormat priceFormat = new DecimalFormat("#.##");
+        String finalPriceString = priceFormat.format(finalPrice);
+
 
         holder.itemProfileImage.setImageResource(instanceItemCard.getProfileImage());
         holder.itemTitleTop.setText(instanceItemCard.getItemTitle());
@@ -83,7 +90,7 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
         holder.itemGender.setText(instanceItemCard.getItemGender());
         holder.itemCity.setText(instanceItemCard.getItemCity());
         holder.itemRawPrice.setText(instanceItemCard.getItemRawPrice());
-        holder.itemFinalPrice.setText(instanceItemCard.getItemFinalPrice());
+        holder.itemFinalPrice.setText(finalPriceString);
 
 
         holder.itemTitleCard.setOnClickListener(new View.OnClickListener() {

@@ -18,17 +18,30 @@
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
                 app:layout_constraintTop_toTopOf="parent"
-                android:src="@drawable/ic_shopping_basket"
+                android:src="@drawable/ic_logo_login_light"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginTop="190dp"
-                android:contentDescription="login_logo" />
+                android:contentDescription="login_logo"
+                app:layout_constraintHorizontal_bias="0.496" />
+
+        <TextView
+                android:id="@+id/logo_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/login_logo"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:text="Fritillaria"
+                android:textAllCaps="true"
+                android:textSize="20sp" />
 
         <com.google.android.material.card.MaterialCardView
                 android:id="@+id/login_card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/login_logo"
+                app:layout_constraintTop_toBottomOf="@id/logo_text"
                 app:cardElevation="5dp"
                 app:cardUseCompatPadding="true"
                 app:cardCornerRadius="20dp">

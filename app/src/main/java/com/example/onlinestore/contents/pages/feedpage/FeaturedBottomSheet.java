@@ -1,6 +1,5 @@
 package com.example.onlinestore.contents.pages.feedpage;
 
-import android.app.Dialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +10,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.fragment.app.DialogFragment;
 import androidx.transition.AutoTransition;
 import androidx.transition.TransitionManager;
 
@@ -77,7 +75,7 @@ public class FeaturedBottomSheet extends BottomSheetDialogFragment {
         itemGender.setText(clickedFeaturedCard.getItemGender());
         itemCity.setText(clickedFeaturedCard.getItemCity());
         itemRawPrice.setText(clickedFeaturedCard.getItemRawPrice());
-        itemFinalPrice.setText(clickedFeaturedCard.getItemFinalPrice());
+        itemFinalPrice.setText(clickedFeaturedCard.getItemDiscount());
 
 
         itemTitleCard.setOnClickListener(new View.OnClickListener() {

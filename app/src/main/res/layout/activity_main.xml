@@ -14,13 +14,13 @@
             android:layout_gravity="bottom"
             app:menu="@menu/bottom_menu"
             app:itemIconSize="30dp"
-            app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"
             app:elevation="10dp"
             app:labelVisibilityMode="unlabeled"
             android:paddingHorizontal="8dp"
             app:itemRippleColor="#00000000"
             app:layout_constraintBottom_toBottomOf="parent">
 
+    <!--            app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"-->
 
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 

@@ -1,7 +1,6 @@
 package com.example.onlinestore.contents.pages.profilepage;
 
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.transition.AutoTransition;
 import android.transition.TransitionManager;
@@ -12,13 +11,11 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
-import androidx.navigation.ui.NavigationUI;
+import androidx.navigation.Navigation;
 
-import com.example.onlinestore.MainActivity;
 import com.example.onlinestore.R;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.card.MaterialCardView;
@@ -28,6 +25,7 @@ public class ProfileFragment extends Fragment{
     ConstraintLayout main_layout;
     private MaterialCardView bookmarksCard, itemsOnSaleCard, editProfileCard, logoutCard, aboutCard, aboutCardDetail;
     MaterialToolbar toolbar;
+    NavController navController;
 
     public ProfileFragment() {}
 
@@ -57,6 +55,7 @@ public class ProfileFragment extends Fragment{
         aboutCardDetail = view.findViewById(R.id.about_card_details);
         main_layout = view.findViewById(R.id.profile_main_layout);
         toolbar = view.findViewById(R.id.top_app_bar_profile);
+        navController = Navigation.findNavController(view);
 
         //TODO: set text to match data
 
@@ -67,21 +66,21 @@ public class ProfileFragment extends Fragment{
         bookmarksCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "bookmarks", Toast.LENGTH_SHORT).show();
+                navController.navigate(R.id.action_profile_page_to_bookmarks_page);
             }
         });
         
         itemsOnSaleCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "items sold", Toast.LENGTH_SHORT).show();
+                navController.navigate(R.id.action_profile_page_to_library_page);
             }
         });
         
         editProfileCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "edit profile", Toast.LENGTH_SHORT).show();
+                navController.navigate(R.id.action_profile_page_to_edit_profile_page);
             }
         });
 
@@ -101,15 +100,6 @@ public class ProfileFragment extends Fragment{
 
 
 
-
-
-
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getActivity().onBackPressed();
-            }
-        });
     }
 
     private void toggleExpandedView() {

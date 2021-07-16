@@ -1,82 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         tools:context=".contents.pages.findpage.FindResultFragment"
         android:orientation="vertical"
         android:fitsSystemWindows="true">
 
-            <androidx.core.widget.NestedScrollView
+    <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="260dp"
+                    android:text="Here Are What We Found"
+                    android:textAlignment="center"
+                    android:textSize="40sp"
+                    android:paddingTop="150dp" />
+
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:text="Tip: Tap on each card's title area to reveal more about the product."
+                    android:textAlignment="center"
+                    android:textSize="20sp"
+                    android:paddingHorizontal="40dp"
+                    app:drawableTopCompat="@drawable/ic_info_small" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/find_item_list_recyclerview"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
+            </androidx.recyclerview.widget.RecyclerView>
 
-            <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="260dp"
-                        android:text="Newest Products\nOf Highest Qualities"
-                        android:textAlignment="center"
-                        android:textSize="40sp"
-                        android:paddingTop="150dp"/>
-
-                <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="100dp"
-                        android:text="Tip: Tap on each card's title area to reveal more about the product."
-                        android:textAlignment="center"
-                        android:textSize="20sp"
-                        android:paddingHorizontal="40dp"
-                        app:drawableTopCompat="@drawable/ic_info_small" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/find_item_list_recyclerview"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="60dp">
-                </androidx.recyclerview.widget.RecyclerView>
-
-            </LinearLayout>
-            </androidx.core.widget.NestedScrollView>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 
 
+    <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:liftOnScroll="true">
 
-            <com.google.android.material.appbar.AppBarLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:liftOnScroll="true">
-
-                <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/find_featured_list_recyclerview"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="?attr/colorPrimary"
-                        app:layout_scrollFlags="scroll|exitUntilCollapsed">
-                </androidx.recyclerview.widget.RecyclerView>
-
-
-                <com.google.android.material.button.MaterialButton
-                        android:id="@+id/find_filter_button"
-                        android:layout_width="match_parent"
-                        android:layout_height="60dp"
-                        android:paddingVertical="10dp"
-                        app:cornerRadius="0dp"
-                        style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
-                        android:text="Filters"
-                        android:textSize="18dp"
-                        android:layout_margin="0dp"
-                        android:background="?attr/colorPrimary"
-                        android:drawableStart="@drawable/ic_arrow_back"/>
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/find_featured_list_recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/colorPrimary"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed">
+        </androidx.recyclerview.widget.RecyclerView>
 
 
-            </com.google.android.material.appbar.AppBarLayout>
+        <com.google.android.material.button.MaterialButton
+                android:id="@+id/find_filter_button"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:paddingVertical="10dp"
+                app:cornerRadius="0dp"
+                style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+                android:text="Filters"
+                android:textSize="18dp"
+                android:layout_margin="0dp"
+                android:background="?attr/colorPrimary"/>
 
 
+    </com.google.android.material.appbar.AppBarLayout>
 
-        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
 

@@ -1,27 +1,19 @@
 package com.example.onlinestore.contents.pages.feedpage;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.onlinestore.MainActivity;
 import com.example.onlinestore.R;
 import com.google.android.material.card.MaterialCardView;
-import com.google.android.material.imageview.ShapeableImageView;
-import com.google.android.material.textview.MaterialTextView;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class FeaturedRecyclerViewAdapter extends RecyclerView.Adapter<FeaturedRecyclerViewAdapter.FeaturedViewHolder> {
@@ -85,12 +77,18 @@ public class FeaturedRecyclerViewAdapter extends RecyclerView.Adapter<FeaturedRe
     @Override
     public void onBindViewHolder(@NonNull FeaturedViewHolder holder, int position) {
         ItemCardModel instanceFeaturedItemCard = featuredCardModelArrayList.get(position);
+        double discount = Double.parseDouble(instanceFeaturedItemCard.getItemDiscount());
+        double rawPrice = Double.parseDouble(instanceFeaturedItemCard.getItemRawPrice());
+        double finalPrice = (rawPrice*discount)/100;
+        DecimalFormat priceFormat = new DecimalFormat("#.##");
+        String finalPriceString = priceFormat.format(finalPrice);
 
         holder.itemPicture.setImageResource(instanceFeaturedItemCard.getItemPicture());
         holder.itemTitleTop.setText(instanceFeaturedItemCard.getItemTitle());
         holder.itemDescription.setText(instanceFeaturedItemCard.getItemDescription());
         holder.itemRawPrice.setText(instanceFeaturedItemCard.getItemRawPrice());
-        holder.itemFinalPrice.setText(instanceFeaturedItemCard.getItemFinalPrice());
+        holder.itemFinalPrice.setText(instanceFeaturedItemCard.getItemDiscount());
+        holder.itemFinalPrice.setText(finalPriceString);
 
 
 

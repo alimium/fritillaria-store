@@ -1,6 +1,5 @@
 package com.example.onlinestore;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 
@@ -17,7 +16,7 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        topAppBar = findViewById(R.id.top_app_bar_register);
+        topAppBar = findViewById(R.id.top_app_bar_edit_profile);
 
         topAppBar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override

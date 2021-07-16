@@ -1,10 +1,9 @@
 package com.example.onlinestore.contents.pages.feedpage;
 
+import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.io.Serializable;
-
-public class ItemCardModel implements Serializable {
+public class ItemCardModel implements Parcelable {
     private boolean isBookmarked;
     private int profileImage, itemPicture;
     private String itemId;
@@ -12,12 +11,12 @@ public class ItemCardModel implements Serializable {
     private String itemDescription;
     private String itemSize, itemGender, itemCategory;
     private String itemCity;
-    private String itemRawPrice, itemFinalPrice;
+    private String itemRawPrice, itemDiscount;
 
     public ItemCardModel(int profileImage, int itemPicture, String itemId, String itemTitle,
                          String itemDescription, String itemSize,
                          String itemGender, String itemCategory, String itemCity,
-                         String itemRawPrice, String itemFinalPrice, boolean isBookmarked) {
+                         String itemRawPrice, String itemDiscount, boolean isBookmarked) {
 
         this.profileImage = profileImage;
         this.itemPicture = itemPicture;
@@ -29,9 +28,36 @@ public class ItemCardModel implements Serializable {
         this.itemCategory = itemCategory;
         this.itemCity = itemCity;
         this.itemRawPrice = itemRawPrice;
-        this.itemFinalPrice = itemFinalPrice;
+        this.itemDiscount = itemDiscount;
         this.isBookmarked = isBookmarked;
     }
+
+    protected ItemCardModel(Parcel in) {
+        isBookmarked = in.readByte() != 0;
+        profileImage = in.readInt();
+        itemPicture = in.readInt();
+        itemId = in.readString();
+        itemTitle = in.readString();
+        itemDescription = in.readString();
+        itemSize = in.readString();
+        itemGender = in.readString();
+        itemCategory = in.readString();
+        itemCity = in.readString();
+        itemRawPrice = in.readString();
+        itemDiscount = in.readString();
+    }
+
+    public static final Creator<ItemCardModel> CREATOR = new Creator<ItemCardModel>() {
+        @Override
+        public ItemCardModel createFromParcel(Parcel in) {
+            return new ItemCardModel(in);
+        }
+
+        @Override
+        public ItemCardModel[] newArray(int size) {
+            return new ItemCardModel[size];
+        }
+    };
 
     public boolean isBookmarked() {
         return isBookmarked;
@@ -121,11 +147,32 @@ public class ItemCardModel implements Serializable {
         this.itemRawPrice = itemRawPrice;
     }
 
-    public String getItemFinalPrice() {
-        return itemFinalPrice;
+    public String getItemDiscount() {
+        return itemDiscount;
     }
 
-    public void setItemFinalPrice(String itemFinalPrice) {
-        this.itemFinalPrice = itemFinalPrice;
+    public void setItemDiscount(String itemDiscount) {
+        this.itemDiscount = itemDiscount;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeByte((byte) (isBookmarked ? 1 : 0));
+        dest.writeInt(profileImage);
+        dest.writeInt(itemPicture);
+        dest.writeString(itemId);
+        dest.writeString(itemTitle);
+        dest.writeString(itemDescription);
+        dest.writeString(itemSize);
+        dest.writeString(itemGender);
+        dest.writeString(itemCategory);
+        dest.writeString(itemCity);
+        dest.writeString(itemRawPrice);
+        dest.writeString(itemDiscount);
     }
 }
