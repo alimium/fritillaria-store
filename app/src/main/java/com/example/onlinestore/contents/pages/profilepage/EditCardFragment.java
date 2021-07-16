@@ -64,7 +64,7 @@ public class EditCardFragment extends Fragment {
     }
 
     private void setValuesToFields() {
-        itemImage.setImageResource(cardToEdit.getProfileImage());
+        itemImage.setImageResource(cardToEdit.getItemPicture());
         itemTitle.setText(cardToEdit.getItemTitle());
         itemDescription.setText(cardToEdit.getItemDescription());
         itemPrice.setText(cardToEdit.getItemRawPrice());
