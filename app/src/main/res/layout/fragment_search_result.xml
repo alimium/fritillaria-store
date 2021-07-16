@@ -8,10 +8,6 @@
         android:orientation="vertical"
         android:fitsSystemWindows="true">
 
-    <androidx.core.widget.NestedScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
         <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -23,7 +19,8 @@
                     android:text="Here Are What We Found"
                     android:textAlignment="center"
                     android:textSize="40sp"
-                    android:paddingTop="150dp" />
+                    android:paddingTop="150dp"
+                    android:visibility="gone"/>
 
             <TextView
                     android:layout_width="match_parent"
@@ -32,7 +29,8 @@
                     android:textAlignment="center"
                     android:textSize="20sp"
                     android:paddingHorizontal="40dp"
-                    app:drawableTopCompat="@drawable/ic_info_small" />
+                    app:drawableTopCompat="@drawable/ic_info_small"
+                    android:visibility="gone"/>
 
             <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/find_item_list_recyclerview"
@@ -41,7 +39,6 @@
             </androidx.recyclerview.widget.RecyclerView>
 
         </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
 
 
     <com.google.android.material.appbar.AppBarLayout
