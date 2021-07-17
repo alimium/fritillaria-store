@@ -11,7 +11,7 @@ import com.example.onlinestore.MainActivity;
 
 public class SplashActivity extends AppCompatActivity {
 
-    SharedPreferences currentLoggedInUser = getSharedPreferences("currentLoggedUser", MODE_PRIVATE);
+    SharedPreferences sharedPreferences = getSharedPreferences("currentLoggedUser", MODE_PRIVATE);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +29,7 @@ public class SplashActivity extends AppCompatActivity {
 //        }, 500);
 
 
-        String currentUser = currentLoggedInUser.getString("currentUser","");
+        String currentUser = sharedPreferences.getString("currentUser","");
 
         if (currentUser.equals("")){
             startActivity(new Intent(com.example.onlinestore.contents.splash.SplashActivity.this, LoginActivity.class));
