@@ -11,11 +11,11 @@ import com.example.onlinestore.MainActivity;
 
 public class SplashActivity extends AppCompatActivity {
 
-    SharedPreferences sharedPreferences = getSharedPreferences("currentLoggedUser", MODE_PRIVATE);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        SharedPreferences sharedPreferences = getSharedPreferences("currentLoggedUser", MODE_PRIVATE);
 
 //        if we want delay in splash screen
 
@@ -31,13 +31,14 @@ public class SplashActivity extends AppCompatActivity {
 
         String currentUser = sharedPreferences.getString("currentUser","");
 
-        if (currentUser.equals("")){
+        if (currentUser!=null && currentUser.equals("")){
             startActivity(new Intent(com.example.onlinestore.contents.splash.SplashActivity.this, LoginActivity.class));
             finish();
         }else {
             Intent intent = new Intent(this, MainActivity.class);
             intent.putExtra("currentUser", currentUser);
             startActivity(intent);
+            finish();
         }
 
 

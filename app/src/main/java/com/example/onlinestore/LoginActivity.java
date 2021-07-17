@@ -30,7 +30,6 @@ public class LoginActivity extends AppCompatActivity {
     MaterialButton registerButton;
     MaterialButton loginButton;
     TextInputEditText usernameTextField, passwordTextField;
-    SharedPreferences sharedPreferences = getSharedPreferences("currentLoggedUser", MODE_PRIVATE);
 
 
 
@@ -38,6 +37,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        SharedPreferences sharedPreferences = getSharedPreferences("currentLoggedUser", MODE_PRIVATE);
         findElements();
         AppSharedViewModel sharedViewModel = new ViewModelProvider(this).get(AppSharedViewModel.class);
         List<UserEntity> users = new ArrayList<>();

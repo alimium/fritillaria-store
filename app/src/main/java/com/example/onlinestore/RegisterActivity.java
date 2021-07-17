@@ -33,7 +33,6 @@ import java.util.List;
 public class RegisterActivity extends AppCompatActivity {
 
     private static final int IMAGE_SELECT_CODE = 1;
-    SharedPreferences sharedPreferences = getSharedPreferences("currentLoggedUser", MODE_PRIVATE);
 
     TextInputEditText firstNameText, lastNameText, emailText, phoneNumberText, passwordText;
     ShapeableImageView userProfilePicture;
@@ -46,6 +45,7 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        SharedPreferences sharedPreferences = getSharedPreferences("currentLoggedUser", MODE_PRIVATE);
         sharedViewModel = new ViewModelProvider(this).get(AppSharedViewModel.class);
         List<UserEntity> allUsers = new ArrayList<>();
         sharedViewModel.getAllUsers().observe(this, new Observer<List<UserEntity>>() {
