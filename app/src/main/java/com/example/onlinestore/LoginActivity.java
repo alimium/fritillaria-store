@@ -1,6 +1,7 @@
 package com.example.onlinestore;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
@@ -16,6 +17,7 @@ import com.example.onlinestore.data.AppSharedViewModel;
 import com.example.onlinestore.data.UserEntity;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +30,7 @@ public class LoginActivity extends AppCompatActivity {
     MaterialButton registerButton;
     MaterialButton loginButton;
     TextInputEditText usernameTextField, passwordTextField;
+    SharedPreferences currentLoggedInUser = getSharedPreferences("currentLoggedUser", MODE_PRIVATE);
 
 
     @Override
@@ -63,7 +66,9 @@ public class LoginActivity extends AppCompatActivity {
                     if (usr.getEmail().equals(usernameTextField.getText().toString())) {
                         if (usr.getPassword().equals(passwordTextField.getText().toString())) {
                             Toast.makeText(getApplicationContext(), "Happy Shopping!", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                            String loggedInUser = new Gson().toJson(usr);
+                            currentLoggedInUser.edit().putString("currentUser", loggedInUser).apply();
+                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
                             finish();
                             return;
                         } else {
