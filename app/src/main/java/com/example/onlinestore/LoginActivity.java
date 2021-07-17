@@ -11,7 +11,9 @@ import android.widget.ImageView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
+import com.example.onlinestore.data.AppSharedViewModel;
 import com.example.onlinestore.utility.toast.CustomToast;
 import com.example.onlinestore.utility.toast.CustomToastMode;
 import com.google.android.material.button.MaterialButton;
@@ -21,6 +23,8 @@ public class LoginActivity extends AppCompatActivity {
     ImageView loginLogo;
     MaterialButton registerButton;
     MaterialButton loginButton;
+    AppSharedViewModel sharedViewModel = new ViewModelProvider(this).get(AppSharedViewModel.class);
+
 
 
 

@@ -5,7 +5,7 @@ import androidx.room.Relation;
 
 import java.util.List;
 
-public class OneToManyUserProduct {
+public class UserWithProducts {
     @Embedded public UserEntity user;
     @Relation(
             parentColumn = "user_id",

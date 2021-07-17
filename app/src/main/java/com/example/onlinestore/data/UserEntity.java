@@ -9,11 +9,7 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = "users")
 public class UserEntity {
 
-    @PrimaryKey(autoGenerate = true)
-    @NonNull
-    @ColumnInfo(name = "user_id")
-    private int id;
-
+    @PrimaryKey(autoGenerate = false)
     @NonNull
     @ColumnInfo(name = "email")
     private String email;
@@ -38,8 +34,7 @@ public class UserEntity {
     @ColumnInfo(name = "profile_picture")
     private String profilePicture;
 
-    public UserEntity(int id, @NonNull String email, @NonNull String password, @NonNull String phone, @NonNull String firstName, @NonNull String lastName, @Nullable String profilePicture) {
-        this.id = id;
+    public UserEntity(@NonNull String email, @NonNull String password, @NonNull String phone, @NonNull String firstName, @NonNull String lastName, @Nullable String profilePicture) {
         this.email = email;
         this.password = password;
         this.phone = phone;
@@ -48,13 +43,6 @@ public class UserEntity {
         this.profilePicture = profilePicture;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     @NonNull
     public String getEmail() {

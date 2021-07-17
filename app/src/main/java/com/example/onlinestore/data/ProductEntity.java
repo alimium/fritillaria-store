@@ -57,7 +57,7 @@ public class ProductEntity {
 
     @NonNull
     @ColumnInfo(name = "product_seller")
-    private int sellerId;
+    private String sellerEmail;
 
     @NonNull
     @ColumnInfo(name = "is_featured", defaultValue = "false")
@@ -72,7 +72,7 @@ public class ProductEntity {
                          @NonNull String itemDescription, @NonNull String itemRawPrice,
                          @Nullable String itemDiscount, @NonNull String itemCategory,
                          @NonNull String itemGender, @NonNull String itemSize,
-                         @NonNull String itemCity, int sellerId, @NonNull String isFeatured,
+                         @NonNull String itemCity, String sellerEmail, @NonNull String isFeatured,
                          @Nullable List<Integer> bookmarks) {
         this.id = id;
         this.itemPicture = itemPicture;
@@ -84,7 +84,7 @@ public class ProductEntity {
         this.itemGender = itemGender;
         this.itemSize = itemSize;
         this.itemCity = itemCity;
-        this.sellerId = sellerId;
+        this.sellerEmail = sellerEmail;
         this.isFeatured = isFeatured;
         this.bookmarks = bookmarks;
     }
@@ -178,12 +178,12 @@ public class ProductEntity {
         this.itemCity = itemCity;
     }
 
-    public int getSellerId() {
-        return sellerId;
+    public String getSellerId() {
+        return sellerEmail;
     }
 
-    public void setSellerId(int sellerId) {
-        this.sellerId = sellerId;
+    public void setSellerId(String sellerId) {
+        this.sellerEmail = sellerId;
     }
 
     @NonNull

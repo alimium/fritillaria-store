@@ -11,18 +11,29 @@ import androidx.room.Update;
 import java.util.List;
 
 @Dao
-public interface UserDao {
+public interface DataAccessObject {
 
     @Insert(onConflict = OnConflictStrategy.ABORT)
-    void insert(UserEntity user);
+    void insertUser(UserEntity user);
 
     @Delete
-    void delete(UserEntity user);
+    void deleteUser(UserEntity user);
 
     @Update
-    void update(UserEntity user);
+    void updateUser(UserEntity user);
 
     @Query("SELECT * FROM users")
     LiveData<List<UserEntity>> getAllUsers();
 
+    @Insert
+    void insertProduct(ProductEntity product);
+
+    @Delete
+    void deleteProduct(ProductEntity product);
+
+    @Update
+    void updateProduct(ProductEntity product);
+
+    @Query("SELECT * FROM products")
+    LiveData<List<ProductEntity>> getAllProducts();
 }
