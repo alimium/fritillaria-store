@@ -3,6 +3,7 @@ package com.example.onlinestore.contents.splash;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import com.example.onlinestore.LoginActivity;
@@ -28,7 +29,6 @@ public class SplashActivity extends AppCompatActivity {
 
         startActivity(new Intent(com.example.onlinestore.contents.splash.SplashActivity.this, LoginActivity.class));
         finish();
-
 
     }
 }

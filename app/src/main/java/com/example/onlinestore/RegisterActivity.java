@@ -24,6 +24,6 @@ public class RegisterActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
-
     }
+
 }

@@ -6,6 +6,7 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
+import androidx.room.TypeConverter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +25,7 @@ public class ProductEntity {
     private String itemPicture;
 
     @NonNull
-    @ColumnInfo(name = "product_picture")
+    @ColumnInfo(name = "product_title")
     private String itemTitle;
 
     @NonNull
@@ -56,6 +57,15 @@ public class ProductEntity {
     private String itemCity;
 
     @NonNull
+    public String getSellerEmail() {
+        return sellerEmail;
+    }
+
+    public void setSellerEmail(@NonNull String sellerEmail) {
+        this.sellerEmail = sellerEmail;
+    }
+
+    @NonNull
     @ColumnInfo(name = "product_seller")
     private String sellerEmail;
 
@@ -63,18 +73,14 @@ public class ProductEntity {
     @ColumnInfo(name = "is_featured", defaultValue = "false")
     private String isFeatured;
 
-    @Nullable
-    @ColumnInfo(name = "bookmarks")
-    private List<Integer> bookmarks;
 
 
-    public ProductEntity(int id, @Nullable String itemPicture, @NonNull String itemTitle,
+    public ProductEntity(@Nullable String itemPicture, @NonNull String itemTitle,
                          @NonNull String itemDescription, @NonNull String itemRawPrice,
                          @Nullable String itemDiscount, @NonNull String itemCategory,
                          @NonNull String itemGender, @NonNull String itemSize,
-                         @NonNull String itemCity, String sellerEmail, @NonNull String isFeatured,
-                         @Nullable List<Integer> bookmarks) {
-        this.id = id;
+                         @NonNull String itemCity, @NonNull String sellerEmail,
+                         @NonNull String isFeatured) {
         this.itemPicture = itemPicture;
         this.itemTitle = itemTitle;
         this.itemDescription = itemDescription;
@@ -86,7 +92,6 @@ public class ProductEntity {
         this.itemCity = itemCity;
         this.sellerEmail = sellerEmail;
         this.isFeatured = isFeatured;
-        this.bookmarks = bookmarks;
     }
 
     public int getId() {
@@ -178,14 +183,6 @@ public class ProductEntity {
         this.itemCity = itemCity;
     }
 
-    public String getSellerId() {
-        return sellerEmail;
-    }
-
-    public void setSellerId(String sellerId) {
-        this.sellerEmail = sellerId;
-    }
-
     @NonNull
     public String getIsFeatured() {
         return isFeatured;
@@ -193,14 +190,5 @@ public class ProductEntity {
 
     public void setIsFeatured(@NonNull String isFeatured) {
         this.isFeatured = isFeatured;
-    }
-
-    @Nullable
-    public List<Integer> getBookmarks() {
-        return bookmarks;
-    }
-
-    public void setBookmarks(@Nullable List<Integer> bookmarks) {
-        this.bookmarks = bookmarks;
     }
 }

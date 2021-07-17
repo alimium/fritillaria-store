@@ -1,29 +1,31 @@
 package com.example.onlinestore;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.onlinestore.data.AppSharedViewModel;
-import com.example.onlinestore.utility.toast.CustomToast;
-import com.example.onlinestore.utility.toast.CustomToastMode;
+import com.example.onlinestore.data.UserEntity;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.textfield.TextInputEditText;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class LoginActivity extends AppCompatActivity {
 
     ImageView loginLogo;
     MaterialButton registerButton;
     MaterialButton loginButton;
-    AppSharedViewModel sharedViewModel = new ViewModelProvider(this).get(AppSharedViewModel.class);
+    TextInputEditText usernameTextField, passwordTextField;
 
 
 
@@ -32,17 +34,46 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        findElements();
+        AppSharedViewModel sharedViewModel =  new ViewModelProvider(this).get(AppSharedViewModel.class);
+        List<UserEntity> users = new ArrayList<>();
 
+        sharedViewModel.getAllUsers().observe(this, new Observer<List<UserEntity>>() {
+            @Override
+            public void onChanged(List<UserEntity> userEntities) {
+                users.clear();
+                users.addAll(userEntities);
+            }
+        });
 
-        registerButton = findViewById(R.id.login_to_register_button);
-        loginButton = findViewById(R.id.login_login_button);
-        loginLogo = findViewById(R.id.login_logo);
+        loginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-        if (isDarkMode()){
-            loginLogo.setImageResource(R.drawable.ic_logo_login_dark);
-        }
+                boolean found = false;
+                
+                if (!usernameTextField.getText().toString().equals("") && !passwordTextField.getText().toString().equals("")) {
 
+                    for (UserEntity usr : users) {
+                        if (usr.getEmail().equals(usernameTextField.getText().toString())) {
+                            found = true;
+                            if (usr.getPassword().equals(passwordTextField.getText().toString())) {
+                                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                                finish();
+                            } else {
+                                Toast.makeText(getApplicationContext(), "Wrong Password", Toast.LENGTH_SHORT).show();
+                                break;
+                            }
+                        }
+                    }
+                    if (!found)
+                        Toast.makeText(getApplicationContext(), "User Not Found", Toast.LENGTH_SHORT).show();
 
+                }else {
+                    Toast.makeText(getApplicationContext(), "Fill In The Blanks", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,14 +82,19 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                finish();
-            }
-        });
+    }
 
+    private void findElements() {
+        registerButton = findViewById(R.id.login_to_register_button);
+        loginButton = findViewById(R.id.login_login_button);
+        loginLogo = findViewById(R.id.login_logo);
+        usernameTextField = findViewById(R.id.username_login);
+        passwordTextField = findViewById(R.id.password_login);
+
+
+        if (isDarkMode()){
+            loginLogo.setImageResource(R.drawable.ic_logo_login_dark);
+        }
     }
 
     private boolean isDarkMode(){

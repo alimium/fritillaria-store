@@ -15,8 +15,10 @@ public class AppSharedViewModel extends AndroidViewModel {
     private final LiveData<List<ProductEntity>> allProductsData;
 
 
+
     public AppSharedViewModel(@NonNull Application application) {
         super(application);
+        dataRepository = new Repository(application);
         allUsersData = dataRepository.getAllUsers();
         allProductsData = dataRepository.getAllProducts();
     }
