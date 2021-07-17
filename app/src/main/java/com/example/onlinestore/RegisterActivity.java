@@ -1,6 +1,7 @@
 package com.example.onlinestore;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -23,6 +24,7 @@ import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.gson.Gson;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -31,6 +33,7 @@ import java.util.List;
 public class RegisterActivity extends AppCompatActivity {
 
     private static final int IMAGE_SELECT_CODE = 1;
+    SharedPreferences sharedPreferences = getSharedPreferences("currentLoggedUser", MODE_PRIVATE);
 
     TextInputEditText firstNameText, lastNameText, emailText, phoneNumberText, passwordText;
     ShapeableImageView userProfilePicture;
@@ -101,6 +104,8 @@ public class RegisterActivity extends AppCompatActivity {
                 sharedViewModel.insertUser(newUser);
                 Toast.makeText(getApplicationContext(),"Welcome To Your Account "+firstNameText.getText().toString(), Toast.LENGTH_SHORT).show();
                 //TODO: add shared preferences
+                String newUserString = new Gson().toJson(newUser);
+                sharedPreferences.edit().putString("currentUser", newUserString).apply();
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
                 finish();

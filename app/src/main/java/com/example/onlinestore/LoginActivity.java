@@ -30,7 +30,8 @@ public class LoginActivity extends AppCompatActivity {
     MaterialButton registerButton;
     MaterialButton loginButton;
     TextInputEditText usernameTextField, passwordTextField;
-    SharedPreferences currentLoggedInUser = getSharedPreferences("currentLoggedUser", MODE_PRIVATE);
+    SharedPreferences sharedPreferences = getSharedPreferences("currentLoggedUser", MODE_PRIVATE);
+
 
 
     @Override
@@ -67,7 +68,7 @@ public class LoginActivity extends AppCompatActivity {
                         if (usr.getPassword().equals(passwordTextField.getText().toString())) {
                             Toast.makeText(getApplicationContext(), "Happy Shopping!", Toast.LENGTH_SHORT).show();
                             String loggedInUser = new Gson().toJson(usr);
-                            currentLoggedInUser.edit().putString("currentUser", loggedInUser).apply();
+                            sharedPreferences.edit().putString("currentUser", loggedInUser).apply();
                             startActivity(new Intent(getApplicationContext(), MainActivity.class));
                             finish();
                             return;
