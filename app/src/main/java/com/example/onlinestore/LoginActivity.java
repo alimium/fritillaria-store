@@ -50,23 +50,29 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if (!usernameTextField.getText().toString().equals("") && !passwordTextField.getText().toString().equals("")) {
+                if (usernameTextField.getText().toString().equals("")){
+                    Toast.makeText(getApplicationContext(), "Username Cannot Be Empty", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (passwordTextField.getText().toString().equals("")){
+                    Toast.makeText(getApplicationContext(), "Password Cannot Be Empty", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
-                    for (UserEntity usr : users) {
-                        if (usr.getEmail().equals(usernameTextField.getText().toString())) {
-                            if (usr.getPassword().equals(passwordTextField.getText().toString())) {
-                                startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                                finish();
-                            } else {
-                                Toast.makeText(getApplicationContext(), "Wrong Password", Toast.LENGTH_SHORT).show();
-                                return;
-                            }
+                for (UserEntity usr : users) {
+                    if (usr.getEmail().equals(usernameTextField.getText().toString())) {
+                        if (usr.getPassword().equals(passwordTextField.getText().toString())) {
+                            Toast.makeText(getApplicationContext(), "Happy Shopping!", Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                            finish();
+                            return;
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Wrong Password", Toast.LENGTH_SHORT).show();
+                            return;
                         }
                     }
-                    Toast.makeText(getApplicationContext(), "User Not Found", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(getApplicationContext(), "Fill In The Blanks", Toast.LENGTH_SHORT).show();
                 }
+                Toast.makeText(getApplicationContext(), "User Not Found", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -74,6 +80,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
+                finish();
             }
         });
 

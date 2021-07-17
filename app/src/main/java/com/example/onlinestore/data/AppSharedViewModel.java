@@ -10,9 +10,10 @@ import java.util.List;
 
 public class AppSharedViewModel extends AndroidViewModel {
 
-    private Repository dataRepository;
+    private final Repository dataRepository;
     private final LiveData<List<UserEntity>> allUsersData;
     private final LiveData<List<ProductEntity>> allProductsData;
+    private UserEntity loggedInUser;
 
 
 

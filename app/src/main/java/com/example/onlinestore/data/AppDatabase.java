@@ -52,6 +52,8 @@ public abstract class AppDatabase extends RoomDatabase {
                     // Populate the database in the background.
                     // If you want to start with more words, just add them.
                     DataAccessObject dao = INSTANCE.dao();
+                    dao.deleteAllUsers();
+                    dao.deleteAllProducts();
 
                     ProductEntity productDemo = new ProductEntity(null, "demoTitle", "demoDescription", "100", "0",
                             "Accessory", "Men", "L", "Tehran", "admin", "false");

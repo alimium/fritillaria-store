@@ -36,4 +36,10 @@ public interface DataAccessObject {
 
     @Query("SELECT * FROM products")
     LiveData<List<ProductEntity>> getAllProducts();
+
+    @Query("DELETE FROM users")
+    void deleteAllUsers();
+
+    @Query("DELETE FROM products")
+    void deleteAllProducts();
 }
