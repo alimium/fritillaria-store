@@ -19,6 +19,8 @@ import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -28,14 +30,12 @@ public class LoginActivity extends AppCompatActivity {
     TextInputEditText usernameTextField, passwordTextField;
 
 
-
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         findElements();
-        AppSharedViewModel sharedViewModel =  new ViewModelProvider(this).get(AppSharedViewModel.class);
+        AppSharedViewModel sharedViewModel = new ViewModelProvider(this).get(AppSharedViewModel.class);
         List<UserEntity> users = new ArrayList<>();
 
         sharedViewModel.getAllUsers().observe(this, new Observer<List<UserEntity>>() {
@@ -50,26 +50,21 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                boolean found = false;
-                
                 if (!usernameTextField.getText().toString().equals("") && !passwordTextField.getText().toString().equals("")) {
 
                     for (UserEntity usr : users) {
                         if (usr.getEmail().equals(usernameTextField.getText().toString())) {
-                            found = true;
                             if (usr.getPassword().equals(passwordTextField.getText().toString())) {
                                 startActivity(new Intent(LoginActivity.this, MainActivity.class));
                                 finish();
                             } else {
                                 Toast.makeText(getApplicationContext(), "Wrong Password", Toast.LENGTH_SHORT).show();
-                                break;
+                                return;
                             }
                         }
                     }
-                    if (!found)
-                        Toast.makeText(getApplicationContext(), "User Not Found", Toast.LENGTH_SHORT).show();
-
-                }else {
+                    Toast.makeText(getApplicationContext(), "User Not Found", Toast.LENGTH_SHORT).show();
+                } else {
                     Toast.makeText(getApplicationContext(), "Fill In The Blanks", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -92,12 +87,12 @@ public class LoginActivity extends AppCompatActivity {
         passwordTextField = findViewById(R.id.password_login);
 
 
-        if (isDarkMode()){
+        if (isDarkMode()) {
             loginLogo.setImageResource(R.drawable.ic_logo_login_dark);
         }
     }
 
-    private boolean isDarkMode(){
-        return (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)==Configuration.UI_MODE_NIGHT_YES;
+    private boolean isDarkMode() {
+        return (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES;
     }
 }

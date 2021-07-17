@@ -46,18 +46,21 @@ public abstract class AppDatabase extends RoomDatabase {
 
             // If you want to keep data through app restarts,
             // comment out the following block
-            databaseWriteExecutor.execute(() -> {
-                // Populate the database in the background.
-                // If you want to start with more words, just add them.
-                DataAccessObject dao = INSTANCE.dao();
+            databaseWriteExecutor.execute(new Runnable() {
+                @Override
+                public void run() {
+                    // Populate the database in the background.
+                    // If you want to start with more words, just add them.
+                    DataAccessObject dao = INSTANCE.dao();
 
-                ProductEntity productDemo = new ProductEntity(null, "demoTitle","demoDescription","100","0",
-                        "Accessory", "Men","L","Tehran","admin","false");
-                List<ProductEntity> bookmarks = new ArrayList<>();
-                bookmarks.add(productDemo);
-                UserEntity admin = new UserEntity("admin","admin","admin","admin","admin","",bookmarks);
-                dao.insertUser(admin);
-                dao.insertProduct(productDemo);
+                    ProductEntity productDemo = new ProductEntity(null, "demoTitle", "demoDescription", "100", "0",
+                            "Accessory", "Men", "L", "Tehran", "admin", "false");
+                    List<ProductEntity> bookmarks = new ArrayList<>();
+                    bookmarks.add(productDemo);
+                    UserEntity admin = new UserEntity("admin", "admin", "admin", "admin", "admin", "", bookmarks);
+                    dao.insertUser(admin);
+                    dao.insertProduct(productDemo);
+                }
             });
         }
     };
