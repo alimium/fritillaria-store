@@ -20,6 +20,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import com.bumptech.glide.Glide;
 import com.example.onlinestore.LoginActivity;
 import com.example.onlinestore.R;
 import com.example.onlinestore.data.UserEntity;
@@ -44,11 +45,6 @@ public class ProfileFragment extends Fragment{
     public ProfileFragment() {}
 
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -82,11 +78,14 @@ public class ProfileFragment extends Fragment{
         String currentUserJson = sharedPreferences.getString("currentUser","");
         currentUser = new Gson().fromJson(currentUserJson, UserEntity.class);
         String userNameAndLastName = currentUser.getFirstName().toString()+" "+currentUser.getLastName().toString();
+        String userProfilePicture = currentUser.getProfilePicture();
         userNameText.setText(userNameAndLastName);
-        userEmailText.setText(currentUser.getEmail().toString());
+        userEmailText.setText(currentUser.getEmail());
         userPhoneText.setText(currentUser.getPhone());
-        if (!currentUser.getProfilePicture().toString().equals("empty")){
-            userProfileImage.setImageURI(Uri.parse(currentUser.getProfilePicture().toString()));
+        if (userProfilePicture!=null){
+//            getActivity().getContentResolver().takePersistableUriPermission(Uri.parse(userProfilePicture),Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            userProfileImage.setImageURI(Uri.parse(userProfilePicture));
+//            Glide.with(getContext()).load(Uri.decode(userProfilePicture)).into(userProfileImage);
         }
 
 

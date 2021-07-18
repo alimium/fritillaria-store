@@ -1,7 +1,11 @@
 package com.example.onlinestore;
 
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.SQLException;
+import android.database.sqlite.SQLiteAbortException;
+import android.database.sqlite.SQLiteConstraintException;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -33,11 +37,13 @@ import java.util.List;
 public class RegisterActivity extends AppCompatActivity {
 
     private static final int IMAGE_SELECT_CODE = 1;
+    SharedPreferences sharedPreferences;
+
 
     TextInputEditText firstNameText, lastNameText, emailText, phoneNumberText, passwordText;
     ShapeableImageView userProfilePicture;
     Uri profilePictureUri;
-    String profilePicturePath = "empty";
+    String profilePicturePath = null;
     MaterialToolbar topAppBar;
     MaterialButton createNewProfileButton, choosePictureButton;
     AppSharedViewModel sharedViewModel;
@@ -45,7 +51,7 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        SharedPreferences sharedPreferences = getSharedPreferences("currentLoggedUser", MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences("currentLoggedUser", MODE_PRIVATE);
         sharedViewModel = new ViewModelProvider(this).get(AppSharedViewModel.class);
         List<UserEntity> allUsers = new ArrayList<>();
         sharedViewModel.getAllUsers().observe(this, new Observer<List<UserEntity>>() {
@@ -61,9 +67,21 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
+//                intent.addCategory(Intent.CATEGORY_OPENABLE);
                 intent.setType("image/*");
                 intent.setAction(Intent.ACTION_OPEN_DOCUMENT);
+                intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION|Intent.FLAG_GRANT_WRITE_URI_PERMISSION|Intent.FLAG_GRANT_READ_URI_PERMISSION);
                 startActivityForResult(Intent.createChooser(intent, "select a picture"), IMAGE_SELECT_CODE);
+//                registerForActivityResult(new ActivityResultContracts.StartActivityForResult().createIntent(getApplicationContext(),intent), new ActivityResultCallback<ActivityResult>() {
+//                    @Override
+//                    public void onActivityResult(ActivityResult result) {
+//                        if(result.getResultCode() == RESULT_OK){
+//                            profilePictureUri = result.getData().getData();
+//                            profilePicturePath = profilePictureUri.toString();
+//                            userProfilePicture.setImageURI(Uri.parse(profilePicturePath));
+//                        }
+//                    }
+//                });
             }
         });
 
@@ -97,10 +115,14 @@ public class RegisterActivity extends AppCompatActivity {
                         return;
                     }
                 }
+
+                //create new user
                 UserEntity newUser = new UserEntity(emailText.getText().toString(), passwordText.getText().toString(),
                         phoneNumberText.getText().toString(), firstNameText.getText().toString(),
                         lastNameText.getText().toString(), profilePicturePath, new ArrayList<ProductEntity>() {
                 });
+
+                //insert into database
                 sharedViewModel.insertUser(newUser);
                 Toast.makeText(getApplicationContext(),"Welcome To Your Account "+firstNameText.getText().toString(), Toast.LENGTH_SHORT).show();
                 //TODO: add shared preferences
@@ -119,8 +141,12 @@ public class RegisterActivity extends AppCompatActivity {
         if (requestCode == IMAGE_SELECT_CODE) {
             if(resultCode == RESULT_OK){
                 profilePictureUri = data.getData();
-                profilePicturePath = profilePictureUri.getPath();
-                userProfilePicture.setImageURI(profilePictureUri);
+                profilePicturePath = profilePictureUri.toString();
+                userProfilePicture.setImageURI(Uri.parse(profilePicturePath));
+                ContentResolver cr=getApplicationContext().getContentResolver();
+                int perms=Intent.FLAG_GRANT_READ_URI_PERMISSION
+                        | Intent.FLAG_GRANT_WRITE_URI_PERMISSION;
+                cr.takePersistableUriPermission(profilePictureUri, perms);
             }
         }
     }

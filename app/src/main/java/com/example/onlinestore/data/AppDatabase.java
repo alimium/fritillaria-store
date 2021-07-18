@@ -59,7 +59,7 @@ public abstract class AppDatabase extends RoomDatabase {
                             "Accessory", "Men", "L", "Tehran", "admin", "false");
                     List<ProductEntity> bookmarks = new ArrayList<>();
                     bookmarks.add(productDemo);
-                    UserEntity admin = new UserEntity("admin", "admin", "admin", "admin", "admin", "empty", bookmarks);
+                    UserEntity admin = new UserEntity("admin", "admin", "admin", "admin", "admin", null, bookmarks);
                     dao.insertUser(admin);
                     dao.insertProduct(productDemo);
                 }
