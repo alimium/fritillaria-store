@@ -7,7 +7,6 @@ import android.transition.ChangeBounds;
 import android.transition.TransitionManager;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -46,6 +45,9 @@ public class AdminActivity extends AppCompatActivity {
     TextView productsCountText, totalValueText, sellerCountText, bestSellerName, bestSellerEmail, bestSellerProducts, bestSellerLogins;
 
 
+
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,7 +64,6 @@ public class AdminActivity extends AppCompatActivity {
                 allUsers.clear();
                 allUsers.addAll(userEntities);
                 sellersAdapter.notifyDataSetChanged();
-                modifyChanges();
             }
         });
 
@@ -72,21 +73,14 @@ public class AdminActivity extends AppCompatActivity {
                 allProducts.clear();
                 allProducts.addAll(productEntities);
                 productsAdapter.notifyDataSetChanged();
-                modifyChanges();
             }
         });
 
 
+
     }
 
-    private void modifyChanges() {
-        sellerCountText.setText(String.valueOf(allUsers.size()));
-        setBestSellerValues();
-        productsCountText.setText(String.valueOf(allProducts.size()));
-        setTotalValue();
-    }
-
-    private void initElements() {
+    private void initElements(){
         productIdText = findViewById(R.id.admin_feature_text);
         promoteButton = findViewById(R.id.admin_submit_button);
 
@@ -117,6 +111,10 @@ public class AdminActivity extends AppCompatActivity {
         productsRecycler.addItemDecoration(new DividerItemDecoration(getApplicationContext(), DividerItemDecoration.VERTICAL));
         productsRecycler.setAdapter(productsAdapter);
 
+        sellerCountText.setText(String.valueOf(allUsers.size()));
+        setBestSellerValues();
+        productsCountText.setText(String.valueOf(allProducts.size()));
+        setTotalValue();
 
         sellersCard.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -129,26 +127,6 @@ public class AdminActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 toggleExpandable(productsRecycler, itemsCard);
-            }
-        });
-
-        promoteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (productIdText.getText().toString().equals("")){
-                    Toast.makeText(getApplicationContext(), "Product Id Cannot Be Empty", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                Integer id = Integer.parseInt(productIdText.getText().toString());
-                for (ProductEntity product : allProducts){
-                    if (product.getId()==id){
-                        product.setIsFeatured(1);
-                        sharedViewModel.updateProduct(product);
-                        Toast.makeText(getApplicationContext(), "Product With ID #"+id+" Promoted", Toast.LENGTH_SHORT).show();
-                        return;
-                    }
-                }
-                Toast.makeText(getApplicationContext(), "Product With ID: #"+id+" Not Found", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -166,8 +144,8 @@ public class AdminActivity extends AppCompatActivity {
 
     private void setTotalValue() {
         double total = 0;
-        for (ProductEntity product : allProducts) {
-            total += Double.parseDouble(product.getItemRawPrice());
+        for (ProductEntity product : allProducts){
+            total+=Double.parseDouble(product.getItemRawPrice());
         }
         totalValueText.setText(String.valueOf(total));
     }
@@ -175,17 +153,17 @@ public class AdminActivity extends AppCompatActivity {
     private void setBestSellerValues() {
         int MAX = 0;
         UserEntity bestUser = null;
-
-        for (UserEntity user : allUsers) {
-            if (user.getProducts() >= MAX) {
+        
+        for (UserEntity user : allUsers){
+            if (user.getProducts()>=MAX){
                 bestUser = user;
                 MAX = user.getProducts();
             }
         }
-        String bestUserNameStr = bestUser.getFirstName() + " " + bestUser.getLastName();
+        String bestUserNameStr = bestUser.getFirstName()+" "+bestUser.getLastName();
         String bestUserEmailStr = bestUser.getEmail();
-        String bestUserProductsStr = "Products On Sale: " + bestUser.getProducts();
-        String bestUserLoginsStr = "Logins: " + bestUser.getLogins();
+        String bestUserProductsStr = "Products On Sale: "+bestUser.getProducts();
+        String bestUserLoginsStr = "Logins: "+bestUser.getLogins();
 
         bestSellerName.setText(bestUserNameStr);
         bestSellerEmail.setText(bestUserEmailStr);

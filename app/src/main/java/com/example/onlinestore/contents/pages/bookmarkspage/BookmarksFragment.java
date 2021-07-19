@@ -15,12 +15,14 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.onlinestore.R;
 import com.example.onlinestore.contents.pages.feedpage.ItemRecyclerViewAdapter;
+import com.example.onlinestore.data.AppSharedViewModel;
 import com.example.onlinestore.data.ProductEntity;
 import com.example.onlinestore.data.UserEntity;
 import com.google.android.material.appbar.AppBarLayout;
@@ -45,6 +47,7 @@ public class BookmarksFragment extends Fragment {
     MaterialAutoCompleteTextView feedFilterCategory, feedFilterGender, feedFilterSort, feedFilterSize, feedFilterCity;
 
     SharedPreferences sharedPreferences;
+    AppSharedViewModel sharedViewModel;
     UserEntity currentUser;
 
     @Override
@@ -58,6 +61,7 @@ public class BookmarksFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        sharedViewModel = new ViewModelProvider(getActivity()).get(AppSharedViewModel.class);
         sharedPreferences = getActivity().getSharedPreferences("currentLoggedUser", Context.MODE_PRIVATE);
         currentUser = new Gson().fromJson(sharedPreferences.getString("currentUser", ""), UserEntity.class);
 
@@ -134,6 +138,9 @@ public class BookmarksFragment extends Fragment {
                 itemsRecyclerViewAdapter.notifyItemRemoved(position);
 
                 saveUserToSharedPref();
+                currentUser.setBookmarks(itemCardModelArrayList);
+                sharedViewModel.updateUser(currentUser);
+
 
                 Snackbar.make(itemsRecyclerView, "Product with ID #" + delBookmark.getId() + "removed from bookmarks.", Snackbar.LENGTH_LONG)
                         .setAction("Undo", view -> {
@@ -141,6 +148,8 @@ public class BookmarksFragment extends Fragment {
                             itemsRecyclerViewAdapter.notifyItemInserted(position);
 
                             saveUserToSharedPref();
+                            currentUser.setBookmarks(itemCardModelArrayList);
+                            sharedViewModel.updateUser(currentUser);
 
                             Toast.makeText(getContext(), "Deleted card Restored", Toast.LENGTH_SHORT).show();
                         });
