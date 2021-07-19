@@ -16,7 +16,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 @Database(entities = {UserEntity.class, ProductEntity.class}, version = 1, exportSchema = false)
-@TypeConverters(ListConverter.class)
+@TypeConverters({ListConverter.class, UserConverter.class})
 public abstract class AppDatabase extends RoomDatabase {
 
     public abstract DataAccessObject dao();
@@ -52,14 +52,11 @@ public abstract class AppDatabase extends RoomDatabase {
                     // Populate the database in the background.
                     // If you want to start with more words, just add them.
                     DataAccessObject dao = INSTANCE.dao();
-                    dao.deleteAllUsers();
-                    dao.deleteAllProducts();
-
+//                    dao.deleteAllUsers();
+//                    dao.deleteAllProducts();
+                    UserEntity admin = new UserEntity("admin", "admin", "admin", "admin", "admin", null, new ArrayList<>());
                     ProductEntity productDemo = new ProductEntity(null, "demoTitle", "demoDescription", "100", "0",
-                            "Accessory", "Men", "L", "Tehran", "admin", "false");
-                    List<ProductEntity> bookmarks = new ArrayList<>();
-                    bookmarks.add(productDemo);
-                    UserEntity admin = new UserEntity("admin", "admin", "admin", "admin", "admin", null, bookmarks);
+                            "Accessory", "Men", "L", "Tehran", admin, 1);
                     dao.insertUser(admin);
                     dao.insertProduct(productDemo);
                 }

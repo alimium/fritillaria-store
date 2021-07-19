@@ -25,6 +25,13 @@ public interface DataAccessObject {
     @Query("SELECT * FROM users")
     LiveData<List<UserEntity>> getAllUsers();
 
+
+    @Query("SELECT * FROM products WHERE product_seller = :seller")
+    public LiveData<List<ProductEntity>> getCurrentUserProducts(UserEntity seller);
+
+
+
+
     @Insert
     void insertProduct(ProductEntity product);
 
@@ -36,6 +43,10 @@ public interface DataAccessObject {
 
     @Query("SELECT * FROM products")
     LiveData<List<ProductEntity>> getAllProducts();
+
+
+
+
 
     @Query("DELETE FROM users")
     void deleteAllUsers();

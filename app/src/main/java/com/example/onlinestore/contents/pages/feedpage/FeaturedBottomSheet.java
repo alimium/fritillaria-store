@@ -1,5 +1,7 @@
 package com.example.onlinestore.contents.pages.feedpage;
 
+import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,17 +15,22 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.transition.AutoTransition;
 import androidx.transition.TransitionManager;
 
+import com.bumptech.glide.Glide;
 import com.example.onlinestore.R;
+import com.example.onlinestore.data.ProductEntity;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.imageview.ShapeableImageView;
+
+import java.text.DecimalFormat;
 
 
 public class FeaturedBottomSheet extends BottomSheetDialogFragment {
 
-    public ItemCardModel clickedFeaturedCard;
+    public ProductEntity clickedFeaturedCard;
     public ConstraintLayout expandableLayout;
-    public MaterialCardView itemTitleCard, itemMainCard;
+    public MaterialCardView itemTitleCard, itemMainCard, callSellerCard;
     public ShapeableImageView itemProfileImage;
     public TextView itemTitleTop, itemId;
     public ImageView itemPicture;
@@ -32,15 +39,13 @@ public class FeaturedBottomSheet extends BottomSheetDialogFragment {
     public TextView itemCity;
     public TextView itemRawPrice, itemFinalPrice;
     public ImageView bookmarkButton;
+    public Context context;
 
 
-
-
-    public FeaturedBottomSheet(ItemCardModel instanceFeaturedItemCard) {
+    public FeaturedBottomSheet(ProductEntity instanceFeaturedItemCard, Context context) {
         clickedFeaturedCard = instanceFeaturedItemCard;
+        this.context = context;
     }
-
-
 
 
     @Nullable
@@ -64,18 +69,35 @@ public class FeaturedBottomSheet extends BottomSheetDialogFragment {
         expandableLayout = v.findViewById(R.id.expandable_featured_sheet_layout);
         bookmarkButton = v.findViewById(R.id.feed_featured_sheet_bookmark_icon);
         itemMainCard = v.findViewById(R.id.feed_featured_sheet_card);
+        callSellerCard = v.findViewById(R.id.feed_featured_sheet_call);
 
-        itemProfileImage.setImageResource(clickedFeaturedCard.getProfileImage());
+        String itemId = "#" + clickedFeaturedCard.getId();
+        double discount = Double.parseDouble(clickedFeaturedCard.getItemDiscount());
+        double rawPrice = Double.parseDouble(clickedFeaturedCard.getItemRawPrice());
+        double finalPrice = (rawPrice * (100 - discount)) / 100;
+        DecimalFormat priceFormat = new DecimalFormat("#.##");
+        String finalPriceString = priceFormat.format(finalPrice);
+
+        if (clickedFeaturedCard.getSeller().getProfilePicture()!=null) {
+            Uri sellerPicture = Uri.parse(clickedFeaturedCard.getSeller().getProfilePicture());
+            Glide.with(context).load(sellerPicture).into(this.itemProfileImage);
+        }
         itemTitleTop.setText(clickedFeaturedCard.getItemTitle());
-        itemId.setText(clickedFeaturedCard.getItemId());
-        itemPicture.setImageResource(clickedFeaturedCard.getItemPicture());
+        this.itemId.setText(itemId);
+        if (clickedFeaturedCard.getItemPicture() == null) {
+            this.itemPicture.setVisibility(View.GONE);
+        } else {
+            Uri itemPicture  = Uri.parse(clickedFeaturedCard.getItemPicture());
+            Glide.with(context).load(itemPicture).into(this.itemPicture);
+        }
         itemTitleBottom.setText(clickedFeaturedCard.getItemTitle());
         itemDescription.setText(clickedFeaturedCard.getItemDescription());
         itemSize.setText(clickedFeaturedCard.getItemSize());
+        itemCategory.setText(clickedFeaturedCard.getItemCategory());
         itemGender.setText(clickedFeaturedCard.getItemGender());
         itemCity.setText(clickedFeaturedCard.getItemCity());
         itemRawPrice.setText(clickedFeaturedCard.getItemRawPrice());
-        itemFinalPrice.setText(clickedFeaturedCard.getItemDiscount());
+        itemFinalPrice.setText(finalPriceString);
 
 
         itemTitleCard.setOnClickListener(new View.OnClickListener() {
@@ -86,19 +108,29 @@ public class FeaturedBottomSheet extends BottomSheetDialogFragment {
         });
 
 
-        bookmarkButton.setOnClickListener(new View.OnClickListener() {
+        //TODO: call seller
+        callSellerCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (clickedFeaturedCard.isBookmarked()){
-                    bookmarkButton.setImageResource(R.drawable.ic_bookmark);
-                    clickedFeaturedCard.setBookmarked(false);
-                }else{
-                    bookmarkButton.setImageResource(R.drawable.ic_bookmark_selected);
-                    clickedFeaturedCard.setBookmarked(true);
 
-                }
             }
         });
+
+
+        //TODO: bookmark functionality -> need to update database
+//        bookmarkButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (clickedFeaturedCard.isBookmarked()){
+//                    bookmarkButton.setImageResource(R.drawable.ic_bookmark);
+//                    clickedFeaturedCard.setBookmarked(false);
+//                }else{
+//                    bookmarkButton.setImageResource(R.drawable.ic_bookmark_selected);
+//                    clickedFeaturedCard.setBookmarked(true);
+//
+//                }
+//            }
+//        });
 
 
         return v;
@@ -106,10 +138,10 @@ public class FeaturedBottomSheet extends BottomSheetDialogFragment {
 
 
     private void toggleExpandableCard() {
-        if (expandableLayout.getVisibility()==View.VISIBLE){
+        if (expandableLayout.getVisibility() == View.VISIBLE) {
 //            TransitionManager.beginDelayedTransition(itemMainCard, new AutoTransition());
             expandableLayout.setVisibility(View.GONE);
-        }else {
+        } else {
             TransitionManager.beginDelayedTransition(itemMainCard, new AutoTransition());
             expandableLayout.setVisibility(View.VISIBLE);
         }

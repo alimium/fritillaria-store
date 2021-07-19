@@ -72,6 +72,6 @@
                 app:destination="@id/library_page" />
         <argument
                 android:name="cardToEdit"
-                app:argType="com.example.onlinestore.contents.pages.feedpage.ItemCardModel" />
+                app:argType="string" />
     </fragment>
 </navigation>

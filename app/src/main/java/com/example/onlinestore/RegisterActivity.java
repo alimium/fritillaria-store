@@ -61,6 +61,7 @@ public class RegisterActivity extends AppCompatActivity {
                 allUsers.addAll(userEntities);
             }
         });
+
         elementInit();
 
         choosePictureButton.setOnClickListener(new View.OnClickListener() {
@@ -72,16 +73,6 @@ public class RegisterActivity extends AppCompatActivity {
                 intent.setAction(Intent.ACTION_OPEN_DOCUMENT);
                 intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION|Intent.FLAG_GRANT_WRITE_URI_PERMISSION|Intent.FLAG_GRANT_READ_URI_PERMISSION);
                 startActivityForResult(Intent.createChooser(intent, "select a picture"), IMAGE_SELECT_CODE);
-//                registerForActivityResult(new ActivityResultContracts.StartActivityForResult().createIntent(getApplicationContext(),intent), new ActivityResultCallback<ActivityResult>() {
-//                    @Override
-//                    public void onActivityResult(ActivityResult result) {
-//                        if(result.getResultCode() == RESULT_OK){
-//                            profilePictureUri = result.getData().getData();
-//                            profilePicturePath = profilePictureUri.toString();
-//                            userProfilePicture.setImageURI(Uri.parse(profilePicturePath));
-//                        }
-//                    }
-//                });
             }
         });
 
@@ -142,7 +133,7 @@ public class RegisterActivity extends AppCompatActivity {
             if(resultCode == RESULT_OK){
                 profilePictureUri = data.getData();
                 profilePicturePath = profilePictureUri.toString();
-                userProfilePicture.setImageURI(Uri.parse(profilePicturePath));
+                Glide.with(getApplicationContext()).load(profilePictureUri).into(userProfilePicture);
                 ContentResolver cr=getApplicationContext().getContentResolver();
                 int perms=Intent.FLAG_GRANT_READ_URI_PERMISSION
                         | Intent.FLAG_GRANT_WRITE_URI_PERMISSION;

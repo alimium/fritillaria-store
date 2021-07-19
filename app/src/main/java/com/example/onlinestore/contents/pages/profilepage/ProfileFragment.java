@@ -83,9 +83,7 @@ public class ProfileFragment extends Fragment{
         userEmailText.setText(currentUser.getEmail());
         userPhoneText.setText(currentUser.getPhone());
         if (userProfilePicture!=null){
-//            getActivity().getContentResolver().takePersistableUriPermission(Uri.parse(userProfilePicture),Intent.FLAG_GRANT_READ_URI_PERMISSION);
-            userProfileImage.setImageURI(Uri.parse(userProfilePicture));
-//            Glide.with(getContext()).load(Uri.decode(userProfilePicture)).into(userProfileImage);
+            Glide.with(getContext()).load(Uri.parse(userProfilePicture)).into(userProfileImage);
         }
 
 

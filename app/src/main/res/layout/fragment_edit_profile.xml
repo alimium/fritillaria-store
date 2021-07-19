@@ -21,6 +21,7 @@
                 android:layout_width="160dp"
                 android:layout_height="160dp"
                 android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -111,7 +112,8 @@
                 app:boxCornerRadiusBottomEnd="20dp"
                 app:boxCornerRadiusBottomStart="20dp"
                 app:boxCornerRadiusTopStart="20dp"
-                app:boxCornerRadiusTopEnd="20dp">
+                app:boxCornerRadiusTopEnd="20dp"
+                android:enabled="false">
 
             <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edit_profile_email_text_view"

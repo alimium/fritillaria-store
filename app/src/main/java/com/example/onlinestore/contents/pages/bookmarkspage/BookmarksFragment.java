@@ -18,21 +18,22 @@ import android.widget.LinearLayout;
 
 import com.example.onlinestore.R;
 import com.example.onlinestore.contents.pages.feedpage.FeaturedRecyclerViewAdapter;
-import com.example.onlinestore.contents.pages.feedpage.ItemCardModel;
 import com.example.onlinestore.contents.pages.feedpage.ItemRecyclerViewAdapter;
+import com.example.onlinestore.data.ProductEntity;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.MaterialAutoCompleteTextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class BookmarksFragment extends Fragment {
 
     private RecyclerView featuredRecyclerView, itemsRecyclerView;
     private RecyclerView.Adapter featuredRecyclerViewAdapter, itemsRecyclerViewAdapter;
     private RecyclerView.LayoutManager featuredRecyclerViewLayoutManager, itemsRecyclerViewLayoutManager;
-    ArrayList<ItemCardModel> featuredCardModelArrayList;
-    ArrayList<ItemCardModel> itemCardModelArrayList;
+    List<ProductEntity> featuredCardModelArrayList;
+    List<ProductEntity> itemCardModelArrayList;
     ArrayList<String> filterSizeList, filterCityList, filterCategoryList, filterGenderList, filterSortList;
     LinearLayout filterDetail;
     MaterialButton filterButton;
@@ -62,25 +63,20 @@ public class BookmarksFragment extends Fragment {
 
 
         itemCardModelArrayList = new ArrayList<>();
-        itemCardModelArrayList.add(new ItemCardModel(R.drawable.default_profile_picture, R.drawable.default_item_image, "#24586", "Item Title", "Item Description. Long Text Long Text. Long Text.", "XXL", "Men", "Clothing", "Paris, France", "139.99", "99.99",false));
-        itemCardModelArrayList.add(new ItemCardModel(R.drawable.default_profile_picture, R.drawable.default_item_image, "#24586", "Item Title", "Item Description. Long Text Long Text. Long Text.", "XXL", "Men", "Clothing", "Paris, France", "139.99", "99.99",false));
-        itemCardModelArrayList.add(new ItemCardModel(R.drawable.default_profile_picture, R.drawable.default_item_image, "#24586", "Item Title", "Item Description. Long Text Long Text. Long Text.", "XXL", "Men", "Clothing", "Paris, France", "139.99", "99.99",false));
 
         featuredCardModelArrayList = new ArrayList<>();
-        featuredCardModelArrayList.add(new ItemCardModel(R.drawable.default_profile_picture, R.drawable.default_item_image, "#24586", "Item Title", "Item Description. Long Text Long Text. Long Text.", "XXL", "Men", "Clothing", "Paris, France", "139.99", "99.99",false));
-        featuredCardModelArrayList.add(new ItemCardModel(R.drawable.default_profile_picture, R.drawable.default_profile_picture, "#24586", "Item Title", "Item Description. Long Text Long Text. Long Text.", "XXL", "Men", "Clothing", "Paris, France", "139.99", "99.99",false));
 
 
         featuredRecyclerView = view.findViewById(R.id.bookmarks_featured_list_recyclerview);
         featuredRecyclerViewLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-        featuredRecyclerViewAdapter = new FeaturedRecyclerViewAdapter(featuredCardModelArrayList, getActivity().getSupportFragmentManager());
+        featuredRecyclerViewAdapter = new FeaturedRecyclerViewAdapter(featuredCardModelArrayList, getActivity().getSupportFragmentManager(), getContext());
         featuredRecyclerView.setHasFixedSize(true);
         featuredRecyclerView.setLayoutManager(featuredRecyclerViewLayoutManager);
         featuredRecyclerView.setAdapter(featuredRecyclerViewAdapter);
 
         itemsRecyclerView = view.findViewById(R.id.bookmarks_item_list_recyclerview);
         itemsRecyclerViewLayoutManager = new LinearLayoutManager(getContext());
-        itemsRecyclerViewAdapter = new ItemRecyclerViewAdapter(itemCardModelArrayList);
+        itemsRecyclerViewAdapter = new ItemRecyclerViewAdapter(itemCardModelArrayList, getContext());
         itemsRecyclerView.setHasFixedSize(true);
         itemsRecyclerView.setLayoutManager(itemsRecyclerViewLayoutManager);
         itemsRecyclerView.setAdapter(itemsRecyclerViewAdapter);

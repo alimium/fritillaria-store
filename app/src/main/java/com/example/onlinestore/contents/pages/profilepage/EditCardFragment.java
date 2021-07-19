@@ -1,5 +1,6 @@
 package com.example.onlinestore.contents.pages.profilepage;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,20 +12,23 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.onlinestore.R;
-import com.example.onlinestore.contents.pages.feedpage.ItemCardModel;
+import com.example.onlinestore.data.ProductEntity;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.textfield.MaterialAutoCompleteTextView;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
 
 public class EditCardFragment extends Fragment {
 
     EditCardFragmentArgs args;
-    ItemCardModel cardToEdit;
+    String cardToEditStr;
+    ProductEntity cardToEdit;
     ArrayList<String> categoryDropdownArrayList = new ArrayList<>();
     ArrayList<String> genderDropdownArrayList = new ArrayList<>();
 
@@ -53,7 +57,8 @@ public class EditCardFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         args = EditCardFragmentArgs.fromBundle(getArguments());
-        cardToEdit = args.getCardToEdit();
+        cardToEditStr = args.getCardToEdit();
+        cardToEdit = new Gson().fromJson(cardToEditStr, ProductEntity.class);
 
         setupNavigationIconBackButton(view);
         setupDropdownLists(view);
@@ -64,7 +69,7 @@ public class EditCardFragment extends Fragment {
     }
 
     private void setValuesToFields() {
-        itemImage.setImageResource(cardToEdit.getItemPicture());
+        itemImage.setImageURI(Uri.parse(cardToEdit.getItemPicture()));
         itemTitle.setText(cardToEdit.getItemTitle());
         itemDescription.setText(cardToEdit.getItemDescription());
         itemPrice.setText(cardToEdit.getItemRawPrice());

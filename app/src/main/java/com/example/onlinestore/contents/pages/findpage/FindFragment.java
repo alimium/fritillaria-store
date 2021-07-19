@@ -15,13 +15,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.onlinestore.R;
-import com.example.onlinestore.contents.pages.feedpage.ItemCardModel;
-import com.example.onlinestore.utility.toast.CustomToast;
-import com.example.onlinestore.utility.toast.CustomToastMode;
+import com.example.onlinestore.data.ProductEntity;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class FindFragment extends Fragment {
     NavController navController;
@@ -30,8 +29,8 @@ public class FindFragment extends Fragment {
     MaterialButton findButton;
     TextInputEditText searchInputBox;
     String query;
-    ArrayList<ItemCardModel> resultListFeatured;
-    ArrayList<ItemCardModel> resultListMain;
+    List<ProductEntity> resultListFeatured;
+    List<ProductEntity> resultListMain;
 
     public FindFragment() {}
 
@@ -64,13 +63,8 @@ public class FindFragment extends Fragment {
         //_________________________
 
         resultListMain = new ArrayList<>();
-        resultListMain.add(new ItemCardModel(R.drawable.default_profile_picture, R.drawable.default_item_image, "#24586", "Item Title", "Item Description. Long Text Long Text. Long Text.", "XXL", "Men", "Clothing", "Paris, France", "139.99", "99.99",false));
-        resultListMain.add(new ItemCardModel(R.drawable.default_profile_picture, R.drawable.default_item_image, "#24586", "Item Title", "Item Description. Long Text Long Text. Long Text.", "XXL", "Men", "Clothing", "Paris, France", "139.99", "99.99",false));
-        resultListMain.add(new ItemCardModel(R.drawable.default_profile_picture, R.drawable.default_item_image, "#24586", "Item Title", "Item Description. Long Text Long Text. Long Text.", "XXL", "Men", "Clothing", "Paris, France", "139.99", "99.99",false));
 
         resultListFeatured = new ArrayList<>();
-        resultListFeatured.add(new ItemCardModel(R.drawable.default_profile_picture, R.drawable.default_item_image, "#24586", "Item Title", "Item Description. Long Text Long Text. Long Text.", "XXL", "Men", "Clothing", "Paris, France", "139.99", "99.99",false));
-        resultListFeatured.add(new ItemCardModel(R.drawable.default_profile_picture, R.drawable.default_profile_picture, "#24586", "Item Title", "Item Description. Long Text Long Text. Long Text.", "XXL", "Men", "Clothing", "Paris, France", "139.99", "99.99",false));
 
 
         findButton.setOnClickListener(new View.OnClickListener() {

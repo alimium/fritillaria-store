@@ -22,7 +22,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="130dp"
                 android:src="@drawable/default_profile_picture"
-                android:scaleType="fitXY"
+                android:scaleType="centerCrop"
                 android:adjustViewBounds="true"
                 app:layout_constraintTop_toTopOf="parent"
                 android:id="@+id/feed_featured_card_picture" />

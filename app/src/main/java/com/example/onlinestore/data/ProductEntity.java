@@ -16,7 +16,6 @@ public class ProductEntity {
 
 
     @PrimaryKey(autoGenerate = true)
-    @NonNull
     @ColumnInfo(name = "productId")
     private int id;
 
@@ -36,7 +35,7 @@ public class ProductEntity {
     @ColumnInfo(name = "product_raw_price")
     private String itemRawPrice;
 
-    @Nullable
+    @NonNull
     @ColumnInfo(name = "product_discount", defaultValue = "0")
     private String itemDiscount;
 
@@ -56,22 +55,13 @@ public class ProductEntity {
     @ColumnInfo(name = "product_city")
     private String itemCity;
 
-    @NonNull
-    public String getSellerEmail() {
-        return sellerEmail;
-    }
-
-    public void setSellerEmail(@NonNull String sellerEmail) {
-        this.sellerEmail = sellerEmail;
-    }
 
     @NonNull
     @ColumnInfo(name = "product_seller")
-    private String sellerEmail;
+    private UserEntity seller;
 
-    @NonNull
-    @ColumnInfo(name = "is_featured", defaultValue = "false")
-    private String isFeatured;
+    @ColumnInfo(name = "is_featured")
+    private int isFeatured;
 
 
 
@@ -79,8 +69,8 @@ public class ProductEntity {
                          @NonNull String itemDescription, @NonNull String itemRawPrice,
                          @Nullable String itemDiscount, @NonNull String itemCategory,
                          @NonNull String itemGender, @NonNull String itemSize,
-                         @NonNull String itemCity, @NonNull String sellerEmail,
-                         @NonNull String isFeatured) {
+                         @NonNull String itemCity, @NonNull UserEntity seller,
+                         int isFeatured) {
         this.itemPicture = itemPicture;
         this.itemTitle = itemTitle;
         this.itemDescription = itemDescription;
@@ -90,8 +80,17 @@ public class ProductEntity {
         this.itemGender = itemGender;
         this.itemSize = itemSize;
         this.itemCity = itemCity;
-        this.sellerEmail = sellerEmail;
+        this.seller = seller;
         this.isFeatured = isFeatured;
+    }
+
+    @NonNull
+    public UserEntity getSeller() {
+        return seller;
+    }
+
+    public void setSeller(@NonNull UserEntity seller) {
+        this.seller = seller;
     }
 
     public int getId() {
@@ -184,11 +183,11 @@ public class ProductEntity {
     }
 
     @NonNull
-    public String getIsFeatured() {
+    public int getIsFeatured() {
         return isFeatured;
     }
 
-    public void setIsFeatured(@NonNull String isFeatured) {
+    public void setIsFeatured(@NonNull int isFeatured) {
         this.isFeatured = isFeatured;
     }
 }

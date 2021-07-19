@@ -1,6 +1,8 @@
 package com.example.onlinestore.contents.pages.profilepage;
 
 import android.content.ClipData;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +12,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -17,13 +21,17 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.onlinestore.R;
-import com.example.onlinestore.contents.pages.feedpage.ItemCardModel;
 import com.example.onlinestore.contents.pages.feedpage.ItemRecyclerViewAdapter;
+import com.example.onlinestore.data.AppSharedViewModel;
+import com.example.onlinestore.data.ProductEntity;
+import com.example.onlinestore.data.UserEntity;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class LibraryFragment extends Fragment {
 
@@ -31,39 +39,41 @@ public class LibraryFragment extends Fragment {
     private RecyclerView itemsRecyclerView;
     private RecyclerView.Adapter itemsRecyclerViewAdapter;
     private RecyclerView.LayoutManager itemsRecyclerViewLayoutManager;
-    ArrayList<ItemCardModel> itemCardModelArrayList;
+    List<ProductEntity> itemCardModelArrayList = new ArrayList<>();
     MaterialToolbar topBar;
+    AppSharedViewModel sharedViewModel;
+    SharedPreferences sharedPreferences;
+    UserEntity currentUser;
 
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_library, container, false);
 
-        return v;
+        return inflater.inflate(R.layout.fragment_library, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        sharedPreferences = getActivity().getSharedPreferences("currentLoggedUser", Context.MODE_PRIVATE);
+        currentUser = new Gson().fromJson(sharedPreferences.getString("currentUser",""), UserEntity.class);
+        sharedViewModel = new ViewModelProvider(requireActivity()).get(AppSharedViewModel.class);
+        sharedViewModel.getAllProducts().observe(getViewLifecycleOwner(), new Observer<List<ProductEntity>>() {
+            @Override
+            public void onChanged(List<ProductEntity> productEntities) {
+                List<ProductEntity> allProducts = new ArrayList<>(productEntities);
+                extractCurrentUserDataFromProducts(allProducts);
+            }
+        });
+
 
         itemsRecyclerView = view.findViewById(R.id.library_item_list_recyclerview);
         topBar = view.findViewById(R.id.top_app_bar_library);
         navController = Navigation.findNavController(view);
 
-
-        itemCardModelArrayList = new ArrayList<>();
-        itemCardModelArrayList.add(new ItemCardModel(R.drawable.default_profile_picture, R.drawable.default_item_image, "#24586", "Item Title", "Item Description. Long Text Long Text. Long Text.", "XXL", "Men", "Clothing", "Paris, France", "139.99", "99.99", false));
-        itemCardModelArrayList.add(new ItemCardModel(R.drawable.default_profile_picture, R.drawable.default_item_image, "#24586", "Item Title", "Item Description. Long Text Long Text. Long Text.", "XXL", "Men", "Clothing", "Paris, France", "139.99", "99.99", false));
-        itemCardModelArrayList.add(new ItemCardModel(R.drawable.default_profile_picture, R.drawable.default_item_image, "#24586", "Item Title", "Item Description. Long Text Long Text. Long Text.", "XXL", "Men", "Clothing", "Paris, France", "139.99", "99.99", false));
-        itemCardModelArrayList.add(new ItemCardModel(R.drawable.default_profile_picture, R.drawable.default_item_image, "#24586", "Item Title", "Item Description. Long Text Long Text. Long Text.", "XXL", "Men", "Clothing", "Paris, France", "139.99", "99.99", false));
-        itemCardModelArrayList.add(new ItemCardModel(R.drawable.default_profile_picture, R.drawable.default_item_image, "#24586", "Item Title", "Item Description. Long Text Long Text. Long Text.", "XXL", "Men", "Clothing", "Paris, France", "139.99", "99.99", false));
-        itemCardModelArrayList.add(new ItemCardModel(R.drawable.default_profile_picture, R.drawable.default_item_image, "#24586", "Item Title", "Item Description. Long Text Long Text. Long Text.", "XXL", "Men", "Clothing", "Paris, France", "139.99", "99.99", false));
-        itemCardModelArrayList.add(new ItemCardModel(R.drawable.default_profile_picture, R.drawable.default_item_image, "#24586", "Item Title", "Item Description. Long Text Long Text. Long Text.", "XXL", "Men", "Clothing", "Paris, France", "139.99", "99.99", false));
-        itemCardModelArrayList.add(new ItemCardModel(R.drawable.default_profile_picture, R.drawable.default_item_image, "#24586", "Item Title", "Item Description. Long Text Long Text. Long Text.", "XXL", "Men", "Clothing", "Paris, France", "139.99", "99.99", false));
-
         itemsRecyclerViewLayoutManager = new LinearLayoutManager(getContext());
-        itemsRecyclerViewAdapter = new ItemRecyclerViewAdapter(itemCardModelArrayList);
+        itemsRecyclerViewAdapter = new ItemRecyclerViewAdapter(itemCardModelArrayList, getContext());
         itemsRecyclerView.setHasFixedSize(true);
         itemsRecyclerView.setLayoutManager(itemsRecyclerViewLayoutManager);
         itemsRecyclerView.setAdapter(itemsRecyclerViewAdapter);
@@ -76,8 +86,8 @@ public class LibraryFragment extends Fragment {
             }
 
 
-            ItemCardModel deletedCard = null;
-            ItemCardModel cardToEdit = null;
+            ProductEntity deletedCard = null;
+            ProductEntity cardToEdit = null;
 
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
@@ -87,7 +97,7 @@ public class LibraryFragment extends Fragment {
                         deletedCard = itemCardModelArrayList.get(position);
                         itemCardModelArrayList.remove(position);
                         itemsRecyclerViewAdapter.notifyItemRemoved(position);
-                        Snackbar.make(itemsRecyclerView, "Product with ID #" + deletedCard.getItemId() + " was removed", BaseTransientBottomBar.LENGTH_LONG)
+                        Snackbar.make(itemsRecyclerView, "Product with ID #" + deletedCard.getId() + " was removed", BaseTransientBottomBar.LENGTH_LONG)
                                 .setAction("Undo", new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
@@ -99,7 +109,7 @@ public class LibraryFragment extends Fragment {
                         break;
 
                     case ItemTouchHelper.RIGHT:
-                        LibraryFragmentDirections.ActionLibraryPageToEditCardPage toEditCardPage = LibraryFragmentDirections.actionLibraryPageToEditCardPage(itemCardModelArrayList.get(position));
+                        LibraryFragmentDirections.ActionLibraryPageToEditCardPage toEditCardPage = LibraryFragmentDirections.actionLibraryPageToEditCardPage(new Gson().toJson(itemCardModelArrayList.get(position)));
                         navController.navigate(toEditCardPage);
                         break;
 
@@ -118,5 +128,15 @@ public class LibraryFragment extends Fragment {
             }
         });
 
+    }
+
+    private void extractCurrentUserDataFromProducts(List<ProductEntity> allProducts) {
+        itemCardModelArrayList.clear();
+        for (ProductEntity item : allProducts){
+            if (item.getSeller().getEmail().equals(currentUser.getEmail())){
+                itemCardModelArrayList.add(item);
+            }
+        }
+        itemsRecyclerViewAdapter.notifyDataSetChanged();
     }
 }
