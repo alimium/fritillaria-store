@@ -165,9 +165,12 @@ public class PostFragment extends Fragment {
                 itemSizeStr = itemSize.getText().toString();
                 itemCityStr = itemCity.getText().toString();
 
+                seller.setProducts(seller.getProducts()+1);
+                sharedViewModel.updateUser(seller);
+
                 ProductEntity newProduct = new ProductEntity(itemImagePath, itemTitleStr,
                         itemDescriptionStr, itemPriceStr, itemDiscountStr, itemCategoryStr,
-                        itemGenderStr, itemSizeStr, itemCityStr, seller, 1);
+                        itemGenderStr, itemSizeStr, itemCityStr, seller, 0);
 
                 sharedViewModel.insertProduct(newProduct);
                 Toast.makeText(requireContext(), "New Product Added. Check Library For More Info", Toast.LENGTH_SHORT).show();

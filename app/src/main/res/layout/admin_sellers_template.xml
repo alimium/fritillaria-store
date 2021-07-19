@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="10dp">
+
+    <TextView
+            android:id="@+id/seller_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="First Name Last Name"
+            android:textAlignment="center"
+            android:textSize="20sp"/>
+
+    <TextView
+            android:id="@+id/seller_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="username@domain.com"
+            android:textAlignment="center"
+            android:textSize="15sp"
+            android:layout_below="@id/seller_name"/>
+
+    <TextView
+            android:id="@+id/seller_product_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Products On Sale: 33"
+            android:textAlignment="center"
+            android:textSize="15sp"
+            android:layout_below="@id/seller_email"/>
+
+    <TextView
+            android:id="@+id/seller_login_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Logins: 7"
+            android:textAlignment="center"
+            android:textSize="15sp"
+            android:layout_below="@id/seller_email"
+            android:layout_alignParentEnd="true"/>
+
+</RelativeLayout>

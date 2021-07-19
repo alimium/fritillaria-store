@@ -112,8 +112,7 @@ public class RegisterActivity extends AppCompatActivity {
                 //create new user
                 UserEntity newUser = new UserEntity(emailText.getText().toString(), passwordText.getText().toString(),
                         phoneNumberText.getText().toString(), firstNameText.getText().toString(),
-                        lastNameText.getText().toString(), profilePicturePath, new ArrayList<ProductEntity>() {
-                });
+                        lastNameText.getText().toString(), profilePicturePath, new ArrayList<>(),1,0);
 
                 //insert into database
                 sharedViewModel.insertUser(newUser);

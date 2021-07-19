@@ -105,10 +105,14 @@ public class LibraryFragment extends Fragment {
                                         itemsRecyclerViewAdapter.notifyItemInserted(position);
                                         Toast.makeText(getContext(), "Deleted card Restored", Toast.LENGTH_SHORT).show();
                                         sharedViewModel.insertProduct(deletedCard);
+                                        currentUser.setProducts(currentUser.getProducts()+1);
+                                        sharedViewModel.updateUser(currentUser);
 
                                     }
                                 }).show();
                             sharedViewModel.deleteProduct(deletedCard);
+                            currentUser.setProducts(currentUser.getProducts()-1);
+                            sharedViewModel.updateUser(currentUser);
                             break;
 
                     case ItemTouchHelper.RIGHT:

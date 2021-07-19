@@ -40,10 +40,14 @@ public class UserEntity {
     @ColumnInfo(name = "bookmarks")
     private List<ProductEntity> bookmarks;
 
+    @ColumnInfo(name = "logins")
+    private int logins;
 
-    public UserEntity(@NonNull String email, @NonNull String password, @NonNull String phone,
-                      @NonNull String firstName, @NonNull String lastName,
-                      @Nullable String profilePicture, @Nullable List<ProductEntity> bookmarks) {
+    @ColumnInfo(name = "products")
+    private int products;
+
+
+    public UserEntity(@NonNull String email, @NonNull String password, @NonNull String phone, @NonNull String firstName, @NonNull String lastName, @Nullable String profilePicture, @Nullable List<ProductEntity> bookmarks, int logins, int products) {
         this.email = email;
         this.password = password;
         this.phone = phone;
@@ -51,6 +55,24 @@ public class UserEntity {
         this.lastName = lastName;
         this.profilePicture = profilePicture;
         this.bookmarks = bookmarks;
+        this.logins = logins;
+        this.products = products;
+    }
+
+    public int getProducts() {
+        return products;
+    }
+
+    public void setProducts(int products) {
+        this.products = products;
+    }
+
+    public int getLogins() {
+        return logins;
+    }
+
+    public void setLogins(int logins) {
+        this.logins = logins;
     }
 
     @NonNull

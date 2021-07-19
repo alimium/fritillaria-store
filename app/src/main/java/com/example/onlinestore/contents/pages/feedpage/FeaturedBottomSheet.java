@@ -97,7 +97,12 @@ public class FeaturedBottomSheet extends BottomSheetDialogFragment {
         itemCategory.setText(clickedFeaturedCard.getItemCategory());
         itemGender.setText(clickedFeaturedCard.getItemGender());
         itemCity.setText(clickedFeaturedCard.getItemCity());
-        itemRawPrice.setText(clickedFeaturedCard.getItemRawPrice());
+        if (discount==0){
+            itemRawPrice.setVisibility(View.INVISIBLE);
+        }else {
+            itemRawPrice.setText(clickedFeaturedCard.getItemRawPrice());
+        }
+
         itemFinalPrice.setText(finalPriceString);
 
 

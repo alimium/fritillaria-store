@@ -84,10 +84,22 @@ public class LoginActivity extends AppCompatActivity {
 //                        return;
 //                    }
 //                }
+                if (usernameTextField.getText().toString().equals("admin") && passwordTextField.getText().toString().equals("admin")){
+                    UserEntity admin = new UserEntity("admin", "admin", "admin", "admin", "admin", null, new ArrayList<>(), 1,0);
+                    String userStr = new Gson().toJson(admin);
+                    sharedPreferences.edit().putString("currentUser", userStr).apply();
+                    startActivity(new Intent(getApplicationContext(), AdminActivity.class));
+                    finish();
+                    return;
+                }
+
                 for (UserEntity usr : users) {
                     if (usr.getEmail().equals(usernameTextField.getText().toString())) {
                         if (usr.getPassword().equals(passwordTextField.getText().toString())) {
                             Toast.makeText(getApplicationContext(), "Happy Shopping!", Toast.LENGTH_SHORT).show();
+                            int logins = usr.getLogins();
+                            usr.setLogins(logins+1);
+                            sharedViewModel.updateUser(usr);
                             String userStr = new Gson().toJson(usr);
                             sharedPreferences.edit().putString("currentUser", userStr).apply();
                             startActivity(new Intent(getApplicationContext(), MainActivity.class));

@@ -54,7 +54,7 @@ public abstract class AppDatabase extends RoomDatabase {
                     DataAccessObject dao = INSTANCE.dao();
 //                    dao.deleteAllUsers();
 //                    dao.deleteAllProducts();
-                    UserEntity admin = new UserEntity("admin", "admin", "admin", "admin", "admin", null, new ArrayList<>());
+                    UserEntity admin = new UserEntity("admin", "admin", "admin", "admin", "admin", null, new ArrayList<>(), 1,0);
                     ProductEntity productDemo = new ProductEntity(null, "demoTitle", "demoDescription", "100", "0",
                             "Accessory", "Men", "L", "Tehran", admin, 1);
                     dao.insertUser(admin);
