@@ -37,9 +37,8 @@ import java.util.List;
 public class RegisterActivity extends AppCompatActivity {
 
     private static final int IMAGE_SELECT_CODE = 1;
+
     SharedPreferences sharedPreferences;
-
-
     TextInputEditText firstNameText, lastNameText, emailText, phoneNumberText, passwordText;
     ShapeableImageView userProfilePicture;
     Uri profilePictureUri;
@@ -47,12 +46,15 @@ public class RegisterActivity extends AppCompatActivity {
     MaterialToolbar topAppBar;
     MaterialButton createNewProfileButton, choosePictureButton;
     AppSharedViewModel sharedViewModel;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
         sharedPreferences = getSharedPreferences("currentLoggedUser", MODE_PRIVATE);
         sharedViewModel = new ViewModelProvider(this).get(AppSharedViewModel.class);
+
         List<UserEntity> allUsers = new ArrayList<>();
         sharedViewModel.getAllUsers().observe(this, new Observer<List<UserEntity>>() {
             @Override
@@ -102,7 +104,7 @@ public class RegisterActivity extends AppCompatActivity {
                 }
                 for (UserEntity user : allUsers){
                     if (user.getEmail().equals(emailText.getText().toString())){
-                        Toast.makeText(getApplicationContext(), "Email Already Exists", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "User Already Exists", Toast.LENGTH_SHORT).show();
                         return;
                     }
                 }
@@ -115,10 +117,10 @@ public class RegisterActivity extends AppCompatActivity {
 
                 //insert into database
                 sharedViewModel.insertUser(newUser);
-                Toast.makeText(getApplicationContext(),"Welcome To Your Account "+firstNameText.getText().toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),"Welcome To Your New Account "+firstNameText.getText().toString(), Toast.LENGTH_SHORT).show();
                 //TODO: add shared preferences
-                String newUserString = new Gson().toJson(newUser);
-                sharedPreferences.edit().putString("currentUser", newUserString).apply();
+
+                sharedPreferences.edit().putString("currentUser", new Gson().toJson(newUser)).apply();
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
                 finish();

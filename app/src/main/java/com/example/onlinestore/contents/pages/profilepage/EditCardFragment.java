@@ -10,8 +10,11 @@ import android.widget.ArrayAdapter;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
+import com.bumptech.glide.Glide;
 import com.example.onlinestore.R;
+import com.example.onlinestore.data.AppSharedViewModel;
 import com.example.onlinestore.data.ProductEntity;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.button.MaterialButton;
@@ -38,6 +41,8 @@ public class EditCardFragment extends Fragment {
     ChipGroup itemGenderChipGroup;
     MaterialButton applyChangesButton, changePictureButton;
 
+    AppSharedViewModel sharedViewModel;
+
 
 
     MaterialToolbar toolbar;
@@ -55,6 +60,7 @@ public class EditCardFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        sharedViewModel = new ViewModelProvider(getActivity()).get(AppSharedViewModel.class);
 
         args = EditCardFragmentArgs.fromBundle(getArguments());
         cardToEditStr = args.getCardToEdit();
@@ -66,10 +72,21 @@ public class EditCardFragment extends Fragment {
         setValuesToFields();
 
 
+        //TODO: SET VALUES AND STUFF
+        //          ......
+        //--------------------------
+
+
+
+        sharedViewModel.updateProduct(cardToEdit);
     }
 
     private void setValuesToFields() {
-        itemImage.setImageURI(Uri.parse(cardToEdit.getItemPicture()));
+
+        if (cardToEdit.getItemPicture()!=null){
+            Glide.with(getContext()).load(Uri.parse(cardToEdit.getItemPicture())).into(itemImage);
+
+        }
         itemTitle.setText(cardToEdit.getItemTitle());
         itemDescription.setText(cardToEdit.getItemDescription());
         itemPrice.setText(cardToEdit.getItemRawPrice());

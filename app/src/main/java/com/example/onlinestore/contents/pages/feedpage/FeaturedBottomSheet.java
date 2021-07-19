@@ -72,6 +72,7 @@ public class FeaturedBottomSheet extends BottomSheetDialogFragment {
         callSellerCard = v.findViewById(R.id.feed_featured_sheet_call);
 
         String itemId = "#" + clickedFeaturedCard.getId();
+        String seller = clickedFeaturedCard.getSeller().getFirstName()+" "+clickedFeaturedCard.getSeller().getLastName();
         double discount = Double.parseDouble(clickedFeaturedCard.getItemDiscount());
         double rawPrice = Double.parseDouble(clickedFeaturedCard.getItemRawPrice());
         double finalPrice = (rawPrice * (100 - discount)) / 100;
@@ -82,7 +83,7 @@ public class FeaturedBottomSheet extends BottomSheetDialogFragment {
             Uri sellerPicture = Uri.parse(clickedFeaturedCard.getSeller().getProfilePicture());
             Glide.with(context).load(sellerPicture).into(this.itemProfileImage);
         }
-        itemTitleTop.setText(clickedFeaturedCard.getItemTitle());
+        itemTitleTop.setText(seller);
         this.itemId.setText(itemId);
         if (clickedFeaturedCard.getItemPicture() == null) {
             this.itemPicture.setVisibility(View.GONE);

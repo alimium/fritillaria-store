@@ -17,12 +17,15 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import com.bumptech.glide.Glide;
 import com.example.onlinestore.LoginActivity;
 import com.example.onlinestore.R;
+import com.example.onlinestore.data.AppSharedViewModel;
 import com.example.onlinestore.data.UserEntity;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.card.MaterialCardView;
@@ -39,7 +42,11 @@ public class ProfileFragment extends Fragment{
     ShapeableImageView userProfileImage;
     MaterialToolbar toolbar;
     NavController navController;
-    UserEntity currentUser;
+    UserEntity currentUser = null;
+    SharedPreferences sharedPreferences;
+    AppSharedViewModel sharedViewModel;
+
+
 
 
     public ProfileFragment() {}
@@ -56,8 +63,11 @@ public class ProfileFragment extends Fragment{
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("currentLoggedUser", Context.MODE_PRIVATE);
 
+        sharedPreferences = getActivity().getSharedPreferences("currentLoggedUser", Context.MODE_PRIVATE);
+        sharedViewModel = new ViewModelProvider(requireActivity()).get(AppSharedViewModel.class);
+
+        currentUser = new Gson().fromJson(sharedPreferences.getString("currentUser",""), UserEntity.class);
 
         bookmarksCard = view.findViewById(R.id.bookmarks_count_card);
         itemsOnSaleCard = view.findViewById(R.id.items_sold_card);
@@ -75,8 +85,6 @@ public class ProfileFragment extends Fragment{
 
         //TODO: set text to match data
 
-        String currentUserJson = sharedPreferences.getString("currentUser","");
-        currentUser = new Gson().fromJson(currentUserJson, UserEntity.class);
         String userNameAndLastName = currentUser.getFirstName().toString()+" "+currentUser.getLastName().toString();
         String userProfilePicture = currentUser.getProfilePicture();
         userNameText.setText(userNameAndLastName);

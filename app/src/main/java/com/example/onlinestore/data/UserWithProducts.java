@@ -8,7 +8,7 @@ import java.util.List;
 public class UserWithProducts {
 //    @Embedded public UserEntity user;
 //    @Relation(
-//            parentColumn = "user_id",
+//            parentColumn = "email",
 //            entityColumn = "product_seller"
 //    )
 //    public List<ProductEntity> products;

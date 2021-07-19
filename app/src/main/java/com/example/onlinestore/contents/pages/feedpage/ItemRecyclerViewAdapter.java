@@ -28,6 +28,7 @@ import java.util.List;
 
 public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerViewAdapter.ItemViewHolder> {
 
+    private String MODE;
     private List<ProductEntity> itemCardModelArrayList;
     private Context context;
 
@@ -66,9 +67,10 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
         }
     }
 
-    public ItemRecyclerViewAdapter(List<ProductEntity> itemCardModelArrayList, Context context) {
+    public ItemRecyclerViewAdapter(List<ProductEntity> itemCardModelArrayList, Context context, String MODE) {
         this.itemCardModelArrayList = itemCardModelArrayList;
         this.context = context;
+        this.MODE = MODE;
     }
 
     @NonNull
@@ -120,6 +122,12 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
         }
         holder.itemFinalPrice.setText(finalPriceString);
 
+        switch (MODE){
+            case "library":
+                holder.bookmarkButton.setVisibility(View.GONE);
+                holder.callSellerCard.setVisibility(View.GONE);
+                break;
+        }
 
 
         holder.itemTitleCard.setOnClickListener(new View.OnClickListener() {

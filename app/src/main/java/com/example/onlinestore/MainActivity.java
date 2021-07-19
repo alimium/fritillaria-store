@@ -3,6 +3,7 @@ package com.example.onlinestore;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDestination;
 import androidx.navigation.fragment.NavHostFragment;
@@ -14,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.onlinestore.data.AppSharedViewModel;
 import com.example.onlinestore.utility.toast.CustomToast;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -25,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     NavController navController;
     LayoutInflater customToastInflater;
     View customToastLayout;
+    AppSharedViewModel sharedViewModel;
 
 
     @Override
@@ -32,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         SharedPreferences sharedPreferences = getSharedPreferences("currentLoggedUser", MODE_PRIVATE);
+        sharedViewModel = new ViewModelProvider(this).get(AppSharedViewModel.class);
 
 
 

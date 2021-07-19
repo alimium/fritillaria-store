@@ -20,6 +20,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.example.onlinestore.R;
 import com.example.onlinestore.data.AppSharedViewModel;
@@ -52,11 +53,10 @@ public class FeedFragment extends Fragment {
     MaterialAutoCompleteTextView feedFilterCategory, feedFilterGender, feedFilterSort, feedFilterSize, feedFilterCity;
     AppSharedViewModel sharedViewModel;
     SharedPreferences sharedPreferences;
-
+    UserEntity currentUser;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_feed, container, false);
     }
 
@@ -65,32 +65,12 @@ public class FeedFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         sharedViewModel = new ViewModelProvider(requireActivity()).get(AppSharedViewModel.class);
         sharedPreferences = getActivity().getSharedPreferences("currentLoggedUser", Context.MODE_PRIVATE);
-        UserEntity currentUser = new Gson().fromJson(sharedPreferences.getString("currentUser", ""), UserEntity.class);
+
+        currentUser = new Gson().fromJson(sharedPreferences.getString("currentUser", ""), UserEntity.class);
 
         itemCardModelArrayList = new ArrayList<>();
         featuredCardModelArrayList = new ArrayList<>();
 
-//        sharedViewModel.getAllProducts().observe(getViewLifecycleOwner(), new Observer<List<ProductEntity>>() {
-//            @Override
-//            public void onChanged(List<ProductEntity> productEntities) {
-//                    itemCardModelArrayList.clear();
-//                    itemCardModelArrayList.addAll(productEntities);
-//                    featuredCardModelArrayList.clear();
-//                    featuredCardModelArrayList.addAll(productEntities);
-////                    for (ProductEntity product : itemCardModelArrayList){
-////                        if (product.getSeller().getEmail().equals(currentUser.getEmail())){
-////                            itemCardModelArrayList.remove(product);
-////                        }else {
-////                            if (product.getIsFeatured().equals("true")){
-////                                featuredCardModelArrayList.add(product);
-////                            }
-////                        }
-////                    }
-//                    itemsRecyclerViewAdapter.notifyDataSetChanged();
-//                    featuredRecyclerViewAdapter.notifyDataSetChanged();
-//                }
-//
-//        });
 
         sharedViewModel.getAllItemProducts().observe(getViewLifecycleOwner(), new Observer<List<ProductEntity>>() {
             @Override
@@ -109,6 +89,9 @@ public class FeedFragment extends Fragment {
                 featuredRecyclerViewAdapter.notifyDataSetChanged();
             }
         });
+
+
+
 
         initializeElements(view);
 
@@ -136,7 +119,7 @@ public class FeedFragment extends Fragment {
         if (itemCardModelArrayList != null) {
             itemsRecyclerView = view.findViewById(R.id.feed_item_list_recyclerview);
             itemsRecyclerViewLayoutManager = new LinearLayoutManager(getContext());
-            itemsRecyclerViewAdapter = new ItemRecyclerViewAdapter(itemCardModelArrayList, getContext());
+            itemsRecyclerViewAdapter = new ItemRecyclerViewAdapter(itemCardModelArrayList, getContext(), "feed");
             itemsRecyclerView.setHasFixedSize(true);
             itemsRecyclerView.setLayoutManager(itemsRecyclerViewLayoutManager);
             itemsRecyclerView.setAdapter(itemsRecyclerViewAdapter);

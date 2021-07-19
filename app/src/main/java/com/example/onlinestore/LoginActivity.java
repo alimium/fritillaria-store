@@ -30,18 +30,22 @@ public class LoginActivity extends AppCompatActivity {
     MaterialButton registerButton;
     MaterialButton loginButton;
     TextInputEditText usernameTextField, passwordTextField;
-
+    SharedPreferences sharedPreferences;
+    AppSharedViewModel sharedViewModel;
+    UserEntity userToLogIn;
 
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        SharedPreferences sharedPreferences = getSharedPreferences("currentLoggedUser", MODE_PRIVATE);
-        findElements();
-        AppSharedViewModel sharedViewModel = new ViewModelProvider(this).get(AppSharedViewModel.class);
-        List<UserEntity> users = new ArrayList<>();
 
+        sharedPreferences = getSharedPreferences("currentLoggedUser", MODE_PRIVATE);
+        sharedViewModel = new ViewModelProvider(this).get(AppSharedViewModel.class);
+
+        findElements();
+
+        List<UserEntity> users = new ArrayList<>();
         sharedViewModel.getAllUsers().observe(this, new Observer<List<UserEntity>>() {
             @Override
             public void onChanged(List<UserEntity> userEntities) {
@@ -49,26 +53,43 @@ public class LoginActivity extends AppCompatActivity {
                 users.addAll(userEntities);
             }
         });
-
+//
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                if (usernameTextField.getText().toString().equals("")){
+                if (usernameTextField.getText().toString().equals("")) {
                     Toast.makeText(getApplicationContext(), "Username Cannot Be Empty", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if (passwordTextField.getText().toString().equals("")){
+                if (passwordTextField.getText().toString().equals("")) {
                     Toast.makeText(getApplicationContext(), "Password Cannot Be Empty", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
+//                userToLogIn = sharedViewModel.getSingleUser(usernameTextField.getText().toString());
+//
+//                if (userToLogIn == null) {
+//                    Toast.makeText(getApplicationContext(), "User Doesn't Exist", Toast.LENGTH_SHORT).show();
+//                    return;
+//                } else {
+//                    if (userToLogIn.getPassword().equals(passwordTextField.getText().toString())) {
+//
+//                        sharedPreferences.edit().putString("currentUser", userToLogIn.getEmail()).apply();
+//                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+//                        finish();
+//
+//                    } else {
+//                        Toast.makeText(getApplicationContext(), "Wrong Password", Toast.LENGTH_SHORT).show();
+//                        return;
+//                    }
+//                }
                 for (UserEntity usr : users) {
                     if (usr.getEmail().equals(usernameTextField.getText().toString())) {
                         if (usr.getPassword().equals(passwordTextField.getText().toString())) {
                             Toast.makeText(getApplicationContext(), "Happy Shopping!", Toast.LENGTH_SHORT).show();
-                            String loggedInUser = new Gson().toJson(usr);
-                            sharedPreferences.edit().putString("currentUser", loggedInUser).apply();
+                            String userStr = new Gson().toJson(usr);
+                            sharedPreferences.edit().putString("currentUser", userStr).apply();
                             startActivity(new Intent(getApplicationContext(), MainActivity.class));
                             finish();
                             return;

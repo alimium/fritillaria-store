@@ -57,7 +57,7 @@ public class FindResultFragment extends Fragment {
 
         itemsRecyclerView = view.findViewById(R.id.find_item_list_recyclerview);
         itemsRecyclerViewLayoutManager = new LinearLayoutManager(getContext());
-        itemsRecyclerViewAdapter = new ItemRecyclerViewAdapter(itemCardModelArrayList, getContext());
+        itemsRecyclerViewAdapter = new ItemRecyclerViewAdapter(itemCardModelArrayList, getContext(), "find_result");
         itemsRecyclerView.setHasFixedSize(true);
         itemsRecyclerView.setLayoutManager(itemsRecyclerViewLayoutManager);
         itemsRecyclerView.setAdapter(itemsRecyclerViewAdapter);

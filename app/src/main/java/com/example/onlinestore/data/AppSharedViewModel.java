@@ -15,7 +15,7 @@ import androidx.lifecycle.Transformations;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AppSharedViewModel extends AndroidViewModel implements LifecycleOwner {
+public class AppSharedViewModel extends AndroidViewModel {
 
     private final Repository dataRepository;
     private final LiveData<List<UserEntity>> allUsersData;
@@ -24,6 +24,8 @@ public class AppSharedViewModel extends AndroidViewModel implements LifecycleOwn
     LiveData<List<ProductEntity>> allItemProducts;
     LiveData<List<ProductEntity>> allFeaturedProducts;
     LiveData<List<ProductEntity>> allCurrentUserProducts;
+    LiveData<UserEntity> currentUser;
+    UserEntity singleUser;
 
     public AppSharedViewModel(@NonNull Application application) {
         super(application);
@@ -63,8 +65,8 @@ public class AppSharedViewModel extends AndroidViewModel implements LifecycleOwn
     public LiveData<List<UserEntity>> getAllUsers() {
         return allUsersData;
     }
-
     public LiveData<List<ProductEntity>> getAllProducts() {return allProductsData;}
+
 
     public LiveData<List<ProductEntity>> getAllItemProducts() {
         return allItemProducts;
@@ -73,10 +75,29 @@ public class AppSharedViewModel extends AndroidViewModel implements LifecycleOwn
         return allFeaturedProducts;
     }
 
+    public LiveData<UserEntity> getCurrentUser(String email){
+        currentUser = Transformations.switchMap(allUsersData, new Function<List<UserEntity>, LiveData<UserEntity>>() {
+            @Override
+            public LiveData<UserEntity> apply(List<UserEntity> input) {
+                UserEntity currentUser = allUsersData.getValue().get(0);
+                MutableLiveData<UserEntity> userToReturn = new MutableLiveData<>();
+                for (UserEntity user : input){
+                    if (user.getEmail().equals(email)){
+                        currentUser = user;
+                        break;
+                    }
+                }
+                userToReturn.postValue(currentUser);
+                return userToReturn;
+            }
+        });
+        return currentUser;
+    }
 
-
-
-
+    public UserEntity getSingleUser(String email){
+        singleUser = dataRepository.getSingleUser(email);
+        return singleUser;
+    }
 
     public void insertUser(UserEntity user) {
         dataRepository.insertUser(user);
@@ -102,9 +123,4 @@ public class AppSharedViewModel extends AndroidViewModel implements LifecycleOwn
         dataRepository.updateProduct(product);
     }
 
-    @NonNull
-    @Override
-    public Lifecycle getLifecycle() {
-        return null;
-    }
 }

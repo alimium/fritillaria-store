@@ -25,9 +25,13 @@ public interface DataAccessObject {
     @Query("SELECT * FROM users")
     LiveData<List<UserEntity>> getAllUsers();
 
-
     @Query("SELECT * FROM products WHERE product_seller = :seller")
     public LiveData<List<ProductEntity>> getCurrentUserProducts(UserEntity seller);
+
+    @Query("SELECT * FROM users WHERE email LIKE :email")
+    UserEntity getSingleUser(String email);
+
+
 
 
 
@@ -43,6 +47,9 @@ public interface DataAccessObject {
 
     @Query("SELECT * FROM products")
     LiveData<List<ProductEntity>> getAllProducts();
+
+    @Query("SELECT * FROM products WHERE product_title LIKE :query OR product_description LIKE :query OR product_category LIKE :query OR product_city LIKE :query")
+    List<ProductEntity> productsMatchingSearchQuery(String query);
 
 
 

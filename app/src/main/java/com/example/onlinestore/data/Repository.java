@@ -12,12 +12,23 @@ public class Repository {
     private DataAccessObject dao;
     private LiveData<List<UserEntity>> allUsers;
     private LiveData<List<ProductEntity>> allProducts;
+    private UserEntity singleUser;
 
     Repository(Application application) {
         AppDatabase db = AppDatabase.getDatabase(application);
         dao = db.dao();
         allUsers = dao.getAllUsers();
         allProducts = dao.getAllProducts();
+    }
+
+    public UserEntity getSingleUser(String email){
+        AppDatabase.databaseWriteExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                singleUser = dao.getSingleUser(email);
+            }
+        });
+        return singleUser;
     }
 
 

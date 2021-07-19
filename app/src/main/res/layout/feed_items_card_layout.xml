@@ -142,7 +142,8 @@
                     app:layout_constraintTop_toBottomOf="@id/feed_title_card"
                     android:paddingTop="5dp"
                     android:id="@+id/expandable_layout"
-                    android:visibility="gone">
+                    android:visibility="gone"
+                    tools:layout_editor_absoluteX="12dp">
 
                 <com.google.android.material.card.MaterialCardView
                         android:id="@+id/feed_size_card"
@@ -322,7 +323,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Delft, Netherlands"
-                                android:textColor="?attr/colorPrimary"/>
+                                android:textColor="?attr/colorPrimary" />
 
 
                     </LinearLayout>
@@ -332,7 +333,7 @@
 
                 <com.google.android.material.card.MaterialCardView
                         android:id="@+id/feed_price_card"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         app:cardCornerRadius="20dp"
                         app:cardElevation="0dp"
@@ -340,7 +341,9 @@
                         app:strokeColor="@color/stroke_color"
                         app:layout_constraintTop_toBottomOf="@id/feed_city_card"
                         android:layout_marginTop="4dp"
-                        app:layout_constraintStart_toStartOf="@+id/feed_city_card">
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintEnd_toStartOf="@+id/feed_card_call">
 
 
                     <LinearLayout
@@ -374,7 +377,7 @@
 
                 <com.google.android.material.card.MaterialCardView
                         android:id="@+id/feed_card_call"
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="0dp"
                         app:cardCornerRadius="20dp"
                         app:cardElevation="0dp"
@@ -386,7 +389,8 @@
                         android:layout_marginStart="4dp"
                         app:layout_constraintStart_toEndOf="@+id/feed_price_card"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintBottom_toBottomOf="@+id/feed_price_card">
+                        app:layout_constraintBottom_toBottomOf="@+id/feed_price_card"
+                        app:layout_constraintHorizontal_bias="0.5">
 
                     <LinearLayout
                             android:layout_width="wrap_content"
@@ -402,16 +406,15 @@
                                 android:textSize="15sp"
                                 android:layout_marginStart="15dp"
                                 android:textColor="?attr/colorOnPrimary"
-                                android:layout_gravity="center"/>
+                                android:layout_gravity="center" />
 
                         <ImageView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:src="@drawable/ic_call"/>
+                                android:src="@drawable/ic_call" />
 
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
-
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

@@ -76,7 +76,7 @@ public class BookmarksFragment extends Fragment {
 
         itemsRecyclerView = view.findViewById(R.id.bookmarks_item_list_recyclerview);
         itemsRecyclerViewLayoutManager = new LinearLayoutManager(getContext());
-        itemsRecyclerViewAdapter = new ItemRecyclerViewAdapter(itemCardModelArrayList, getContext());
+        itemsRecyclerViewAdapter = new ItemRecyclerViewAdapter(itemCardModelArrayList, getContext(), "bookmarks");
         itemsRecyclerView.setHasFixedSize(true);
         itemsRecyclerView.setLayoutManager(itemsRecyclerViewLayoutManager);
         itemsRecyclerView.setAdapter(itemsRecyclerViewAdapter);

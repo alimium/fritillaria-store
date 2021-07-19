@@ -73,7 +73,7 @@ public class LibraryFragment extends Fragment {
         navController = Navigation.findNavController(view);
 
         itemsRecyclerViewLayoutManager = new LinearLayoutManager(getContext());
-        itemsRecyclerViewAdapter = new ItemRecyclerViewAdapter(itemCardModelArrayList, getContext());
+        itemsRecyclerViewAdapter = new ItemRecyclerViewAdapter(itemCardModelArrayList, getContext(), "library");
         itemsRecyclerView.setHasFixedSize(true);
         itemsRecyclerView.setLayoutManager(itemsRecyclerViewLayoutManager);
         itemsRecyclerView.setAdapter(itemsRecyclerViewAdapter);
@@ -104,9 +104,12 @@ public class LibraryFragment extends Fragment {
                                         itemCardModelArrayList.add(position, deletedCard);
                                         itemsRecyclerViewAdapter.notifyItemInserted(position);
                                         Toast.makeText(getContext(), "Deleted card Restored", Toast.LENGTH_SHORT).show();
+                                        sharedViewModel.insertProduct(deletedCard);
+
                                     }
                                 }).show();
-                        break;
+                            sharedViewModel.deleteProduct(deletedCard);
+                            break;
 
                     case ItemTouchHelper.RIGHT:
                         LibraryFragmentDirections.ActionLibraryPageToEditCardPage toEditCardPage = LibraryFragmentDirections.actionLibraryPageToEditCardPage(new Gson().toJson(itemCardModelArrayList.get(position)));
