@@ -8,12 +8,14 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.onlinestore.R;
 import com.example.onlinestore.contents.pages.feedpage.FeaturedRecyclerViewAdapter;
 import com.example.onlinestore.contents.pages.feedpage.ItemRecyclerViewAdapter;
+import com.example.onlinestore.data.AppSharedViewModel;
 import com.example.onlinestore.data.ProductEntity;
 
 import java.util.ArrayList;
@@ -26,6 +28,7 @@ public class FindResultFragment extends Fragment {
     private RecyclerView.LayoutManager featuredRecyclerViewLayoutManager, itemsRecyclerViewLayoutManager;
     List<ProductEntity> featuredCardModelArrayList;
     List<ProductEntity> itemCardModelArrayList;
+    AppSharedViewModel sharedViewModel;
 
     public FindResultFragment() {}
 
@@ -43,6 +46,8 @@ public class FindResultFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        sharedViewModel = new ViewModelProvider(getActivity()).get(AppSharedViewModel.class);
+
         itemCardModelArrayList = new ArrayList<>();
         featuredCardModelArrayList = new ArrayList<>();
 
@@ -57,7 +62,7 @@ public class FindResultFragment extends Fragment {
 
         itemsRecyclerView = view.findViewById(R.id.find_item_list_recyclerview);
         itemsRecyclerViewLayoutManager = new LinearLayoutManager(getContext());
-        itemsRecyclerViewAdapter = new ItemRecyclerViewAdapter(itemCardModelArrayList, getContext(), "find_result");
+        itemsRecyclerViewAdapter = new ItemRecyclerViewAdapter(itemCardModelArrayList, getContext(), "find_result" ,sharedViewModel);
         itemsRecyclerView.setHasFixedSize(true);
         itemsRecyclerView.setLayoutManager(itemsRecyclerViewLayoutManager);
         itemsRecyclerView.setAdapter(itemsRecyclerViewAdapter);

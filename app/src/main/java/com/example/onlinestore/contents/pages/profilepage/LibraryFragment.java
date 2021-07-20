@@ -73,7 +73,7 @@ public class LibraryFragment extends Fragment {
         navController = Navigation.findNavController(view);
 
         itemsRecyclerViewLayoutManager = new LinearLayoutManager(getContext());
-        itemsRecyclerViewAdapter = new ItemRecyclerViewAdapter(itemCardModelArrayList, getContext(), "library");
+        itemsRecyclerViewAdapter = new ItemRecyclerViewAdapter(itemCardModelArrayList, getContext(), "library", sharedViewModel);
         itemsRecyclerView.setHasFixedSize(true);
         itemsRecyclerView.setLayoutManager(itemsRecyclerViewLayoutManager);
         itemsRecyclerView.setAdapter(itemsRecyclerViewAdapter);

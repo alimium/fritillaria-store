@@ -1,6 +1,9 @@
 package com.example.onlinestore.contents.pages.feedpage;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +13,9 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.transition.AutoTransition;
 import androidx.transition.TransitionManager;
@@ -17,20 +23,27 @@ import androidx.transition.TransitionManager;
 import com.bumptech.glide.Glide;
 import com.example.onlinestore.MainActivity;
 import com.example.onlinestore.R;
+import com.example.onlinestore.data.AppSharedViewModel;
 import com.example.onlinestore.data.ProductEntity;
 import com.example.onlinestore.data.UserEntity;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.imageview.ShapeableImageView;
+import com.google.gson.Gson;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 
 public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerViewAdapter.ItemViewHolder> {
 
     private String MODE;
     private List<ProductEntity> itemCardModelArrayList;
     private Context context;
+    private SharedPreferences sharedPreferences;
+    private UserEntity currentUser;
+    private List<ProductEntity> userBookmarks = new ArrayList<>();
+    private AppSharedViewModel sharedViewModel;
 
     public static class ItemViewHolder extends RecyclerView.ViewHolder {
 
@@ -44,6 +57,7 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
         public TextView itemCity;
         public TextView itemRawPrice, itemFinalPrice;
         public ImageView bookmarkButton;
+        public boolean isCardBookMarked;
 
         public ItemViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -63,14 +77,19 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
             expandableLayout = itemView.findViewById(R.id.expandable_layout);
             bookmarkButton = itemView.findViewById(R.id.feed_card_bookmark_icon);
             callSellerCard = itemView.findViewById(R.id.feed_card_call);
+            isCardBookMarked = false;
 
         }
     }
 
-    public ItemRecyclerViewAdapter(List<ProductEntity> itemCardModelArrayList, Context context, String MODE) {
+    public ItemRecyclerViewAdapter(List<ProductEntity> itemCardModelArrayList, Context context, String MODE, AppSharedViewModel sharedViewModel) {
         this.itemCardModelArrayList = itemCardModelArrayList;
         this.context = context;
         this.MODE = MODE;
+        sharedPreferences = context.getSharedPreferences("currentLoggedUser", Context.MODE_PRIVATE);
+        currentUser = new Gson().fromJson(sharedPreferences.getString("currentUser",""),UserEntity.class);
+        userBookmarks = currentUser.getBookmarks();
+        this.sharedViewModel = sharedViewModel;
     }
 
     @NonNull
@@ -122,10 +141,57 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
         }
         holder.itemFinalPrice.setText(finalPriceString);
 
+
+
+
+        //handle bookmarks
+        if (userBookmarks!=null){
+            for (ProductEntity product : userBookmarks){
+                if (product.getId()==instanceItemCard.getId()){
+                    holder.isCardBookMarked = true;
+                    break;
+                }
+            }
+
+            if (holder.isCardBookMarked){
+                holder.bookmarkButton.setImageResource(R.drawable.ic_bookmark_selected);
+            }
+        }
+
+        //TODO: bookmark functionality -> need to update database
+        holder.bookmarkButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (holder.isCardBookMarked){
+                    holder.bookmarkButton.setImageResource(R.drawable.ic_bookmark);
+                    userBookmarks.removeIf(new Predicate<ProductEntity>() {
+                        @Override
+                        public boolean test(ProductEntity product) {
+                            return product.getId() == instanceItemCard.getId();
+                        }
+                    });
+                    currentUser.setBookmarks(userBookmarks);
+                }else{
+                    holder.bookmarkButton.setImageResource(R.drawable.ic_bookmark_selected);
+                    userBookmarks.add(instanceItemCard);
+                    currentUser.setBookmarks(userBookmarks);
+                }
+                sharedViewModel.updateUser(currentUser);
+                sharedPreferences.edit().putString("currentUser",new Gson().toJson(currentUser)).apply();
+
+            }
+        });
+
+
+
+
         switch (MODE){
             case "library":
                 holder.bookmarkButton.setVisibility(View.GONE);
                 holder.callSellerCard.setVisibility(View.GONE);
+                break;
+            case "bookmarks":
+                holder.bookmarkButton.setVisibility(View.GONE);
                 break;
         }
 
@@ -146,19 +212,6 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
         });
 
 
-        //TODO: bookmark functionality -> need to update database
-//        holder.bookmarkButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if (holder.bookmarkButton.getTag().equals("unselected")){
-//                    holder.bookmarkButton.setTag("selected");
-//                    holder.bookmarkButton.setImageResource(R.drawable.ic_bookmark_selected);
-//                }else{
-//                    holder.bookmarkButton.setTag("unselected");
-//                    holder.bookmarkButton.setImageResource(R.drawable.ic_bookmark);
-//                }
-//            }
-//        });
     }
 
 

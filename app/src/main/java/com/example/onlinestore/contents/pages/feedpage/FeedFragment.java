@@ -66,10 +66,12 @@ public class FeedFragment extends Fragment {
         sharedViewModel = new ViewModelProvider(requireActivity()).get(AppSharedViewModel.class);
         sharedPreferences = getActivity().getSharedPreferences("currentLoggedUser", Context.MODE_PRIVATE);
 
+
         currentUser = new Gson().fromJson(sharedPreferences.getString("currentUser", ""), UserEntity.class);
 
         itemCardModelArrayList = new ArrayList<>();
         featuredCardModelArrayList = new ArrayList<>();
+        initializeElements(view);
 
 
         sharedViewModel.getAllItemProducts().observe(getViewLifecycleOwner(), new Observer<List<ProductEntity>>() {
@@ -93,7 +95,6 @@ public class FeedFragment extends Fragment {
 
 
 
-        initializeElements(view);
 
 
 
@@ -119,7 +120,7 @@ public class FeedFragment extends Fragment {
         if (itemCardModelArrayList != null) {
             itemsRecyclerView = view.findViewById(R.id.feed_item_list_recyclerview);
             itemsRecyclerViewLayoutManager = new LinearLayoutManager(getContext());
-            itemsRecyclerViewAdapter = new ItemRecyclerViewAdapter(itemCardModelArrayList, getContext(), "feed");
+            itemsRecyclerViewAdapter = new ItemRecyclerViewAdapter(itemCardModelArrayList, getContext(), "feed", sharedViewModel);
             itemsRecyclerView.setHasFixedSize(true);
             itemsRecyclerView.setLayoutManager(itemsRecyclerViewLayoutManager);
             itemsRecyclerView.setAdapter(itemsRecyclerViewAdapter);

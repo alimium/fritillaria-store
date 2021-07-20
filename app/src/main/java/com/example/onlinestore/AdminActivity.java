@@ -64,6 +64,8 @@ public class AdminActivity extends AppCompatActivity {
                 allUsers.clear();
                 allUsers.addAll(userEntities);
                 sellersAdapter.notifyDataSetChanged();
+                sellerCountText.setText(String.valueOf(allUsers.size()));
+                setBestSellerValues();
             }
         });
 
@@ -73,6 +75,9 @@ public class AdminActivity extends AppCompatActivity {
                 allProducts.clear();
                 allProducts.addAll(productEntities);
                 productsAdapter.notifyDataSetChanged();
+                productsCountText.setText(String.valueOf(allProducts.size()));
+                setTotalValue();
+
             }
         });
 
@@ -111,10 +116,6 @@ public class AdminActivity extends AppCompatActivity {
         productsRecycler.addItemDecoration(new DividerItemDecoration(getApplicationContext(), DividerItemDecoration.VERTICAL));
         productsRecycler.setAdapter(productsAdapter);
 
-        sellerCountText.setText(String.valueOf(allUsers.size()));
-        setBestSellerValues();
-        productsCountText.setText(String.valueOf(allProducts.size()));
-        setTotalValue();
 
         sellersCard.setOnClickListener(new View.OnClickListener() {
             @Override

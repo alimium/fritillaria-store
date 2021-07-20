@@ -38,7 +38,7 @@ public class ProfileFragment extends Fragment{
 
     ConstraintLayout main_layout;
     private MaterialCardView bookmarksCard, itemsOnSaleCard, editProfileCard, logoutCard, aboutCard, aboutCardDetail;
-    MaterialTextView userNameText, userEmailText, userPhoneText;
+    MaterialTextView userNameText, userEmailText, userPhoneText, itemCountText, bookmarksCountText;
     ShapeableImageView userProfileImage;
     MaterialToolbar toolbar;
     NavController navController;
@@ -81,6 +81,8 @@ public class ProfileFragment extends Fragment{
         userEmailText = view.findViewById(R.id.email_text_view);
         userPhoneText = view.findViewById(R.id.optional_phone_text_view);
         userProfileImage = view.findViewById(R.id.profile_picture);
+        itemCountText = view.findViewById(R.id.items_sold_text_view);
+        bookmarksCountText = view.findViewById(R.id.bookmarks_count_text_view);
         navController = Navigation.findNavController(view);
 
         //TODO: set text to match data
@@ -93,10 +95,12 @@ public class ProfileFragment extends Fragment{
         if (userProfilePicture!=null){
             Glide.with(getContext()).load(Uri.parse(userProfilePicture)).into(userProfileImage);
         }
-
-
-
-
+        itemCountText.setText(String.valueOf(currentUser.getProducts()));
+        if (currentUser.getBookmarks() == null) {
+            bookmarksCountText.setText("0");
+        }else {
+            bookmarksCountText.setText(String.valueOf(currentUser.getBookmarks().size()));
+        }
 
 
         bookmarksCard.setOnClickListener(new View.OnClickListener() {

@@ -119,7 +119,7 @@ public class BookmarksFragment extends Fragment {
 
     private void setupRecyclerViewAndTouchHelper() {
         itemCardModelArrayList = currentUser.getBookmarks();
-        itemsRecyclerViewAdapter = new ItemRecyclerViewAdapter(itemCardModelArrayList, getContext(), "bookmarks");
+        itemsRecyclerViewAdapter = new ItemRecyclerViewAdapter(itemCardModelArrayList, getContext(), "bookmarks", sharedViewModel);
         itemsRecyclerView.setHasFixedSize(true);
         itemsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         itemsRecyclerView.setAdapter(itemsRecyclerViewAdapter);
