@@ -39,8 +39,8 @@ import java.util.List;
 public class BookmarksFragment extends Fragment {
 
     private RecyclerView itemsRecyclerView;
-    private RecyclerView.Adapter itemsRecyclerViewAdapter;
-    List<ProductEntity> itemCardModelArrayList = new ArrayList();
+    private ItemRecyclerViewAdapter itemsRecyclerViewAdapter;
+    List<ProductEntity> itemCardModelArrayList;
 
     ArrayList<String> filterSizeList, filterCityList, filterCategoryList, filterGenderList, filterSortList;
     LinearLayout filterDetail;
@@ -57,8 +57,7 @@ public class BookmarksFragment extends Fragment {
     private String sort = "";
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_bookmarks, container, false);
     }
@@ -66,6 +65,8 @@ public class BookmarksFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        itemCardModelArrayList = new ArrayList<>();
 
         sharedPreferences = getActivity().getSharedPreferences("currentLoggedUser", Context.MODE_PRIVATE);
         currentUser = new Gson().fromJson(sharedPreferences.getString("currentUser", ""), UserEntity.class);
@@ -80,7 +81,6 @@ public class BookmarksFragment extends Fragment {
         itemsRecyclerView = view.findViewById(R.id.bookmarks_item_list_recyclerview);
 
         setupRecyclerViewAndTouchHelper();
-
         setFilterCategory();
         setFilterGender();
         setFilterSort();
@@ -89,9 +89,10 @@ public class BookmarksFragment extends Fragment {
     }
 
     private void setupRecyclerViewAndTouchHelper() {
-        if (currentUser.getBookmarks() != null)
-            itemCardModelArrayList.addAll(currentUser.getBookmarks());
-        itemsRecyclerViewAdapter = new ItemRecyclerViewAdapter(itemCardModelArrayList, getContext(), "bookmarks");
+
+        itemCardModelArrayList = currentUser.getBookmarks();
+        Toast.makeText(getContext(), String.valueOf(itemCardModelArrayList.size()), Toast.LENGTH_SHORT).show();
+        itemsRecyclerViewAdapter = new ItemRecyclerViewAdapter(itemCardModelArrayList, getContext(), "bookmarks", sharedViewModel);
         itemsRecyclerView.setHasFixedSize(true);
         itemsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         itemsRecyclerView.setAdapter(itemsRecyclerViewAdapter);
@@ -123,7 +124,7 @@ public class BookmarksFragment extends Fragment {
                             updateUserInDb();
 
                             Toast.makeText(getContext(), "Deleted card Restored successfully", Toast.LENGTH_SHORT).show();
-                        });
+                        }).show();
             }
         };
         ItemTouchHelper swipeGestures = new ItemTouchHelper(simpleCallback);
@@ -137,6 +138,7 @@ public class BookmarksFragment extends Fragment {
     private void saveUserToSharedPref() {
         sharedPreferences.edit().putString("currentUser", new Gson().toJson(currentUser)).apply();
     }
+
 
     private void setFilterSort() {
         filterSortList = new ArrayList<>();
@@ -162,7 +164,15 @@ public class BookmarksFragment extends Fragment {
 
             }
         });
+//        feedFilterSort.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                sort = filterSortList.get(position);
+//                onFilterChange();
+//            }
+//        });
     }
+
 
     private void setFilterGender() {
         filterGenderList = new ArrayList<>();
@@ -188,7 +198,16 @@ public class BookmarksFragment extends Fragment {
 
             }
         });
+//        feedFilterSort.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                gender = filterGenderList.get(position);
+//                onFilterChange();
+//            }
+//        });
+
     }
+
 
     private void setFilterCategory() {
         filterCategoryList = new ArrayList<>();
@@ -203,19 +222,29 @@ public class BookmarksFragment extends Fragment {
         feedFilterCategory.setAdapter(new ArrayAdapter<>(requireContext()
                 , R.layout.list_item_layout, filterCategoryList));
 
-        feedFilterCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//        feedFilterCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+//                Toast.makeText(getContext(), "papaya", Toast.LENGTH_SHORT).show();
+//                category = filterCategoryList.get(i);
+//                onFilterChange();
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> adapterView) {
+//
+//            }
+//        });
+        feedFilterSort.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                category = filterCategoryList.get(i);
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(getContext(), filterSortList.get(position), Toast.LENGTH_SHORT).show();
+                category = filterCategoryList.get(position);
                 onFilterChange();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
             }
         });
     }
+
 
     private void onFilterChange() {
         itemCardModelArrayList.clear();

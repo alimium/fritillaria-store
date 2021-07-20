@@ -75,7 +75,7 @@ public class FindResultFragment extends Fragment {
         featuredCardModelArrayList = new ArrayList<>();
 
         //populate temporary lists to start filtering
-        sharedViewModel.getAllItemProducts().observe(getViewLifecycleOwner(), productEntities -> {
+        sharedViewModel.getAllProducts().observe(getViewLifecycleOwner(), productEntities -> {
             allItemProducts.clear();
             allItemProducts.addAll(productEntities);
             excludeCurrentUserProducts(allItemProducts);
@@ -88,15 +88,15 @@ public class FindResultFragment extends Fragment {
             itemsRecyclerViewAdapter.notifyDataSetChanged();
         });
 
-        sharedViewModel.getAllFeaturedProducts().observe(getViewLifecycleOwner(), productEntities -> {
-            allFeaturedProducts.clear();
-            allFeaturedProducts.addAll(productEntities);
-            excludeCurrentUserProducts(allFeaturedProducts);
-
-            //add valid items to final list
-            includeValidProducts(allItemProducts, itemCardModelArrayList);
-            featuredRecyclerViewAdapter.notifyDataSetChanged();
-        });
+//        sharedViewModel.getAllFeaturedProducts().observe(getViewLifecycleOwner(), productEntities -> {
+//            allFeaturedProducts.clear();
+//            allFeaturedProducts.addAll(productEntities);
+//            excludeCurrentUserProducts(allFeaturedProducts);
+//
+//            //add valid items to final list
+//            includeValidProducts(allItemProducts, itemCardModelArrayList);
+//            featuredRecyclerViewAdapter.notifyDataSetChanged();
+//        });
 
         //setup recyclerview adapters and stuff
         itemsRecyclerView = view.findViewById(R.id.find_item_list_recyclerview);
@@ -105,20 +105,20 @@ public class FindResultFragment extends Fragment {
         itemsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         itemsRecyclerView.setAdapter(itemsRecyclerViewAdapter);
 
-        featuredRecyclerView = view.findViewById(R.id.feed_featured_list_recyclerview);
-        featuredRecyclerViewAdapter = new FeaturedRecyclerViewAdapter(featuredCardModelArrayList, getActivity().getSupportFragmentManager(), getContext());
-        featuredRecyclerView.setHasFixedSize(true);
-        featuredRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-        featuredRecyclerView.setAdapter(featuredRecyclerViewAdapter);
+//        featuredRecyclerView = view.findViewById(R.id.feed_featured_list_recyclerview);
+//        featuredRecyclerViewAdapter = new FeaturedRecyclerViewAdapter(featuredCardModelArrayList, getActivity().getSupportFragmentManager(), getContext());
+//        featuredRecyclerView.setHasFixedSize(true);
+//        featuredRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+//        featuredRecyclerView.setAdapter(featuredRecyclerViewAdapter);
     }
 
 
     private void includeValidProducts(List<ProductEntity> allItemProducts, List<ProductEntity> itemCardModelArrayList) {
         String queryLowerCase = query.toLowerCase();
-        allItemProducts.forEach(product -> {
+        for (ProductEntity product : allItemProducts) {
             if (productContainsQuery(product, queryLowerCase))
                 itemCardModelArrayList.add(product);
-        });
+        }
     }
 
     private void excludeCurrentUserProducts(List<ProductEntity> list) {
