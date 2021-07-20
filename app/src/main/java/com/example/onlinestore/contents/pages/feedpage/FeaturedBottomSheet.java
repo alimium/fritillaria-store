@@ -1,6 +1,7 @@
 package com.example.onlinestore.contents.pages.feedpage;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,18 +13,25 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.transition.AutoTransition;
 import androidx.transition.TransitionManager;
 
 import com.bumptech.glide.Glide;
 import com.example.onlinestore.R;
+import com.example.onlinestore.data.AppSharedViewModel;
 import com.example.onlinestore.data.ProductEntity;
+import com.example.onlinestore.data.UserEntity;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.imageview.ShapeableImageView;
+import com.google.gson.Gson;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Predicate;
 
 
 public class FeaturedBottomSheet extends BottomSheetDialogFragment {
@@ -41,9 +49,16 @@ public class FeaturedBottomSheet extends BottomSheetDialogFragment {
     public ImageView bookmarkButton;
     public Context context;
 
+    public List<ProductEntity> userBookmarks;
+    SharedPreferences sharedPreferences;
+    AppSharedViewModel sharedViewModel;
+    UserEntity currentUser;
+    private boolean isCardBookMarked = false;
+
 
     public FeaturedBottomSheet(ProductEntity instanceFeaturedItemCard, Context context) {
         clickedFeaturedCard = instanceFeaturedItemCard;
+        userBookmarks = new ArrayList<>();
         this.context = context;
     }
 
@@ -52,6 +67,14 @@ public class FeaturedBottomSheet extends BottomSheetDialogFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.feed_featured_bottom_sheet_layout, container, false);
+
+        sharedPreferences = getActivity().getSharedPreferences("currentLoggedUser", Context.MODE_PRIVATE);
+        sharedViewModel = new ViewModelProvider(getActivity()).get(AppSharedViewModel.class);
+        currentUser = new Gson().fromJson(sharedPreferences.getString("currentUser", ""), UserEntity.class);
+        userBookmarks = currentUser.getBookmarks();
+
+
+
 
         itemProfileImage = v.findViewById(R.id.feed_featured_sheet_profile_picture);
         itemTitleTop = v.findViewById(R.id.feed_featured_sheet_top_title_textview);
@@ -102,9 +125,51 @@ public class FeaturedBottomSheet extends BottomSheetDialogFragment {
         }else {
             itemRawPrice.setText(clickedFeaturedCard.getItemRawPrice());
         }
-
         itemFinalPrice.setText(finalPriceString);
 
+
+
+
+
+
+        //handle bookmarks
+        if (userBookmarks!=null){
+
+            for (ProductEntity product : userBookmarks){
+                if (product.getId()==clickedFeaturedCard.getId()){
+                    isCardBookMarked = true;
+                    break;
+                }
+            }
+
+            if (isCardBookMarked){
+                bookmarkButton.setImageResource(R.drawable.ic_bookmark_selected);
+            }
+        }
+
+        //TODO: bookmark functionality -> need to update database
+        bookmarkButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isCardBookMarked){
+                    bookmarkButton.setImageResource(R.drawable.ic_bookmark);
+                    userBookmarks.removeIf(new Predicate<ProductEntity>() {
+                        @Override
+                        public boolean test(ProductEntity product) {
+                            return product.getId() == clickedFeaturedCard.getId();
+                        }
+                    });
+                    currentUser.setBookmarks(userBookmarks);
+                }else{
+                    bookmarkButton.setImageResource(R.drawable.ic_bookmark_selected);
+                    userBookmarks.add(clickedFeaturedCard);
+                    currentUser.setBookmarks(userBookmarks);
+                }
+                sharedViewModel.updateUser(currentUser);
+                sharedPreferences.edit().putString("currentUser",new Gson().toJson(currentUser)).apply();
+
+            }
+        });
 
         itemTitleCard.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -122,21 +187,6 @@ public class FeaturedBottomSheet extends BottomSheetDialogFragment {
             }
         });
 
-
-        //TODO: bookmark functionality -> need to update database
-//        bookmarkButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if (clickedFeaturedCard.isBookmarked()){
-//                    bookmarkButton.setImageResource(R.drawable.ic_bookmark);
-//                    clickedFeaturedCard.setBookmarked(false);
-//                }else{
-//                    bookmarkButton.setImageResource(R.drawable.ic_bookmark_selected);
-//                    clickedFeaturedCard.setBookmarked(true);
-//
-//                }
-//            }
-//        });
 
 
         return v;
