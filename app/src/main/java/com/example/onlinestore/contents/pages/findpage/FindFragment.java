@@ -7,14 +7,17 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.onlinestore.R;
+import com.example.onlinestore.data.AppSharedViewModel;
 import com.example.onlinestore.data.ProductEntity;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
@@ -31,6 +34,8 @@ public class FindFragment extends Fragment {
     String query;
     List<ProductEntity> resultListFeatured;
     List<ProductEntity> resultListMain;
+
+    AppSharedViewModel sharedViewModel;
 
     public FindFragment() {}
 
@@ -56,22 +61,17 @@ public class FindFragment extends Fragment {
         searchInputBox = view.findViewById(R.id.find_search_textview);
         navController = Navigation.findNavController(view);
 
-        String query = searchInputBox.getText().toString();
+        sharedViewModel = new ViewModelProvider(getActivity()).get(AppSharedViewModel.class);
 
-        //----search database------
-        //          ...
-        //_________________________
-
-        resultListMain = new ArrayList<>();
-
-        resultListFeatured = new ArrayList<>();
-
-
-        findButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                navController.navigate(R.id.action_find_page_to_find_result_page);
+        findButton.setOnClickListener(v -> {
+            String query = searchInputBox.getText().toString();
+            if (query.equals("")) {
+                Toast.makeText(requireContext(), "Search box Cannot Be Empty", Toast.LENGTH_SHORT).show();
+                return;
             }
+            sharedViewModel.searchProducts(query);
+
+            navController.navigate(R.id.action_find_page_to_find_result_page);
         });
 
 

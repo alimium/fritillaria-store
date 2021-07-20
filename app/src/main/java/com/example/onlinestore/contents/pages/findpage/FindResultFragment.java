@@ -13,24 +13,22 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.onlinestore.R;
-import com.example.onlinestore.contents.pages.feedpage.FeaturedRecyclerViewAdapter;
 import com.example.onlinestore.contents.pages.feedpage.ItemRecyclerViewAdapter;
 import com.example.onlinestore.data.AppSharedViewModel;
 import com.example.onlinestore.data.ProductEntity;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class FindResultFragment extends Fragment {
 
-    private RecyclerView featuredRecyclerView, itemsRecyclerView;
-    private RecyclerView.Adapter featuredRecyclerViewAdapter, itemsRecyclerViewAdapter;
-    private RecyclerView.LayoutManager featuredRecyclerViewLayoutManager, itemsRecyclerViewLayoutManager;
-    List<ProductEntity> featuredCardModelArrayList;
-    List<ProductEntity> itemCardModelArrayList;
-    AppSharedViewModel sharedViewModel;
+    private RecyclerView itemsRecyclerView;
+    private RecyclerView.Adapter itemsRecyclerViewAdapter;
+    private List<ProductEntity> itemCardModelArrayList;
 
-    public FindResultFragment() {}
+    private AppSharedViewModel sharedViewModel;
+
+    public FindResultFragment() {
+    }
 
     @Nullable
     @Override
@@ -41,31 +39,17 @@ public class FindResultFragment extends Fragment {
     }
 
 
-
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         sharedViewModel = new ViewModelProvider(getActivity()).get(AppSharedViewModel.class);
 
-        itemCardModelArrayList = new ArrayList<>();
-        featuredCardModelArrayList = new ArrayList<>();
-
-
-        featuredRecyclerView = view.findViewById(R.id.find_featured_list_recyclerview);
-        featuredRecyclerViewLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-        featuredRecyclerViewAdapter = new FeaturedRecyclerViewAdapter(featuredCardModelArrayList, getActivity().getSupportFragmentManager(), getContext());
-        featuredRecyclerView.setHasFixedSize(true);
-        featuredRecyclerView.setLayoutManager(featuredRecyclerViewLayoutManager);
-        featuredRecyclerView.setAdapter(featuredRecyclerViewAdapter);
-
-
+        itemCardModelArrayList = sharedViewModel.getSearchedProducts();
         itemsRecyclerView = view.findViewById(R.id.find_item_list_recyclerview);
-        itemsRecyclerViewLayoutManager = new LinearLayoutManager(getContext());
-        itemsRecyclerViewAdapter = new ItemRecyclerViewAdapter(itemCardModelArrayList, getContext(), "find_result" ,sharedViewModel);
+        itemsRecyclerViewAdapter = new ItemRecyclerViewAdapter(itemCardModelArrayList, getContext(), "find_result");
         itemsRecyclerView.setHasFixedSize(true);
-        itemsRecyclerView.setLayoutManager(itemsRecyclerViewLayoutManager);
+        itemsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         itemsRecyclerView.setAdapter(itemsRecyclerViewAdapter);
-
     }
 }
