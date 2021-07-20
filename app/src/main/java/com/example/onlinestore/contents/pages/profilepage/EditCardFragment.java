@@ -181,7 +181,7 @@ public class EditCardFragment extends Fragment {
                 cardToEdit.setItemCity(itemCityStr);
 
                 sharedViewModel.updateProduct(cardToEdit);
-                navController.popBackStack();
+                navController.navigate(R.id.library_page);
             }
         });
 

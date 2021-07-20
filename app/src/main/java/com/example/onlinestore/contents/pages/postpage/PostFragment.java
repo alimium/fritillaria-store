@@ -167,6 +167,7 @@ public class PostFragment extends Fragment {
 
                 seller.setProducts(seller.getProducts()+1);
                 sharedViewModel.updateUser(seller);
+                sharedPreferences.edit().putString("currentUser",new Gson().toJson(seller)).apply();
 
                 ProductEntity newProduct = new ProductEntity(itemImagePath, itemTitleStr,
                         itemDescriptionStr, itemPriceStr, itemDiscountStr, itemCategoryStr,
@@ -196,8 +197,6 @@ public class PostFragment extends Fragment {
         savePostButton = view.findViewById(R.id.post_next_button);
         seller = new Gson().fromJson(sharedPreferences.getString("currentUser", ""), UserEntity.class);
         navController = Navigation.findNavController(view);
-
-
         toolbar = view.findViewById(R.id.top_app_bar_post);
 
 

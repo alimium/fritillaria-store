@@ -86,7 +86,6 @@ public class ProfileFragment extends Fragment{
         navController = Navigation.findNavController(view);
 
         //TODO: set text to match data
-
         String userNameAndLastName = currentUser.getFirstName().toString()+" "+currentUser.getLastName().toString();
         String userProfilePicture = currentUser.getProfilePicture();
         userNameText.setText(userNameAndLastName);

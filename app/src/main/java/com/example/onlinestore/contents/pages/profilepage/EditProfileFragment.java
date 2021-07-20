@@ -14,12 +14,14 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import com.example.onlinestore.R;
 import com.example.onlinestore.data.AppSharedViewModel;
+import com.example.onlinestore.data.ProductEntity;
 import com.example.onlinestore.data.UserEntity;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.button.MaterialButton;
@@ -29,6 +31,9 @@ import com.google.gson.Gson;
 
 import static android.app.Activity.RESULT_OK;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class EditProfileFragment extends Fragment {
     private static final int IMAGE_REQUEST_CODE = 1001;
 
@@ -37,6 +42,7 @@ public class EditProfileFragment extends Fragment {
     private MaterialButton chooseProfileImageButton, applyChangesButton;
     NavController navController;
     UserEntity currentUser;
+    List<ProductEntity> allProducts = new ArrayList<>();
 
     private String profilePicturePath;
 
@@ -56,6 +62,14 @@ public class EditProfileFragment extends Fragment {
 
         sharedPreferences = getActivity().getSharedPreferences("currentLoggedUser", Context.MODE_PRIVATE);
         sharedViewModel = new ViewModelProvider(getActivity()).get(AppSharedViewModel.class);
+
+        sharedViewModel.getAllProducts().observe(getViewLifecycleOwner(), new Observer<List<ProductEntity>>() {
+            @Override
+            public void onChanged(List<ProductEntity> productEntities) {
+                allProducts.clear();
+                allProducts.addAll(productEntities);
+            }
+        });
 
         topBar = view.findViewById(R.id.top_app_bar_edit_profile);
         userEditImageView = view.findViewById(R.id.edit_profile_profile_picture);
@@ -117,13 +131,21 @@ public class EditProfileFragment extends Fragment {
 
             // Update user in DB
             sharedViewModel.updateUser(currentUser);
+            for (ProductEntity product : allProducts){
+                if (product.getSeller().getEmail().equals(currentUser.getEmail())){
+                    product.setSeller(currentUser);
+                    sharedViewModel.updateProduct(product);
+                }
+            }
+
+
 
             // Add user in Shared Preferences
             String userJson = new Gson().toJson(currentUser);
             sharedPreferences.edit().putString("currentUser", userJson).apply();
 
             // Pop back stack
-            navController.popBackStack();
+            navController.navigate(R.id.profile_page);
         });
     }
 
