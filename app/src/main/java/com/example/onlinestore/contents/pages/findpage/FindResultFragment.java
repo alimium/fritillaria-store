@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -30,6 +31,7 @@ public class FindResultFragment extends Fragment {
 
     private RecyclerView itemsRecyclerView;
     private RecyclerView.Adapter itemsRecyclerViewAdapter;
+    private LinearLayout noResult;
     private List<ProductEntity> allItemProducts = new ArrayList<>();
     private List<ProductEntity> allFeaturedProducts = new ArrayList<>();
     private List<ProductEntity> itemCardModelArrayList;
@@ -58,6 +60,9 @@ public class FindResultFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        //no result
+        noResult = view.findViewById(R.id.find_no_result_layout);
+
         //get query from find fragment
         args = FindResultFragmentArgs.fromBundle(getArguments());
         query = args.getQuery();
@@ -81,6 +86,9 @@ public class FindResultFragment extends Fragment {
 
                 //add valid items to final list
                 includeValidProducts(allItemProducts, itemCardModelArrayList);
+                if (itemCardModelArrayList==null || itemCardModelArrayList.isEmpty()){
+                    noResult.setVisibility(View.VISIBLE);
+                }
                 itemsRecyclerViewAdapter.notifyDataSetChanged();
             }
         });
