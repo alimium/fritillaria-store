@@ -79,6 +79,7 @@ public class FeedFragment extends Fragment {
             public void onChanged(List<ProductEntity> productEntities) {
                 itemCardModelArrayList.clear();
                 itemCardModelArrayList.addAll(productEntities);
+                excludeCurrentUserProducts(itemCardModelArrayList);
                 itemsRecyclerViewAdapter.notifyDataSetChanged();
             }
         });
@@ -88,6 +89,7 @@ public class FeedFragment extends Fragment {
             public void onChanged(List<ProductEntity> productEntities) {
                 featuredCardModelArrayList.clear();
                 featuredCardModelArrayList.addAll(productEntities);
+                excludeCurrentUserProducts(featuredCardModelArrayList);
                 featuredRecyclerViewAdapter.notifyDataSetChanged();
             }
         });
@@ -98,6 +100,10 @@ public class FeedFragment extends Fragment {
 
 
 
+    }
+
+    private void excludeCurrentUserProducts(List<ProductEntity> list) {
+        list.removeIf(product -> product.getSeller().getEmail().equals(currentUser.getEmail()));
     }
 
     private void initializeElements(@NonNull View view) {
