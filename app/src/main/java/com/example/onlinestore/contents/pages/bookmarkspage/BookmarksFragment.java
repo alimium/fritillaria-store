@@ -8,6 +8,7 @@ import android.transition.TransitionManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -32,13 +33,14 @@ import com.google.android.material.textfield.MaterialAutoCompleteTextView;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class BookmarksFragment extends Fragment {
 
     private RecyclerView itemsRecyclerView;
     private RecyclerView.Adapter itemsRecyclerViewAdapter;
-    List<ProductEntity> itemCardModelArrayList;
+    List<ProductEntity> itemCardModelArrayList = new ArrayList();
 
     ArrayList<String> filterSizeList, filterCityList, filterCategoryList, filterGenderList, filterSortList;
     LinearLayout filterDetail;
@@ -47,8 +49,12 @@ public class BookmarksFragment extends Fragment {
     MaterialAutoCompleteTextView feedFilterCategory, feedFilterGender, feedFilterSort, feedFilterSize, feedFilterCity;
 
     SharedPreferences sharedPreferences;
-    AppSharedViewModel sharedViewModel;
     UserEntity currentUser;
+    AppSharedViewModel sharedViewModel;
+
+    private String category = "";
+    private String gender = "";
+    private String sort = "";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -61,9 +67,9 @@ public class BookmarksFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        sharedViewModel = new ViewModelProvider(getActivity()).get(AppSharedViewModel.class);
         sharedPreferences = getActivity().getSharedPreferences("currentLoggedUser", Context.MODE_PRIVATE);
         currentUser = new Gson().fromJson(sharedPreferences.getString("currentUser", ""), UserEntity.class);
+        sharedViewModel = new ViewModelProvider(getActivity()).get(AppSharedViewModel.class);
 
         filterDetail = view.findViewById(R.id.bookmarks_filter_expandable_layout);
         filterButton = view.findViewById(R.id.bookmarks_filter_button);
@@ -82,44 +88,10 @@ public class BookmarksFragment extends Fragment {
         filterButton.setOnClickListener(v -> toggleExpandable());
     }
 
-    private void setFilterSort() {
-        filterSortList = new ArrayList<>();
-        filterSortList.add("No Filter");
-        filterSortList.add("Lowest Price");
-        filterSortList.add("Highest Price");
-        filterSortList.add("Fritillaria's Choice");
-
-        ArrayAdapter<String> sortDropdownListAdapter = new ArrayAdapter(requireContext(), R.layout.list_item_layout, filterSortList);
-        feedFilterSort.setAdapter(sortDropdownListAdapter);
-    }
-
-    private void setFilterGender() {
-        filterGenderList = new ArrayList<>();
-        filterGenderList.add("No Filter");
-        filterGenderList.add("Men");
-        filterGenderList.add("Women");
-        filterGenderList.add("Kids");
-
-        ArrayAdapter<String> genderDropDownListAdapter = new ArrayAdapter(requireContext(), R.layout.list_item_layout, filterGenderList);
-        feedFilterGender.setAdapter(genderDropDownListAdapter);
-    }
-
-    private void setFilterCategory() {
-        filterCategoryList = new ArrayList<>();
-        filterCategoryList.add("No Filter");
-        filterCategoryList.add("Accessories");
-        filterCategoryList.add("Clothing");
-        filterCategoryList.add("Shoes");
-        filterCategoryList.add("Underwear");
-
-        ArrayAdapter<String> categoryDropdownListAdapter = new ArrayAdapter(requireContext()
-                , R.layout.list_item_layout, filterCategoryList);
-        feedFilterCategory.setAdapter(categoryDropdownListAdapter);
-    }
-
     private void setupRecyclerViewAndTouchHelper() {
-        itemCardModelArrayList = currentUser.getBookmarks();
-        itemsRecyclerViewAdapter = new ItemRecyclerViewAdapter(itemCardModelArrayList, getContext(), "bookmarks", sharedViewModel);
+        if (currentUser.getBookmarks() != null)
+            itemCardModelArrayList.addAll(currentUser.getBookmarks());
+        itemsRecyclerViewAdapter = new ItemRecyclerViewAdapter(itemCardModelArrayList, getContext(), "bookmarks");
         itemsRecyclerView.setHasFixedSize(true);
         itemsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         itemsRecyclerView.setAdapter(itemsRecyclerViewAdapter);
@@ -136,22 +108,21 @@ public class BookmarksFragment extends Fragment {
                 ProductEntity delBookmark = itemCardModelArrayList.get(position);
                 itemCardModelArrayList.remove(position);
                 itemsRecyclerViewAdapter.notifyItemRemoved(position);
+                currentUser.getBookmarks().remove(delBookmark);
 
                 saveUserToSharedPref();
-                currentUser.setBookmarks(itemCardModelArrayList);
-                sharedViewModel.updateUser(currentUser);
-
+                updateUserInDb();
 
                 Snackbar.make(itemsRecyclerView, "Product with ID #" + delBookmark.getId() + "removed from bookmarks.", Snackbar.LENGTH_LONG)
                         .setAction("Undo", view -> {
                             itemCardModelArrayList.add(position, delBookmark);
                             itemsRecyclerViewAdapter.notifyItemInserted(position);
+                            currentUser.getBookmarks().add(delBookmark);
 
                             saveUserToSharedPref();
-                            currentUser.setBookmarks(itemCardModelArrayList);
-                            sharedViewModel.updateUser(currentUser);
+                            updateUserInDb();
 
-                            Toast.makeText(getContext(), "Deleted card Restored", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), "Deleted card Restored successfully", Toast.LENGTH_SHORT).show();
                         });
             }
         };
@@ -159,10 +130,133 @@ public class BookmarksFragment extends Fragment {
         swipeGestures.attachToRecyclerView(itemsRecyclerView);
     }
 
+    private void updateUserInDb() {
+        sharedViewModel.updateUser(currentUser);
+    }
+
     private void saveUserToSharedPref() {
         sharedPreferences.edit().putString("currentUser", new Gson().toJson(currentUser)).apply();
     }
 
+    private void setFilterSort() {
+        filterSortList = new ArrayList<>();
+        filterSortList.add("No Filter");
+        filterSortList.add("Lowest Price");
+        filterSortList.add("Highest Price");
+        filterSortList.add("Fritillaria's Choice");
+
+        sort = filterSortList.get(0);
+
+        feedFilterSort.setAdapter(new ArrayAdapter<>(requireContext(),
+                R.layout.list_item_layout, filterSortList));
+
+        feedFilterSort.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                sort = filterSortList.get(i);
+                onFilterChange();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+    }
+
+    private void setFilterGender() {
+        filterGenderList = new ArrayList<>();
+        filterGenderList.add("No Filter");
+        filterGenderList.add("Men");
+        filterGenderList.add("Women");
+        filterGenderList.add("Kids");
+
+        gender = filterGenderList.get(0);
+
+        feedFilterGender.setAdapter(new ArrayAdapter<>(requireContext(),
+                R.layout.list_item_layout, filterGenderList));
+
+        feedFilterGender.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                gender = filterGenderList.get(i);
+                onFilterChange();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+    }
+
+    private void setFilterCategory() {
+        filterCategoryList = new ArrayList<>();
+        filterCategoryList.add("No Filter");
+        filterCategoryList.add("Accessories");
+        filterCategoryList.add("Clothing");
+        filterCategoryList.add("Shoes");
+        filterCategoryList.add("Underwear");
+
+        category = filterCategoryList.get(0);
+
+        feedFilterCategory.setAdapter(new ArrayAdapter<>(requireContext()
+                , R.layout.list_item_layout, filterCategoryList));
+
+        feedFilterCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                category = filterCategoryList.get(i);
+                onFilterChange();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+    }
+
+    private void onFilterChange() {
+        itemCardModelArrayList.clear();
+        if (currentUser.getBookmarks() != null)
+            for (ProductEntity productEntity : currentUser.getBookmarks())
+                if (isCategoryMatched(productEntity) & isGenderMatched(productEntity))
+                    itemCardModelArrayList.add(productEntity);
+
+        if (!sort.equals("No Filter")) {
+            ProductEntity product1, product2;
+            for (int i = 0; i < itemCardModelArrayList.size() - 1; i++) {
+                product1 = itemCardModelArrayList.get(i);
+                for (int j = i + 1; j < itemCardModelArrayList.size(); j++) {
+                    product2 = itemCardModelArrayList.get(j);
+                    if (shouldSortLowestPrice(product1, product2)
+                            || shouldSortHighestPrice(product1, product2))
+                        Collections.swap(itemCardModelArrayList, i, j);
+                }
+            }
+        }
+
+        itemsRecyclerViewAdapter.notifyDataSetChanged();
+    }
+
+    private boolean isCategoryMatched(ProductEntity productEntity) {
+        return category.equals("No Filter") || (productEntity.getItemCategory().equals(category));
+    }
+
+    private boolean isGenderMatched(ProductEntity productEntity) {
+        return gender.equals("No Filter") || (productEntity.getItemGender().equals(gender));
+    }
+
+    private boolean shouldSortHighestPrice(ProductEntity product1, ProductEntity product2) {
+        return sort.equals("Highest Price") &
+                (product1.getItemRawPrice().compareTo(product2.getItemRawPrice())) < 0;
+    }
+
+    private boolean shouldSortLowestPrice(ProductEntity product1, ProductEntity product2) {
+        return sort.equals("Lowest Price") &
+                (product1.getItemRawPrice().compareTo(product2.getItemRawPrice())) > 0;
+    }
 
     private void toggleExpandable() {
         if (filterDetail.getVisibility() == View.VISIBLE) {
