@@ -26,6 +26,7 @@ public class AppSharedViewModel extends AndroidViewModel {
     LiveData<List<ProductEntity>> allCurrentUserProducts;
     LiveData<UserEntity> currentUser;
     UserEntity singleUser;
+    List<ProductEntity> searchedProducts;
 
     public AppSharedViewModel(@NonNull Application application) {
         super(application);
@@ -92,6 +93,14 @@ public class AppSharedViewModel extends AndroidViewModel {
             }
         });
         return currentUser;
+    }
+
+    public void searchProducts(String query) {
+        searchedProducts = dataRepository.searchProducts(query);
+    }
+
+    public List<ProductEntity> getSearchedProducts() {
+        return searchedProducts;
     }
 
     public UserEntity getSingleUser(String email){

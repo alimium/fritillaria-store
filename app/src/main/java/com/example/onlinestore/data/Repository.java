@@ -1,10 +1,10 @@
 package com.example.onlinestore.data;
 
 import android.app.Application;
-import android.provider.Contacts;
 
 import androidx.lifecycle.LiveData;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Repository {
@@ -21,69 +21,38 @@ public class Repository {
         allProducts = dao.getAllProducts();
     }
 
-    public UserEntity getSingleUser(String email){
-        AppDatabase.databaseWriteExecutor.execute(new Runnable() {
-            @Override
-            public void run() {
-                singleUser = dao.getSingleUser(email);
-            }
-        });
+    public UserEntity getSingleUser(String email) {
+        AppDatabase.databaseWriteExecutor.execute(() -> singleUser = dao.getSingleUser(email));
         return singleUser;
     }
 
 
     public void insertUser(UserEntity user) {
-        AppDatabase.databaseWriteExecutor.execute(new Runnable() {
-            @Override
-            public void run() {
-                dao.insertUser(user);
-            }
-        });
+        AppDatabase.databaseWriteExecutor.execute(() -> dao.insertUser(user));
     }
 
     public void deleteUser(UserEntity user) {
-        AppDatabase.databaseWriteExecutor.execute(new Runnable() {
-            @Override
-            public void run() {
-                dao.deleteUser(user);
-            }
-        });
+        AppDatabase.databaseWriteExecutor.execute(() -> dao.deleteUser(user));
     }
 
     public void updateUser(UserEntity user) {
-        AppDatabase.databaseWriteExecutor.execute(new Runnable() {
-            @Override
-            public void run() {
-                dao.updateUser(user);
-            }
-        });
+        AppDatabase.databaseWriteExecutor.execute(() -> dao.updateUser(user));
     }
 
     public void insertProduct(ProductEntity product) {
-        AppDatabase.databaseWriteExecutor.execute(new Runnable() {
-            @Override
-            public void run() {
-                dao.insertProduct(product);
-            }
-        });
+        AppDatabase.databaseWriteExecutor.execute(() -> dao.insertProduct(product));
     }
 
     public void deleteProduct(ProductEntity product) {
-        AppDatabase.databaseWriteExecutor.execute(new Runnable() {
-            @Override
-            public void run() {
-                dao.deleteProduct(product);
-            }
-        });
+        AppDatabase.databaseWriteExecutor.execute(() -> dao.deleteProduct(product));
     }
 
     public void updateProduct(ProductEntity product) {
-        AppDatabase.databaseWriteExecutor.execute(new Runnable() {
-            @Override
-            public void run() {
-                dao.updateProduct(product);
-            }
-        });
+        AppDatabase.databaseWriteExecutor.execute(() -> dao.updateProduct(product));
+    }
+
+    public List<ProductEntity> searchProducts(String query) {
+        return dao.productsMatchingSearchQuery(query);
     }
 
     public LiveData<List<UserEntity>> getAllUsers() {
