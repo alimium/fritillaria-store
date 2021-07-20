@@ -82,17 +82,16 @@ public class BookmarksFragment extends Fragment {
         itemsRecyclerView = view.findViewById(R.id.bookmarks_item_list_recyclerview);
 
         setupRecyclerViewAndTouchHelper();
-        setFilterCategory();
-        setFilterGender();
-        setFilterSort();
+//        setFilterCategory();
+//        setFilterGender();
+//        setFilterSort();
 
-        filterButton.setOnClickListener(v -> toggleExpandable());
+//        filterButton.setOnClickListener(v -> toggleExpandable());
     }
 
     private void setupRecyclerViewAndTouchHelper() {
 
         itemCardModelArrayList = currentUser.getBookmarks();
-        Toast.makeText(getContext(), String.valueOf(itemCardModelArrayList.size()), Toast.LENGTH_SHORT).show();
         itemsRecyclerViewAdapter = new ItemRecyclerViewAdapter(itemCardModelArrayList, getContext(), "bookmarks", sharedViewModel);
         itemsRecyclerView.setHasFixedSize(true);
         itemsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));

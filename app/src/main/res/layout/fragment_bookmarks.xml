@@ -60,7 +60,7 @@
                 android:layout_height="60dp"
                 android:layout_width="match_parent"
                 android:textSize="18dp"
-                android:text="Filters"
+                android:text="Bookmarks"
                 android:id="@+id/bookmarks_filter_button"
                 android:background="?attr/colorPrimary"
                 app:cornerRadius="0dp"
