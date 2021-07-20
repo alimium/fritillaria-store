@@ -34,6 +34,7 @@ import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class BookmarksFragment extends Fragment {
@@ -152,25 +153,25 @@ public class BookmarksFragment extends Fragment {
         feedFilterSort.setAdapter(new ArrayAdapter<>(requireContext(),
                 R.layout.list_item_layout, filterSortList));
 
-        feedFilterSort.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                sort = filterSortList.get(i);
-                onFilterChange();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-//        feedFilterSort.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//        feedFilterSort.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 //            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                sort = filterSortList.get(position);
+//            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+//                sort = filterSortList.get(i);
 //                onFilterChange();
 //            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> adapterView) {
+//
+//            }
 //        });
+        feedFilterSort.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                sort = filterSortList.get(position);
+                onFilterChange();
+            }
+        });
     }
 
 
@@ -186,25 +187,25 @@ public class BookmarksFragment extends Fragment {
         feedFilterGender.setAdapter(new ArrayAdapter<>(requireContext(),
                 R.layout.list_item_layout, filterGenderList));
 
-        feedFilterGender.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                gender = filterGenderList.get(i);
-                onFilterChange();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-//        feedFilterSort.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//        feedFilterGender.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 //            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                gender = filterGenderList.get(position);
+//            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+//                gender = filterGenderList.get(i);
 //                onFilterChange();
 //            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> adapterView) {
+//
+//            }
 //        });
+        feedFilterSort.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                gender = filterGenderList.get(position);
+                onFilterChange();
+            }
+        });
 
     }
 
@@ -235,10 +236,9 @@ public class BookmarksFragment extends Fragment {
 //
 //            }
 //        });
-        feedFilterSort.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        feedFilterCategory.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getContext(), filterSortList.get(position), Toast.LENGTH_SHORT).show();
                 category = filterCategoryList.get(position);
                 onFilterChange();
             }
@@ -247,25 +247,64 @@ public class BookmarksFragment extends Fragment {
 
 
     private void onFilterChange() {
-        itemCardModelArrayList.clear();
+        List<ProductEntity> filtered = itemCardModelArrayList;
+
+
         if (currentUser.getBookmarks() != null)
             for (ProductEntity productEntity : currentUser.getBookmarks())
                 if (isCategoryMatched(productEntity) & isGenderMatched(productEntity))
-                    itemCardModelArrayList.add(productEntity);
+                    filtered.add(productEntity);
 
-        if (!sort.equals("No Filter")) {
-            ProductEntity product1, product2;
-            for (int i = 0; i < itemCardModelArrayList.size() - 1; i++) {
-                product1 = itemCardModelArrayList.get(i);
-                for (int j = i + 1; j < itemCardModelArrayList.size(); j++) {
-                    product2 = itemCardModelArrayList.get(j);
-                    if (shouldSortLowestPrice(product1, product2)
-                            || shouldSortHighestPrice(product1, product2))
-                        Collections.swap(itemCardModelArrayList, i, j);
+//        if (!sort.equals("No Filter")) {
+//            ProductEntity product1, product2;
+//            for (int i = 0; i < itemCardModelArrayList.size() - 1; i++) {
+//                product1 = itemCardModelArrayList.get(i);
+//                for (int j = i + 1; j < itemCardModelArrayList.size(); j++) {
+//                    product2 = itemCardModelArrayList.get(j);
+//                    if (shouldSortLowestPrice(product1, product2)
+//                            || shouldSortHighestPrice(product1, product2))
+//                        Collections.swap(itemCardModelArrayList, i, j);
+//                }
+//            }
+//        }
+
+        if (sort.equals("Highest Price")) {
+            filtered.sort(new Comparator<ProductEntity>() {
+                @Override
+                public int compare(ProductEntity o1, ProductEntity o2) {
+
+                    double discount1 = Double.parseDouble(o1.getItemDiscount());
+                    double rawPrice1 = Double.parseDouble(o1.getItemRawPrice());
+                    double finalPrice1 = (rawPrice1 * (100 - discount1)) / 100;
+                    double discount2 = Double.parseDouble(o2.getItemDiscount());
+                    double rawPrice2 = Double.parseDouble(o2.getItemRawPrice());
+                    double finalPrice2 = (rawPrice1 * (100 - discount2)) / 100;
+
+                    return ((int)(finalPrice2-finalPrice1));
+
                 }
-            }
+            });
+        }else if (sort.equals("Lowest Price")){
+            filtered.sort(new Comparator<ProductEntity>() {
+                @Override
+                public int compare(ProductEntity o1, ProductEntity o2) {
+
+                    double discount1 = Double.parseDouble(o1.getItemDiscount());
+                    double rawPrice1 = Double.parseDouble(o1.getItemRawPrice());
+                    double finalPrice1 = (rawPrice1 * (100 - discount1)) / 100;
+                    double discount2 = Double.parseDouble(o2.getItemDiscount());
+                    double rawPrice2 = Double.parseDouble(o2.getItemRawPrice());
+                    double finalPrice2 = (rawPrice1 * (100 - discount2)) / 100;
+
+                    return ((int)(finalPrice1-finalPrice2));
+                }
+            });
         }
 
+
+
+
+        itemCardModelArrayList = filtered;
         itemsRecyclerViewAdapter.notifyDataSetChanged();
     }
 

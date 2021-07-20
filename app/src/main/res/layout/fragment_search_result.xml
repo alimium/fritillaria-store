@@ -72,6 +72,85 @@
                 android:layout_margin="0dp"
                 style="@style/Widget.MaterialComponents.Button.UnelevatedButton" />
 
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:visibility="visible"
+                android:paddingHorizontal="20dp"
+                android:id="@+id/find_filter_expandable_layout"
+                android:background="@drawable/filter_section_background"
+                android:paddingBottom="20dp">
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:id="@+id/find_filter_category"
+                    style="@style/filterBoxes"
+                    app:boxCornerRadiusTopStart="20dp"
+                    app:boxCornerRadiusTopEnd="20dp"
+                    app:boxCornerRadiusBottomStart="20dp"
+                    app:boxCornerRadiusBottomEnd="20dp"
+                    android:hint="Pick A Category"
+                    android:elevation="10dp">
+
+                <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:id="@+id/find_filter_category_autocomplete"
+                        android:inputType="none" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:id="@+id/find_filter_gender"
+                    style="@style/filterBoxes"
+                    app:boxCornerRadiusTopStart="20dp"
+                    app:boxCornerRadiusTopEnd="20dp"
+                    app:boxCornerRadiusBottomStart="20dp"
+                    app:boxCornerRadiusBottomEnd="20dp"
+                    android:hint="Who Is This For?"
+                    android:elevation="10dp"
+                    android:layout_marginTop="4dp">
+
+                <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:id="@+id/find_filter_gender_autocomplete"
+                        android:inputType="none" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:id="@+id/find_filter_sort"
+                    style="@style/filterBoxes"
+                    app:boxCornerRadiusTopStart="20dp"
+                    app:boxCornerRadiusTopEnd="20dp"
+                    app:boxCornerRadiusBottomStart="20dp"
+                    app:boxCornerRadiusBottomEnd="20dp"
+                    android:hint="Sort"
+                    android:elevation="10dp"
+                    android:layout_marginTop="4dp">
+
+                <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:id="@+id/find_filter_sort_autocomplete"
+                        android:inputType="none" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
+
     </com.google.android.material.appbar.AppBarLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
