@@ -7,6 +7,7 @@ import android.transition.ChangeBounds;
 import android.transition.TransitionManager;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -137,6 +138,26 @@ public class AdminActivity extends AppCompatActivity {
                 sharedPreferences.edit().putString("currentUser", "").apply();
                 startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                 finish();
+            }
+        });
+
+        promoteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (productIdText.getText().toString().equals("")){
+                    Toast.makeText(getApplicationContext(), "Product ID Cannot Be Empty", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                int id = Integer.parseInt(productIdText.getText().toString());
+                for (ProductEntity product : allProducts){
+                    if (product.getId()==id){
+                        product.setIsFeatured(1);
+                        sharedViewModel.updateProduct(product);
+                        return;
+                    }
+                }
+                Toast.makeText(getApplicationContext(), "Product With ID: "+String.valueOf(id)+" Not Found", Toast.LENGTH_SHORT).show();
             }
         });
 

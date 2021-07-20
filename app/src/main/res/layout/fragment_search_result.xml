@@ -1,23 +1,74 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout tools:context=".contents.pages.findpage.FindResultFragment" android:orientation="vertical" android:fitsSystemWindows="true" android:layout_height="match_parent" android:layout_width="match_parent" xmlns:tools="http://schemas.android.com/tools" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:android="http://schemas.android.com/apk/res/android">
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        tools:context=".contents.pages.findpage.FindResultFragment"
+        android:orientation="vertical"
+        android:fitsSystemWindows="true"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent">
 
 
-    -<LinearLayout android:orientation="vertical" android:layout_height="wrap_content" android:layout_width="match_parent" app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" android:padding="8dp">
-
-    <TextView android:layout_height="200dp" android:layout_width="match_parent" android:visibility="visible" android:textSize="40sp" android:text="Here Are What We Found" android:gravity="bottom|center_horizontal"/>
-
-    <TextView android:layout_height="100dp" android:layout_width="match_parent" android:visibility="visible" android:textSize="20sp" android:text="Tip: Tap on each card's title area to reveal more about the product." app:drawableTopCompat="@drawable/ic_info_small" android:textAlignment="center" android:paddingHorizontal="40dp"/>
-
-    <androidx.recyclerview.widget.RecyclerView android:layout_height="wrap_content" android:layout_width="match_parent" android:id="@+id/find_item_list_recyclerview"/>
-
-</LinearLayout>
 
 
-    -<com.google.android.material.appbar.AppBarLayout android:layout_height="wrap_content" android:layout_width="match_parent" app:liftOnScroll="true">
+    <LinearLayout
+            android:id="@+id/find_no_result_layout"
+            android:orientation="vertical"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+            android:padding="8dp"
+            android:visibility="visible"
+            android:layout_marginTop="100dp">
 
-    <com.google.android.material.button.MaterialButton android:layout_height="60dp" android:layout_width="match_parent" android:textSize="18dp" android:text="Search" android:id="@+id/find_filter_button" app:cornerRadius="0dp" android:paddingVertical="10dp" android:background="?attr/colorPrimary" android:layout_margin="0dp" style="@style/Widget.MaterialComponents.Button.UnelevatedButton"/>
+        <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:visibility="visible"
+                android:textSize="40sp"
+                android:text="No Products Match Your Desire"
+                android:drawableTop="@drawable/ic_sad_face"
+                android:gravity="center_horizontal"
+                />
 
-</com.google.android.material.appbar.AppBarLayout>
+        <TextView
+                android:layout_height="100dp"
+                android:layout_width="match_parent"
+                android:visibility="visible"
+                android:textSize="20sp"
+                android:text="Tip: Try another keyword or make a more general search."
+                app:drawableTopCompat="@drawable/ic_info_small"
+                android:textAlignment="center"
+                android:paddingHorizontal="40dp" />
+
+
+    </LinearLayout>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:id="@+id/find_item_list_recyclerview" />
+
+
+    <com.google.android.material.appbar.AppBarLayout
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            app:liftOnScroll="true">
+
+        <com.google.android.material.button.MaterialButton
+                android:layout_height="60dp"
+                android:layout_width="match_parent"
+                android:textSize="18dp"
+                android:text="Search"
+                android:id="@+id/find_filter_button"
+                app:cornerRadius="0dp"
+                android:paddingVertical="10dp"
+                android:background="?attr/colorPrimary"
+                android:layout_margin="0dp"
+                style="@style/Widget.MaterialComponents.Button.UnelevatedButton" />
+
+    </com.google.android.material.appbar.AppBarLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

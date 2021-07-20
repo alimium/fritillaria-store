@@ -69,9 +69,10 @@ public class FindFragment extends Fragment {
                 Toast.makeText(requireContext(), "Search box Cannot Be Empty", Toast.LENGTH_SHORT).show();
                 return;
             }
-            sharedViewModel.searchProducts(query);
+//            sharedViewModel.searchProducts(query);
 
-            navController.navigate(R.id.action_find_page_to_find_result_page);
+            FindFragmentDirections.ActionFindPageToFindResultPage action = FindFragmentDirections.actionFindPageToFindResultPage(query);
+            navController.navigate(action);
         });
 
 

@@ -13,7 +13,7 @@ public class Repository {
     private LiveData<List<UserEntity>> allUsers;
     private LiveData<List<ProductEntity>> allProducts;
     private UserEntity singleUser;
-
+    private List<ProductEntity> searchResults = new ArrayList<>();
     Repository(Application application) {
         AppDatabase db = AppDatabase.getDatabase(application);
         dao = db.dao();
@@ -52,7 +52,13 @@ public class Repository {
     }
 
     public List<ProductEntity> searchProducts(String query) {
-        return dao.productsMatchingSearchQuery(query);
+        AppDatabase.databaseWriteExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                searchResults = dao.productsMatchingSearchQuery(query);
+            }
+        });
+        return searchResults;
     }
 
     public LiveData<List<UserEntity>> getAllUsers() {

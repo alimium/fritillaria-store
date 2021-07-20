@@ -48,7 +48,11 @@
             android:id="@+id/find_result_page"
             android:name="com.example.onlinestore.contents.pages.findpage.FindResultFragment"
             android:label="fragment_search_result"
-            tools:layout="@layout/fragment_search_result" />
+            tools:layout="@layout/fragment_search_result" >
+        <argument
+                android:name="query"
+                app:argType="string" />
+    </fragment>
     <fragment
             android:id="@+id/edit_profile_page"
             android:name="com.example.onlinestore.contents.pages.profilepage.EditProfileFragment"
