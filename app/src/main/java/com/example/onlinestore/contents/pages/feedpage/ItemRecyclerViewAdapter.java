@@ -39,12 +39,18 @@ import java.util.function.Predicate;
 public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerViewAdapter.ItemViewHolder> {
 
     private String MODE;
-    private List<ProductEntity> itemCardModelArrayList = new ArrayList<>();
+    private List<ProductEntity> itemCardModelArrayList;
     private Context context;
     private SharedPreferences sharedPreferences;
     private UserEntity currentUser;
     private List<ProductEntity> userBookmarks = new ArrayList<>();
     private AppSharedViewModel sharedViewModel;
+
+    public ItemRecyclerViewAdapter(List<ProductEntity> itemCardModelArrayList, Context context, String bookmarks) {
+        this.itemCardModelArrayList = itemCardModelArrayList;
+        this.context = context;
+        this.MODE = bookmarks;
+    }
 
     public static class ItemViewHolder extends RecyclerView.ViewHolder {
 
