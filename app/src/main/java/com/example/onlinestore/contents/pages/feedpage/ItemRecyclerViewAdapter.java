@@ -46,7 +46,10 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
     private List<ProductEntity> userBookmarks = new ArrayList<>();
     private AppSharedViewModel sharedViewModel;
 
-    public ItemRecyclerViewAdapter(List<ProductEntity> itemCardModdelArrayList, Context context, String bookmarks) {
+    public ItemRecyclerViewAdapter(List<ProductEntity> itemCardModelArrayList, Context context, String bookmarks) {
+        this.itemCardModelArrayList = itemCardModelArrayList;
+        this.context = context;
+        this.MODE = bookmarks;
     }
 
     public static class ItemViewHolder extends RecyclerView.ViewHolder {

@@ -34,15 +34,14 @@ import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 
 public class BookmarksFragment extends Fragment {
 
     private RecyclerView itemsRecyclerView;
     private RecyclerView.Adapter itemsRecyclerViewAdapter;
-    List<ProductEntity> itemCardModelArrayList = new ArrayList();
+    ArrayList<ProductEntity> itemCardModelArrayList = new ArrayList<>();
 
-    ArrayList<String> filterSizeList, filterCityList, filterCategoryList, filterGenderList, filterSortList;
+    ArrayList<String> filterCategoryList, filterGenderList, filterSortList;
     LinearLayout filterDetail;
     MaterialButton filterButton;
     AppBarLayout topBar;
@@ -52,9 +51,9 @@ public class BookmarksFragment extends Fragment {
     UserEntity currentUser;
     AppSharedViewModel sharedViewModel;
 
-    private String category = "";
-    private String gender = "";
-    private String sort = "";
+    private String category = "No Filter";
+    private String gender = "No Filter";
+    private String sort = "No Filter";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -224,28 +223,28 @@ public class BookmarksFragment extends Fragment {
                 if (isCategoryMatched(productEntity) & isGenderMatched(productEntity))
                     itemCardModelArrayList.add(productEntity);
 
-        if (!sort.equals("No Filter")) {
-            ProductEntity product1, product2;
-            for (int i = 0; i < itemCardModelArrayList.size() - 1; i++) {
-                product1 = itemCardModelArrayList.get(i);
-                for (int j = i + 1; j < itemCardModelArrayList.size(); j++) {
-                    product2 = itemCardModelArrayList.get(j);
-                    if (shouldSortLowestPrice(product1, product2)
-                            || shouldSortHighestPrice(product1, product2))
-                        Collections.swap(itemCardModelArrayList, i, j);
-                }
-            }
-        }
+//        if (!sort.equals("No Filter")) {
+//            ProductEntity product1, product2;
+//            for (int i = 0; i < itemCardModelArrayList.size() - 1; i++) {
+//                product1 = itemCardModelArrayList.get(i);
+//                for (int j = i + 1; j < itemCardModelArrayList.size(); j++) {
+//                    product2 = itemCardModelArrayList.get(j);
+//                    if (shouldSortLowestPrice(product1, product2)
+//                            || shouldSortHighestPrice(product1, product2))
+//                        Collections.swap(itemCardModelArrayList, i, j);
+//                }
+//            }
+//        }
 
         itemsRecyclerViewAdapter.notifyDataSetChanged();
     }
 
     private boolean isCategoryMatched(ProductEntity productEntity) {
-        return category.equals("No Filter") || (productEntity.getItemCategory().equals(category));
+        return category.equals("No Filter") || (productEntity.getItemCategory().toLowerCase().equals(category.toLowerCase()));
     }
 
     private boolean isGenderMatched(ProductEntity productEntity) {
-        return gender.equals("No Filter") || (productEntity.getItemGender().equals(gender));
+        return gender.equals("No Filter") || (productEntity.getItemGender().toLowerCase().equals(gender.toLowerCase()));
     }
 
     private boolean shouldSortHighestPrice(ProductEntity product1, ProductEntity product2) {
