@@ -46,6 +46,9 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
     private List<ProductEntity> userBookmarks = new ArrayList<>();
     private AppSharedViewModel sharedViewModel;
 
+    public ItemRecyclerViewAdapter(List<ProductEntity> itemCardModdelArrayList, Context context, String bookmarks) {
+    }
+
     public static class ItemViewHolder extends RecyclerView.ViewHolder {
 
         public ConstraintLayout expandableLayout;
