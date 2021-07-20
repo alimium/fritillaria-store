@@ -145,7 +145,8 @@ public class EditProfileFragment extends Fragment {
             sharedPreferences.edit().putString("currentUser", userJson).apply();
 
             // Pop back stack
-            navController.navigate(R.id.profile_page);
+//            navController.navigate(R.id.profile_page);
+            navController.popBackStack();
         });
     }
 

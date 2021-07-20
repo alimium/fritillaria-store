@@ -152,8 +152,13 @@ public class AdminActivity extends AppCompatActivity {
                 int id = Integer.parseInt(productIdText.getText().toString());
                 for (ProductEntity product : allProducts){
                     if (product.getId()==id){
+                        if (product.getIsFeatured()==1){
+                            Toast.makeText(getApplicationContext(), "Product With ID: "+String.valueOf(id)+" Is Already Promoted", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
                         product.setIsFeatured(1);
                         sharedViewModel.updateProduct(product);
+                        Toast.makeText(getApplicationContext(), "Product With ID: "+String.valueOf(id)+" Promoted", Toast.LENGTH_SHORT).show();
                         return;
                     }
                 }

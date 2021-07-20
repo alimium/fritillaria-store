@@ -7,6 +7,10 @@
         tools:context=".LoginActivity">
 
 
+    <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -69,7 +73,8 @@
                             android:id="@+id/username_login"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:singleLine="true">
+                            android:singleLine="true"
+                            android:inputType="textEmailAddress">
 
 
                     </com.google.android.material.textfield.TextInputEditText>
@@ -133,6 +138,9 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    </androidx.core.widget.NestedScrollView>
+
+
 
     <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
@@ -164,6 +172,8 @@
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
+
+
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

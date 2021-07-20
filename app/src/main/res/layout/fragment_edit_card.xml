@@ -214,21 +214,21 @@
                         style="@style/Widget.DesignSystem.Chip.OutlinedBox.Choice"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Men's" />
+                        android:text="Men" />
 
                 <com.google.android.material.chip.Chip
                         android:id="@+id/chip_women_edit_card"
                         style="@style/Widget.DesignSystem.Chip.OutlinedBox.Choice"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Women's" />
+                        android:text="Women" />
 
                 <com.google.android.material.chip.Chip
                         android:id="@+id/chip_kids_edit_card"
                         style="@style/Widget.DesignSystem.Chip.OutlinedBox.Choice"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="kid's" />
+                        android:text="kid" />
 
             </com.google.android.material.chip.ChipGroup>
 

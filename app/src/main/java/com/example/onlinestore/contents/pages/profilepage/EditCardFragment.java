@@ -98,10 +98,6 @@ public class EditCardFragment extends Fragment {
         setValuesToFields();
 
 
-        //TODO: SET VALUES AND STUFF
-        //          ......
-        //--------------------------
-
         changePictureButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -181,7 +177,8 @@ public class EditCardFragment extends Fragment {
                 cardToEdit.setItemCity(itemCityStr);
 
                 sharedViewModel.updateProduct(cardToEdit);
-                navController.navigate(R.id.library_page);
+//                navController.navigate(R.id.library_page);
+                navController.popBackStack();
             }
         });
 
