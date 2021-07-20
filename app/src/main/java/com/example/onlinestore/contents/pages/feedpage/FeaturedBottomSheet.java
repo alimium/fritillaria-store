@@ -1,6 +1,7 @@
 package com.example.onlinestore.contents.pages.feedpage;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
@@ -146,8 +147,6 @@ public class FeaturedBottomSheet extends BottomSheetDialogFragment {
                 bookmarkButton.setImageResource(R.drawable.ic_bookmark_selected);
             }
         }
-
-        //TODO: bookmark functionality -> need to update database
         bookmarkButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -183,7 +182,10 @@ public class FeaturedBottomSheet extends BottomSheetDialogFragment {
         callSellerCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                String number = "tel:+98"+clickedFeaturedCard.getSeller().getPhone();
+                Intent callIntent = new Intent(Intent.ACTION_DIAL);
+                callIntent.setData(Uri.parse(number));
+                startActivity(callIntent);
             }
         });
 

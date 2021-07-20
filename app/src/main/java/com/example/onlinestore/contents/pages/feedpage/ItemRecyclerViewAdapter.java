@@ -1,6 +1,7 @@
 package com.example.onlinestore.contents.pages.feedpage;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
@@ -207,7 +208,10 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
         holder.callSellerCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                String number = "tel:+98"+instanceItemCard.getSeller().getPhone();
+                Intent callIntent = new Intent(Intent.ACTION_DIAL);
+                callIntent.setData(Uri.parse(number));
+                context.startActivity(callIntent);
             }
         });
 
